@@ -12,8 +12,8 @@ int main()
         {
         if ((luku % 3 == 0) && (luku % 7 == 0))
         {
-            cout << "zip"<< endl;
-            cout <<"boing"<< endl;
+            cout << "zip boing"<< endl;
+
             ++luku;
         }
         else if (luku % 7 == 0)
