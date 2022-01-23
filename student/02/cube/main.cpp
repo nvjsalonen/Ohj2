@@ -5,9 +5,9 @@ using namespace std;
 int main()
 {
     int number = 0;
-    int check = 0;
-    cout << "Enter a number:";
+    cout << "Enter a number: ";
     cin >>number;
+    int check = 0;
     int cubed = pow (number, 3) ;
     check = cbrt(cubed);
     if (check != number)
