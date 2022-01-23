@@ -12,10 +12,10 @@ int main()
     check = cbrt(cubed);
     if (check != number)
        {
-        cout << "Error! The cube of "<< number<< " is not "<<cubed<<  endl;
+        cout << "Error! The cube of "<< number<< " is not "<<cubed<<"."<<  endl;
         return 0;
     }
-    cout << "The cube of "<< number << " is "<< cubed<< endl;
+    cout << "The cube of "<< number << " is "<< cubed<< "."<< endl;
 
     }
 
