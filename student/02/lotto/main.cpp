@@ -32,7 +32,7 @@ int main()
 }
 unsigned long int maaran_faktori (int n)
 {
-    int luku = 1;
+    unsigned long int luku = 1;
    for (int i = 1; i < n;++i)
        {
        luku *= i+1;
@@ -42,7 +42,7 @@ return luku;
 
 unsigned long int nostettujen_faktori (int n)
 {
-    int faktori= 1;
+    unsigned long int faktori= 1;
    for (int i = 1; i < n;++i)
        {
        faktori *= i+1;
@@ -53,8 +53,8 @@ return faktori;
 
 unsigned long int erotusten_faktori (int n, int p)
 {
-    int erotus = n-p;
-    int faktori = 1;
+    unsigned long  int erotus = n-p;
+   unsigned long int faktori = 1;
     for (int i = 1; i < erotus;++i)
         {
         faktori *= i+1;
