@@ -5,12 +5,12 @@ using namespace std;
 int main()
 {
 
-    int pallojen_maara;
-    int nostetut_pallot;
-    unsigned long int erotusten_faktori (int n, int p);
-    unsigned long int maaran_faktori (int n);
-    unsigned long int nostettujen_faktori (int n);
-    unsigned long int todennakoisyys (int n, int p);
+    long int pallojen_maara;
+    long int nostetut_pallot;
+    long int erotusten_faktori (int n, int p);
+    long int maaran_faktori (int n);
+    long int nostettujen_faktori (int n);
+    long int todennakoisyys (int n, int p);
 
     cout<<"Enter the total number of lottery balls: ";
     cin >>pallojen_maara;
@@ -30,9 +30,9 @@ int main()
 
 
 }
-unsigned long int maaran_faktori (int n)
+long int maaran_faktori (int n)
 {
-    unsigned long int luku = 1;
+   long int luku = 1;
    for (int i = 1; i < n;++i)
        {
        luku *= i+1;
@@ -40,9 +40,9 @@ unsigned long int maaran_faktori (int n)
 return luku;
 }
 
-unsigned long int nostettujen_faktori (int n)
+long int nostettujen_faktori (int n)
 {
-    unsigned long int faktori= 1;
+   long int faktori= 1;
    for (int i = 1; i < n;++i)
        {
        faktori *= i+1;
@@ -51,10 +51,10 @@ return faktori;
 
 }
 
-unsigned long int erotusten_faktori (int n, int p)
+long int erotusten_faktori (int n, int p)
 {
-    unsigned long  int erotus = n-p;
-   unsigned long int faktori = 1;
+    long  int erotus = n-p;
+    long int faktori = 1;
     for (int i = 1; i < erotus;++i)
         {
         faktori *= i+1;
@@ -62,13 +62,13 @@ unsigned long int erotusten_faktori (int n, int p)
     return faktori;
 
 }
-unsigned long int todennakoisyys (int n, int p)
+ long int todennakoisyys (int n, int p)
 
 {
-   unsigned long int ylakerta = maaran_faktori(n);
-   unsigned long int erotus_faktori = erotusten_faktori(n, p);
-   unsigned long int nostettu_faktori = nostettujen_faktori(p);
-   unsigned long int tulos = ylakerta/(erotus_faktori * nostettu_faktori);
+  long int ylakerta = maaran_faktori(n);
+  long int erotus_faktori = erotusten_faktori(n, p);
+  long int nostettu_faktori = nostettujen_faktori(p);
+  long int tulos = ylakerta/(erotus_faktori * nostettu_faktori);
    return tulos;
 }
 
