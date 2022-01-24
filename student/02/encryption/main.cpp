@@ -7,6 +7,7 @@ const int ASCII_MAX = 122;
 
 int main()
 {
+    string kryptaus (string avain, string teksti);
     bool tarkista_aakkoset (string teksti);
     bool tarkista_pienet (string teksti);
     string salausavain = " ";
@@ -41,8 +42,7 @@ int main()
             cout<<"Error! The text to be encrypted must contain only lower case characters."<<endl;
             return 1;
     }
-
-
+    cout<<kryptaus(salausavain, salattava_teksti)<<endl;
 
 
    return 0;
@@ -81,5 +81,12 @@ bool tarkista_aakkoset (string teksti)
     return true;
 
 }
-
-
+string kryptaus (string avain, string teksti)
+{
+    for (uint i=0; i < teksti.length();i++)
+    {
+        char merkki_tekstissä = teksti.at(i);
+        teksti.at(i) = avain.at(merkki_tekstissä - ASCII_MIN);
+    }
+    return teksti;
+}
