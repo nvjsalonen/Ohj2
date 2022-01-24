@@ -42,7 +42,7 @@ int main()
             cout<<"Error! The text to be encrypted must contain only lower case characters."<<endl;
             return 1;
     }
-    cout<<kryptaus(salausavain, salattava_teksti)<<endl;
+    cout<<"Encrypted text: "<<kryptaus(salausavain, salattava_teksti)<<endl;
 
 
    return 0;
