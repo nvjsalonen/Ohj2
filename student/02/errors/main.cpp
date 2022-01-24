@@ -10,13 +10,14 @@ const int MAX_GUESSES = 10;
 void clean_screen();
 
 // Checks if all the letters include in the list of guessed letters
-bool is_word_already_guessed(string secret, string guessed);
+bool is_word_earlier_guessed(string secret, string guessed);
 
 // Prints string using '_' in the places of letters not guessed
 void print_game_status(string secret, string guessed);
 
 
 int main() {
+
     string secret_word = "";
     cout << "Give a word to be guessed: ";
     getline(cin, secret_word);
@@ -26,7 +27,8 @@ int main() {
     string guessed_letters = "";
     int guesses_used = 0;
 
-    while ( not is_word_already_guessed(secret_word, guessed_letters)
+
+    while ( is_word_earlier_guessed(secret_word, guessed_letters) == false
               and guesses_used < MAX_GUESSES ) {
 
         cout << endl
@@ -66,35 +68,46 @@ int main() {
         ++guesses_used;
     }
 
-    if ( not is_word_already_guessed(secret_word, guessed_letters) ) {
+    if (is_word_earlier_guessed(secret_word, guessed_letters) == false ) {
         cout << endl
              << "Guesses expired!"
              << endl;
 
-    } else {
+
+    }else {
 
         cout << endl
              << "Right guess. You used " << guesses_used
              << " guesses!"
              << endl;
-    }
+
+
 }
+
+}
+
+
+
+
+
+
+
 
 void clean_screen() {
     // Cleaning screen by printing 100 empty lines.
     for ( int i = 0; i < 100; ++i ) {
-        cout >> endl;
+        cout<< endl;
     }
 }
 
 
 bool is_word_earlier_guessed(string secret, string guessed) {
     // Going through all the characters in secret string.
-    for ( string::size_type index = 0; index <= secret.size(); ++index ) {
+    for ( string::size_type index = 0; index <= secret.size()-1; ++index ) {
         // If such a character in secret string is met that is not in
         // guessed letters, it can be immediately concluded that
         // the whole secret word has not yet guessed.
-        if ( guessed.find(secret.at(index<)) == string::npos ) {
+        if ( guessed.find(secret.at(index)) == string::npos ) {
             return false;
         }
     }
