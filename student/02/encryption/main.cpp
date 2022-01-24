@@ -2,35 +2,58 @@
 #include <cctype>
 
 using namespace std;
+const int ASCII_MIN = 97;
+const int ASCII_MAX = 122;
 
 int main()
 {
+    bool tarkista_aakkoset (string teksti);
     bool tarkista_pienet (string teksti);
     string salausavain = " ";
     cout << "Enter the encryption key: ";
     cin>>salausavain;
     string::size_type pituus = 0;
     pituus = salausavain.length();
+    // Tarkistetaan tässä pituus.
     if (pituus != 26)
     {
         cout<< "Error! The encryption key must contain 26 characters."<<endl;
-        return 0;
+        return 1;
     }
-    bool totuusarvo;
-    totuusarvo = tarkista_pienet(salausavain);
+    bool totuusarvo = tarkista_pienet(salausavain);
     if (totuusarvo == false)
     {
         cout<<"Error! The encryption key must contain only lower case characters."<<endl;
-        return 0;
+        return 1;
     }
+    bool anglikaaniset = tarkista_aakkoset(salausavain);
+        if(anglikaaniset == false)
+        {
+            cout <<"Error! The encryption key must contain all alphabets a-z."<< endl;
+            return 1;
+        }
+    string salattava_teksti;
+    cout<<"Enter the text to be encrypted: ";
+    cin >> salattava_teksti;
+    bool salattavan_totuus = tarkista_pienet(salattava_teksti);
+            if (salattavan_totuus == false)
+    {
+            cout<<"Error! The text to be encrypted must contain only lower case characters."<<endl;
+            return 1;
+    }
+
+
+
 
    return 0;
 }
 
 bool tarkista_pienet (string teksti)
 {
+    string::size_type pituus = 0;
+    pituus = teksti.length();
     char merkki = ' ';
-    for (int i = 0; i != 26; ++i)
+    for (unsigned long i = 0; i != pituus; ++i)
     {
         merkki = teksti.at(i);
         bool testi;
@@ -45,5 +68,18 @@ bool tarkista_pienet (string teksti)
     return true;
 
     }
+bool tarkista_aakkoset (string teksti)
+{
+
+    for( uint c = ASCII_MIN; c <= ASCII_MAX; c++)
+    {
+        if(teksti.find(c) == std::string::npos)
+        {
+            return false;
+        }
+    }
+    return true;
+
+}
 
 
