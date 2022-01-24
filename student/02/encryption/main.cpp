@@ -85,8 +85,8 @@ string kryptaus (string avain, string teksti)
 {
     for (uint i=0; i < teksti.length();i++)
     {
-        char merkki_tekstissä = teksti.at(i);
-        teksti.at(i) = avain.at(merkki_tekstissä - ASCII_MIN);
+        char merkki_tekstissa = teksti.at(i);
+        teksti.at(i) = avain.at(merkki_tekstissa - ASCII_MIN);
     }
     return teksti;
 }
