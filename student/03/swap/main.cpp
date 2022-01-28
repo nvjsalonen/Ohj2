@@ -3,8 +3,14 @@
 
 // Write your swap function here.
 
+void swap (int& i , int& j)
+{
+int siirtaja = i;
+i = j;
+j = siirtaja;
 
-void swap(int& a, int& b);
+}
+
 #ifndef UNIT_TESTING
 int main()
 {
@@ -23,11 +29,5 @@ int main()
     return EXIT_SUCCESS;
 }
 
-void swap (int& i , int& j)
-{
-int siirtaja = i;
-i = j;
-j = siirtaja;
 
-}
 #endif
