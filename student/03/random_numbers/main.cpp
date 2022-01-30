@@ -6,7 +6,19 @@ using namespace std;
 
 void produce_random_numbers(unsigned int lower, unsigned int upper)
 {
-    // Implement your function here
+    unsigned int seed;
+    cout<<"Enter a seed value: ";
+    cin>>seed;
+    default_random_engine gen(seed);
+    uniform_int_distribution<int> distr(lower, upper);
+    char jatka = 'c';
+    while (jatka != 'q')
+    {
+    uniform_int_distribution<int> distr(lower, upper);
+    std::cout <<"Your drawn random number is "<< distr(gen) << std::endl;
+    cout <<"Press q to quit or any other key to continue: ";
+    cin >>jatka;
+    }
 }
 
 int main()
