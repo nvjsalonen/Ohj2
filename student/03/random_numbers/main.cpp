@@ -14,6 +14,7 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
     char jatka = 'c';
     while (jatka != 'q')
     {
+    cout<<endl;
     std::cout <<"Your drawn random number is "<< distr(gen) << std::endl;
     cout <<"Press q to quit or any other key to continue: "<<endl;
     cin >>jatka;
