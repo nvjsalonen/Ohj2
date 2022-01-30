@@ -11,7 +11,7 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
     cin>>seed;
     default_random_engine gen(seed);
     uniform_int_distribution<int> distr(lower, upper);
-    char jatka = 'c';
+    char jatka = 'v';
     while (jatka != 'q')
     {
     cout<<endl;
