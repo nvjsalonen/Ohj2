@@ -14,10 +14,10 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
     char jatka = 'c';
     while (jatka != 'q')
     {
-    uniform_int_distribution<int> distr(lower, upper);
     std::cout <<"Your drawn random number is "<< distr(gen) << std::endl;
-    cout <<"Press q to quit or any other key to continue: ";
+    cout <<"Press q to quit or any other key to continue: "<<endl;
     cin >>jatka;
+    cout <<endl;
     }
 }
 
