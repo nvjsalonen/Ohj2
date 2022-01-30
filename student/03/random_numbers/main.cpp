@@ -16,7 +16,7 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
     {
     cout<<endl;
     std::cout <<"Your drawn random number is "<< distr(gen) << std::endl;
-    cout <<"Press q to quit or any other key to continue: "<<endl;
+    cout <<"Press q to quit or any other key to continue: ";
     cin >>jatka;
     cout <<endl;
     }
