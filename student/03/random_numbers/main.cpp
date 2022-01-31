@@ -3,22 +3,38 @@
 #include <string>
 
 using namespace std;
+bool jatketaanko();
 
 void produce_random_numbers(unsigned int lower, unsigned int upper)
 {
-    unsigned int seed;
-    cout<<"Enter a seed value: ";
-    cin>>seed;
-    default_random_engine gen(seed);
-    uniform_int_distribution<int> distr(lower, upper);
-    char jatka = 'v';
-    while (jatka != 'q')
-    {
-    cout<<endl;
-    std::cout <<"Your drawn random number is "<< distr(gen) << std::endl;
+int seed;
+cout<< "Enter a seed value: ";
+cin>>seed;
+default_random_engine gen(seed);
+uniform_int_distribution<int> distr(lower, upper);
+
+cout<<endl;
+cout <<"Your drawn random number is "<<distr(gen) <<endl;
+
+
+while((jatketaanko()) == true)
+{
+    cout<< endl;
+    cout <<"Your drawn random number is "<<distr(gen) <<endl;
+}
+}
+bool jatketaanko()
+{
+    char jatko;
     cout <<"Press q to quit or any other key to continue: ";
-    cin >>jatka;
-    cout <<endl;
+    cin>>jatko;
+    if (jatko != 'q')
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
