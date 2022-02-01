@@ -1,19 +1,37 @@
 #include "book.hh"
 #include <iostream>
+#include <string>
 
-Book::Book(const string &kirjoittaja, const string &kirja): kirjoittaja_(" "), kirja_(" "), lainattu_(0,0, 0)
+Book::Book(const string &kirjoittaja, const string &kirja):
+    kirjoittaja_(kirjoittaja),
+    kirja_(kirja),
+    lainattu_(Date()),
+    available_(true)
 
 {  
 }
 
 void Book::print() const
 {
-    std::cout<<kirjoittaja_<<kirja_<<std::endl;
+    std::cout<<kirjoittaja_<< " : "<<kirja_<<std::endl;
+    if(available_)
+    {
+        cout<<"- available"<<endl;
+    }
+
+
+
 }
 
-void Book::loan(Date lainattu)
+void Book::loan(const Date &lainattu)
 {
-
+    if(!available_)
+    {
+        cout<<"Already loaned: cannot be loaned"<<endl;
+        return;
+    }
+    lainattu_ = lainattu;
+    available_= false;
 }
 
 void Book::renew()
@@ -25,3 +43,4 @@ void Book::give_back()
 {
 
 }
+
