@@ -4,10 +4,4 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    book.cpp \
-        main.cpp \
-    date.cpp
-
-HEADERS += \
-    book.hh \
-    date.hh
+        main.cpp
