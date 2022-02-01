@@ -17,6 +17,7 @@ private:
     string kirja_;
     Date lainattu_;
     bool available_;
+    Date palautuspaiva_;
 };
 
 #endif // BOOK_HH

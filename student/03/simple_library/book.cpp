@@ -6,7 +6,8 @@ Book::Book(const string &kirjoittaja, const string &kirja):
     kirjoittaja_(kirjoittaja),
     kirja_(kirja),
     lainattu_(Date()),
-    available_(true)
+    available_(true),
+    palautuspaiva_(Date())
 
 {  
 }
@@ -32,15 +33,19 @@ void Book::loan(const Date &lainattu)
     }
     lainattu_ = lainattu;
     available_= false;
+
 }
 
 void Book::renew()
 {
-
+    if(available_)
+    {
+        cout <<"Not loaned: cannot be renewed"<<endl;
+    }
 }
 
 void Book::give_back()
 {
-
+     available_ = true;
 }
 
