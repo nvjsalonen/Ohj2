@@ -2,13 +2,17 @@
 #define ACCOUNT_HH
 
 #include <string>
-
+using namespace std;
 class Account
 {
 public:
     // Constructor
     Account(const std::string& owner, bool has_credit = false);
-
+    void print() const;
+    void set_credit_limit(int limit);
+    void save_money (int amount);
+    void take_money (int amount);
+    void transfer_to(Account &account, int amount);
     // More methods
 
 private:
@@ -24,6 +28,12 @@ private:
     static int running_number_;
 
     // More attributes/methods
+    bool check_if_amount_ok_(int amount);
+    std::string iban_;
+    string owner_;
+    bool has_credit_;
+    int balance_;
+    int credit_limit_;
 };
 
 #endif // ACCOUNT_HH
