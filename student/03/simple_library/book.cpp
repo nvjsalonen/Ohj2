@@ -18,7 +18,12 @@ void Book::print() const
     if(available_)
     {
         cout<<"- available"<<endl;
+        return;
     }
+    cout<<"- loaned: ";
+    lainattu_.print();
+    cout<<"- to be returned: ";
+    palautuspaiva_.print();
 
 
 
@@ -33,6 +38,8 @@ void Book::loan(const Date &lainattu)
     }
     lainattu_ = lainattu;
     available_= false;
+    palautuspaiva_= lainattu_;
+    palautuspaiva_.advance(28);
 
 }
 
@@ -41,7 +48,9 @@ void Book::renew()
     if(available_)
     {
         cout <<"Not loaned: cannot be renewed"<<endl;
+        return;
     }
+    palautuspaiva_.advance(28);
 }
 
 void Book::give_back()
