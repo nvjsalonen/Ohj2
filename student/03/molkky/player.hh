@@ -2,6 +2,10 @@
 #define PLAYER_HH
 #include <string>
 using namespace std;
+
+const int WINNING_POINTS = 50;
+const int PENALTY_POINTS = 25;
+
 class Player
 {
 public:

@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 
-
 int main()
 {
     Player player1 = Player("Matti");
