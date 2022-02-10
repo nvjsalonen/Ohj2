@@ -16,9 +16,9 @@ void read_integers(std::vector< int >& ints, int count)
 bool same_values(std::vector< int >& ints)
 {
     bool onko = false;
-    if(ints.size()<1)
+    if(ints.size()<=1)
     {
-        return false;
+        return true;
     }
     for (unsigned long i= 0; i < ints.size()-1;++i )
         if(ints.at(i) == ints.at(i+1))
@@ -44,7 +44,30 @@ bool same_values(std::vector< int >& ints)
 
 bool is_ordered_non_strict_ascending(std::vector< int >& ints)
 {
-    return true;
+    if(ints.size()<=1)
+    {
+        return true;
+    }
+    bool onko_sama_tai_isompi = false;
+    for (unsigned long i= 0; i < ints.size()-1;++i )
+    {
+
+        if(ints.at(i)+1 == ints.at(i+1))
+        {
+            onko_sama_tai_isompi = true;
+        }
+        else if (ints.at(i) == ints.at(i+1))
+        {
+            onko_sama_tai_isompi = true;
+        }
+        else
+        {
+            onko_sama_tai_isompi = false;
+            break;
+        }
+    }
+
+    return onko_sama_tai_isompi;
 }
 
 bool is_arithmetic_series(std::vector< int >& ints)
