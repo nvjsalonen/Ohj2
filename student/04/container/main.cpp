@@ -56,7 +56,7 @@ bool is_ordered_non_strict_ascending(std::vector< int >& ints)
         {
             onko_sama_tai_isompi = true;
         }
-        else if (ints.at(i) == ints.at(i+1))
+        else if (ints.at(i) < ints.at(i+1))
         {
             onko_sama_tai_isompi = true;
         }
@@ -102,6 +102,10 @@ bool is_geometric_series(std::vector< int >& ints)
     if(ints.size()<=1)
     {
         return true;
+    }
+    if(same_values(ints))
+    {
+        return false;
     }
   bool  geometrinen = false;
   int suhde = ints.at(1)/ints.at(0);
