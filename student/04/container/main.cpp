@@ -52,11 +52,11 @@ bool is_ordered_non_strict_ascending(std::vector< int >& ints)
     for (unsigned long i= 0; i < ints.size()-1;++i )
     {
 
-        if(ints.at(i)+1 == ints.at(i+1))
+        if(ints.at(i) < ints.at(i+1))
         {
             onko_sama_tai_isompi = true;
         }
-        else if (ints.at(i) < ints.at(i+1))
+        else if (ints.at(i) == ints.at(i+1))
         {
             onko_sama_tai_isompi = true;
         }
@@ -103,14 +103,17 @@ bool is_geometric_series(std::vector< int >& ints)
     {
         return true;
     }
-    if(same_values(ints))
-    {
-        return false;
-    }
+
   bool  geometrinen = false;
-  int suhde = ints.at(1)/ints.at(0);
   for (unsigned long i= 0; i < ints.size()-1;++i )
   {
+      if(ints.at(i)== 0)
+      {
+          geometrinen= false;
+          break;
+
+      }
+      int suhde = ints.at(1)/ints.at(0);
       if(ints.at(i)*suhde== ints.at(i+1))
       {
           geometrinen = true;
