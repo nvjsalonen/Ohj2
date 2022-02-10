@@ -72,14 +72,54 @@ bool is_ordered_non_strict_ascending(std::vector< int >& ints)
 
 bool is_arithmetic_series(std::vector< int >& ints)
 {
-    return true;
+    if(ints.size()<=1)
+    {
+        return true;
+    }
+    bool aritmeettinen = false;
+    int valimatka = ints.at(0)-ints.at(1);
+    for (unsigned long i= 0; i < ints.size()-1;++i )
+    {
+        if(ints.at(i)-ints.at(i+1) == valimatka)
+        {
+            aritmeettinen = true;
+        }
+        else
+        {
+            aritmeettinen = false;
+            break;
+        }
+
+    }
+    return aritmeettinen;
+
+
+
 }
 
 bool is_geometric_series(std::vector< int >& ints)
 {
-    return true;
+    if(ints.size()<=1)
+    {
+        return true;
+    }
+  bool  geometrinen = false;
+  int suhde = ints.at(1)/ints.at(0);
+  for (unsigned long i= 0; i < ints.size()-1;++i )
+  {
+      if(ints.at(i)*suhde== ints.at(i+1))
+      {
+          geometrinen = true;
+      }
+      else
+      {
+          geometrinen = false;
+          break;
+      }
+  }
+  return geometrinen;
 }
-// TODO: Implement your solution here
+
 
 
 int main()
