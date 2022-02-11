@@ -2,6 +2,37 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
+vector<string> split(string const &pilkottava, char const pilkkoja, bool halutaanko_valit = false)
+{
+     string sana = "";
+     vector<string> jonot;
+     for (const char c : pilkottava)
+     {
+         if(c==pilkkoja)
+         {
+             if(sana.empty() && halutaanko_valit)
+             {
+                 continue;
+             }
+             jonot.push_back(sana);
+             sana.clear();
+         }
+         else
+         {
+             sana += c;
+         }
+      }
+     jonot.push_back(sana);
+return jonot;
+}
+
+
+
+
+
+
 
 // TODO: Implement split function here
 // Do not change main function
