@@ -1,25 +1,50 @@
 #include <iostream>
 #include <vector>
+#include <string>
+#include <random>
+#include <cstdlib>
 
 using namespace std;
-
+const unsigned int BOARD_SIZE = 25;
 const unsigned int BOARD_SIDE = 5;
 const unsigned char EMPTY = ' ';
 unsigned int stoi_with_check(const string& str);
-vector<vector<int>> syotaKentta();
-vector<vector<int>> satunnainenKentta()
+vector<vector<string>> syotaKentta();
+vector<vector<string>> satunnainenKentta()
 {
-vector<vector<int>> kentta;
+    default_random_engine rand_gen;
+    string numero;
+    vector<vector<string>> kentta;
+    vector<string> jono;
+    int seed_value = 0;
+
+    cout<<"Enter seed value: ";
+    cin>>seed_value;
+    rand_gen.seed(seed_value);
+    uniform_int_distribution<int> distribution(1, 9);
+    for(unsigned int i =0; i < BOARD_SIZE;i++)
+    {
+        if(jono.size()< BOARD_SIDE)
+        {
+           numero = distribution(rand_gen);
+           jono.push_back(numero);
+           continue;
+        }
+
+        kentta.push_back(jono);
+        jono.clear();
+
+    }
 return kentta;
 }
 
 
 // Lukee vasta syötteen, haluaako käyttäjä luoda kentän itse vai tehdä satunnaisesti.
-vector<vector<int>> lueSyote()
+vector<vector<string>> lueSyote()
 {
 string syote;
 cin>>syote;
-vector<vector<int>> kentta;
+vector<vector<string>> kentta;
 
 //while(syote != "r" || "i")
 //{
@@ -38,44 +63,40 @@ return kentta;
 
 
 // Funktio luo vektorin vektorn käyttäjän syötteen perusteella
-vector<vector<int>> syotaKentta()
+vector<vector<string>> syotaKentta()
 {
     string syote;
-    string luku;
-    string numero;
-    int lisattava;
-    int i = 0;
-    vector<int> jono;
-    vector<vector<int>> kentta;
-    cout<<"Input: ";
-    cin>>syote;
+    string sana;
+    vector<string> jono;
+    vector<vector<string>> kentta;
+    cout <<"Input: ";
+    cin.ignore();
+    getline(cin, syote);
+
     for (const char c : syote)
     {
-        if(luku.size()< BOARD_SIDE)
+        if(c == EMPTY)
         {
-            luku.push_back(c);
-            numero = luku.at(i);
-            lisattava = stoi_with_check(numero);
-            jono.push_back(lisattava);
-            numero.clear();
-            i++;
-
             continue;
         }
+        if(jono.size() < BOARD_SIDE)
+        {
+                sana = c;
+                jono.push_back(sana);
+                continue;
+            }
+
      else{
             kentta.push_back(jono);
-            luku.clear();
             jono.clear();
-            jono.push_back(c);
-            i=0;
+            sana = c;
+            jono.push_back(sana);
+
         }
 
-    }
-    jono.push_back(lisattava);
+}
     kentta.push_back(jono);
-
     return kentta;
-
 }
 
 
@@ -111,7 +132,7 @@ unsigned int stoi_with_check(const string& str)
 // Tulostaa pelilaudan rivi- ja sarakenumeroineen.
 //
 // Prints the game board with row and column numbers.
-void print(const vector<vector<int>>& gameboard)
+void print(const vector<vector<string>>& gameboard)
 {
     cout << "=================" << endl;
     cout << "|   | 1 2 3 4 5 |" << endl;
@@ -121,7 +142,7 @@ void print(const vector<vector<int>>& gameboard)
         cout << "| " << i + 1 << " | ";
         for(unsigned int j = 0; j < BOARD_SIDE; ++j)
         {
-            if((gameboard.at(i).at(j)) == 0)
+            if((stoi_with_check( gameboard.at(i).at(j))) == 0)
             {
                 cout << EMPTY << " ";
             }
@@ -137,9 +158,7 @@ void print(const vector<vector<int>>& gameboard)
 
 int main()
 {
-    vector <int> joku = {1,2,4,5};
-    vector<vector<int>> pelilauta;
-    //pelilauta.push_back(joku);
+    vector<vector<string>> pelilauta;
     cout<<"Select start (R for random, I for input): ";
     pelilauta = lueSyote();
     print(pelilauta);
