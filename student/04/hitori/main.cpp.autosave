@@ -62,7 +62,7 @@ if(syote == "i")
 return kentta;
 }
 
-bool onko_havio (vector<vector<string>>& lauta)
+bool onkoHavio (vector<vector<string>>& lauta)
 {
     // Yläreunan tarkistus
     bool onko = false;
@@ -187,11 +187,12 @@ void poistaKohta(vector<vector<string>>& lauta)
         cin>>y;
         lauta.at(x-1).at(y-1) = "0";
         print(lauta);
-     if(onko_havio(lauta))
+     if(onkoHavio(lauta))
         {
             jatkuuko = false;
             cout<<"Luuseri";
         }
+     if(onkoVoitt)
     }
 
 
