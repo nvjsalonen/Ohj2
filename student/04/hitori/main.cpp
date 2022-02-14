@@ -10,6 +10,7 @@ const unsigned int BOARD_SIDE = 5;
 const unsigned char EMPTY = ' ';
 unsigned int stoi_with_check(const string& str);
 vector<vector<string>> syotaKentta();
+void print(const vector<vector<string>>& gameboard);
 vector<vector<string>> satunnainenKentta()
 {
     default_random_engine rand_gen;
@@ -61,6 +62,58 @@ if(syote == "i")
 return kentta;
 }
 
+bool onko_havio (vector<vector<string>>& lauta)
+{
+    bool onko = true;
+    for(int x = 0; x < BOARD_SIDE;x++)
+        for(int y = 0; y < BOARD_SIDE;y++)
+        {
+            if(lauta.at(y).at(x) == "0")
+            {
+                if(lauta.at(y-1).at(x)== "0")
+                {
+                        if(lauta.at(y+1).at(x)== "0")
+                        {
+                            if(lauta.at(y).at(x-1)== "0")
+                            {
+                                if(lauta.at(y).at(x+1)== "0")
+                                {
+                                    onko = false;
+                                }
+
+                }
+            }
+        }
+
+}
+}
+    return onko;
+}
+
+
+void poistaKohta(vector<vector<string>>& lauta)
+{
+    vector<vector<string>> uusi_lauta = lauta;
+
+    int x;
+    int y;
+    bool jatkuuko = true;
+    while(jatkuuko)
+    {
+        cout<<"Enter removable element (x, y): ";
+        cin>>x;
+        cin>>y;
+        lauta.at(x-1).at(y-1) = "0";
+        print(lauta);
+     if(onko_havio(lauta))
+        {
+
+        }
+    }
+
+
+}
+
 
 // Funktio luo vektorin vektorn käyttäjän syötteen perusteella
 vector<vector<string>> syotaKentta()
@@ -100,7 +153,7 @@ vector<vector<string>> syotaKentta()
 }
 
 
-void print(const vector<vector<char>>& gameboard);
+
 // Muuttaa annetun numeerisen merkkijonon vastaavaksi kokonaisluvuksi
 // (kutsumalla stoi-funktiota).
 // Jos annettu merkkijono ei ole numeerinen, palauttaa nollan.
@@ -158,9 +211,9 @@ void print(const vector<vector<string>>& gameboard)
 
 int main()
 {
-    vector<vector<string>> pelilauta;
     cout<<"Select start (R for random, I for input): ";
-    pelilauta = lueSyote();
+    vector<vector<string>> pelilauta = lueSyote();
     print(pelilauta);
+    poistaKohta(pelilauta);
 
 }
