@@ -61,8 +61,8 @@ if(syote == "i")
 }
 return kentta;
 }
-
-bool onko_havio (vector<vector<string>>& lauta)
+// Tarkistaa onko tyhjiä kohtia tyhjien vieressä. Silmukat käyvät erikseen reunat läpi ja yksi silmukka käy muut alueet.
+bool onkoHavio (vector<vector<string>>& lauta)
 {
     // Yläreunan tarkistus
     bool onko = false;
@@ -172,6 +172,136 @@ bool onko_havio (vector<vector<string>>& lauta)
     return onko;
 }
 
+bool onkoVoitto(vector<vector<string>>& lauta)
+{
+    int ykkosia = 0;
+    int kakkosia = 0;
+    int kolmosia = 0;
+    int nelosia = 0;
+    int vitosia = 0;
+    int sykkosia = 0;
+    int skakkosia = 0;
+    int skolmosia = 0;
+    int snelosia = 0;
+    int svitosia = 0;
+    bool onkoriveilla = false;
+    bool onkosarakkeilla = false;
+    bool paluuarvo = false;
+    for(int x = 0; x < BOARD_SIDE;x++)
+        for(unsigned int y = 0; y < BOARD_SIDE;y++)
+        {
+
+            if(lauta.at(y).at(x) == "1")
+            {
+                ykkosia += 1;
+                if(ykkosia > 1)
+                {
+                    onkoriveilla = false;
+                    break;
+                }
+            }
+            if(lauta.at(y).at(x) == "2")
+            {
+                kakkosia += 1;
+                if(kakkosia > 1)
+                {
+                    onkoriveilla = false;
+                    break;
+                }
+            }
+            if(lauta.at(y).at(x) == "3")
+            {
+                kolmosia += 1;
+                if(kolmosia > 1)
+                {
+                    onkoriveilla = false;
+                    break;
+                }
+            }
+            if(lauta.at(y).at(x) == "4")
+            {
+                nelosia += 1;
+                if(nelosia > 1)
+                {
+                    onkoriveilla = false;
+                    break;
+                }
+            }
+            if(lauta.at(y).at(x) == "5")
+            {
+                vitosia += 1;
+                if(vitosia > 1)
+                {
+                    onkoriveilla = false;
+                    break;
+                }
+            }
+            else
+              {
+                onkoriveilla = true;
+            }
+        }
+    for(unsigned int y = 0; y < BOARD_SIDE;y++)
+        for(unsigned int x = 0; x < BOARD_SIDE;x++)
+        {
+
+            if(lauta.at(y).at(x) == "1")
+            {
+                sykkosia += 1;
+                if(sykkosia > 1)
+                {
+                    onkosarakkeilla = false;
+                    break;
+                }
+            }
+            if(lauta.at(y).at(x) == "2")
+            {
+                skakkosia += 1;
+                if(skakkosia > 1)
+                {
+                    onkosarakkeilla = false;
+                    break;
+                }
+            }
+            if(lauta.at(y).at(x) == "3")
+            {
+                skolmosia += 1;
+                if(skolmosia > 1)
+                {
+                    onkosarakkeilla = false;
+                    break;
+                }
+            }
+            if(lauta.at(y).at(x) == "4")
+            {
+                snelosia += 1;
+                if(snelosia > 1)
+                {
+                    onkosarakkeilla = false;
+                    break;
+                }
+            }
+            if(lauta.at(y).at(x) == "5")
+            {
+                svitosia += 1;
+                if(svitosia > 1)
+                {
+                    onkosarakkeilla = false;
+                    break;
+                }
+            }
+            else
+              {
+                onkosarakkeilla = true;
+            }
+        }
+    if(onkoriveilla == true && onkosarakkeilla == true)
+    {
+        paluuarvo =true;
+    }
+    return paluuarvo;
+}
+
 
 void poistaKohta(vector<vector<string>>& lauta)
 {
@@ -187,11 +317,17 @@ void poistaKohta(vector<vector<string>>& lauta)
         cin>>y;
         lauta.at(x-1).at(y-1) = "0";
         print(lauta);
-     if(onko_havio(lauta))
+     if(onkoHavio(lauta))
         {
             jatkuuko = false;
             cout<<"Luuseri";
         }
+     if(onkoVoitto(lauta))
+     {
+        jatkuuko = false;
+        cout<<"Yeah boi";
+     }
+
     }
 
 
