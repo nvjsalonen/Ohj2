@@ -1,4 +1,43 @@
 #include <iostream>
+/* Hitori
+ *
+ * Kuvaus:
+ *   Ohjelma toteuttaa Hitori-pelin. Pelissä on peliruudukko kooltaan
+ * 5 x 5. Kukin ruutu sisältää jonkin numeroista 1-5. Vaaka- ja
+ * pystyriveillä voi aluksi olla useita samoja numeroita, mutta
+ * tarkoituksena on poistaa numeroita niin, että kullakin vaaka- ja
+ * pystyrivillä on kutakin numeroa vain yksi tai ei yhtään. Kuitenkaan
+ * vierekkäisten ruutujen numeroita ei saa poistaa, eikä mikään jäljelle
+ * jäävä numero (ruutu) saa jäädä irralleen muista, eli sen ympäriltä
+ * (yläpuolelta, alapuolelta, vasemmalta, oikealta) ei saa poistaa
+ * kaikkia numeroita.
+ *   Aluksi käyttäjältä kysytään, täytetäänkö peliruudukko satunnaisesti
+ * arvottavilla luvuilla 1-5 vai käyttäjän valitsemilla 25 luvulla.
+ * Ensimmäisessä vaihtoehdossa käyttäjältä kysytään satunnaisluku-
+ * generaattorin siemenlukua ja jälkimmäisessä häntä pyydetään syöttämään
+ * 25 lukua.
+ *   Joka kierroksella käyttäjältä kysytään poistettavan numeron
+ * koordinaatteja eli kahta lukua. Peli päättyy pelaajan voittoon,
+ * jos peliruudukon kaikilla vaaka- ja pystyriveillä esiintyy kukin
+ * numero 1-5 korkeintaan kerran. Peli päättyy pelaajan häviöön,
+ * jos hän poistaa jo poistetun numeron viereisen numeron tai jos
+ * jokin numero jää irralleen muista.
+ *   Ohjelma tarkistaa annetut koordinaatit. Koordinaattien pitää olla
+ * peliruudukon sisällä, ja niiden osoittaman ruudun pitää sisältää
+ * numero, eli jo poistettua numeroa ei voi poistaa toiseen kertaan.
+ *   Pelin päättyessä kerrotaan, voittiko vai hävisikö pelaaja.
+ *
+ * Ohjelman kirjoittaja ( Täytä omilla tiedoillasi )
+ * Nimi: Nikolas Salonen
+ * Opiskelijanumero: 050158931
+ * Käyttäjätunnus: chnisa ( Git-repositorion hakemistonimi. )
+ * E-Mail: nikolas.salonen@tuni.fi
+ *
+ * Huomioita ohjelmasta ja sen toteutuksesta:
+ * Ohjelma toimii, mutta ei ole erityisen kaunis.
+ * */
+
+
 #include <vector>
 #include <string>
 #include <random>
@@ -6,9 +45,10 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const unsigned int BOARD_SIDE_IN_VECTOR = 4;
-const unsigned int BOARD_SIDE = 5;
+const unsigned int BOARD_SIDE_IN_VECTOR = 9;
+const unsigned int BOARD_SIDE = 10;
 const unsigned char EMPTY = ' ';
+
 unsigned int stoi_with_check(const string& str);
 vector<vector<string>> syotaKentta();
 void print(const vector<vector<string>>& gameboard);
@@ -139,22 +179,25 @@ return kentta;
 // peli hävitty.
 bool onkoHavio (vector<vector<string>>& lauta)
 {
-    bool onko = false;
-    if(lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR) != "0" && lauta.at(BOARD_SIDE_IN_VECTOR -1).at(BOARD_SIDE_IN_VECTOR) == "0" && lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR -1) == "0")
+    bool onko_havio = false;
+
+    //Nurkkien tarkistus
+    if(lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR) != "0" && lauta.at(BOARD_SIDE_IN_VECTOR -1).at(BOARD_SIDE_IN_VECTOR) == "0")
+        if(lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR -1) == "0")
            {
-        onko = true;
+        onko_havio = true;
            }
     if(lauta.at(BOARD_SIDE_IN_VECTOR).at(0) != "0" && lauta.at(BOARD_SIDE_IN_VECTOR).at(1) == "0" && lauta.at(BOARD_SIDE_IN_VECTOR -1).at(0) == "0")
            {
-        onko = true;
+        onko_havio = true;
            }
     if(lauta.at(0).at(BOARD_SIDE_IN_VECTOR) != "0" && lauta.at(1).at(BOARD_SIDE_IN_VECTOR) == "0" && lauta.at(0).at(BOARD_SIDE_IN_VECTOR-1) == "0")
            {
-        onko = true;
+        onko_havio = true;
            }
     if(lauta.at(0).at(0) != "0" && lauta.at(1).at(0) == "0" && lauta.at(0).at(1) == "0")
            {
-        onko = true;
+        onko_havio = true;
            }
     // Yläreunan tarkistus
     for(int x = 0; x < 1;++x)
@@ -166,11 +209,11 @@ bool onkoHavio (vector<vector<string>>& lauta)
             }
             if(lauta.at(x).at(y+1) == "0")
             {
-                onko = true;
+                onko_havio = true;
             }
             if(lauta.at(x).at(y-1) == "0")
             {
-                onko = true;
+                onko_havio = true;
             }
 
 
@@ -186,11 +229,11 @@ bool onkoHavio (vector<vector<string>>& lauta)
              }
              if(lauta.at(x).at(y+1) == "0")
              {
-                 onko = true;
+                 onko_havio = true;
              }
              if(lauta.at(x).at(y-1) == "0")
              {
-                 onko = true;
+                 onko_havio = true;
              }
 
 
@@ -207,11 +250,11 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
              if(lauta.at(x+1).at(y) == "0")
              {
-                 onko = true;
+                 onko_havio = true;
              }
              if(lauta.at(x-1).at(y) == "0")
              {
-                 onko = true;
+                 onko_havio = true;
              }
          }
 
@@ -226,11 +269,11 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
              if(lauta.at(x+1).at(y) == "0")
              {
-                 onko = true;
+                 onko_havio = true;
              }
              if(lauta.at(x-1).at(y) == "0")
              {
-                 onko = true;
+                 onko_havio = true;
              }
          }
 
@@ -246,7 +289,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
                         if(lauta.at(y).at(x+1) == "0")
                             if(lauta.at(y).at(x-1) == "0")
                             {
-                                onko = true;
+                                onko_havio = true;
                             }
 
 
@@ -255,34 +298,34 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
                 if(lauta.at(x-1).at(y)== "0")
                 {
-                    onko = true;
+                    onko_havio = true;
                 }
 
                         if(lauta.at(y+1).at(x)== "0")
                         {
-                            onko = true;
+                            onko_havio = true;
                         }
                             if(lauta.at(y).at(x-1)== "0")
                             {
-                                onko = true;
+                                onko_havio = true;
                             }
                                 if(lauta.at(y).at(x+1)== "0")
                                 {
-                                    onko = true;
+                                    onko_havio = true;
                                 }
 
                 }
 
-    return onko;
+    return onko_havio;
 }
 
 //Funktio tarkastaa onko riveillä tai sarakkeilla samoja lukuja tallentamalla
 //tallentamalla luvut vektoriin ja sen jälkeen järjestää ne suuruusjärjestykseen
 //ja tarkistaa duplikaatit. Ottaa parametrinä string-tyyppisen vektorin vektorin
-//ja palauttaa true tai falsem riippuen onko voittoa vai ei.
+//ja palauttaa true tai falsen riippuen onko voittoa vai ei.
 bool onkoVoitto(vector<vector<string>>& lauta)
 {
-    bool onko = false;
+    bool onko_voitto = false;
     vector<unsigned int> luvut;
     //Tarkastaa rivit
     for(unsigned int x = 0; x < BOARD_SIDE;x++)
@@ -301,12 +344,12 @@ bool onkoVoitto(vector<vector<string>>& lauta)
         }
         if(luvut.at(i)== luvut.at(i+1))
         {
-            onko = false;
+            onko_voitto = false;
             break;
         }
         else
         {
-            onko = true;
+            onko_voitto = true;
         }
     }
     luvut.clear();
@@ -329,17 +372,17 @@ bool onkoVoitto(vector<vector<string>>& lauta)
         }
         if(luvut.at(i)== luvut.at(i+1))
         {
-            onko = false;
+            onko_voitto = false;
             break;
         }
         else
         {
-            onko = true;
+            onko_voitto = true;
         }
     }
     luvut.clear();
  }
-    return onko;
+    return onko_voitto;
 }
 
 
@@ -353,8 +396,8 @@ void poistaKohta(vector<vector<string>>& lauta)
     string b;
     int x;
     int y;
-    bool jatkuuko = true;
-    while(jatkuuko)
+    bool jatkuuko_peli = true;
+    while(jatkuuko_peli)
     {
         cout<<"Enter removable element (x, y): ";
         cin>>a;
@@ -389,12 +432,12 @@ void poistaKohta(vector<vector<string>>& lauta)
         print(lauta);
      if(onkoHavio(lauta))
         {
-            jatkuuko = false;
+            jatkuuko_peli = false;
             cout<<"You lost"<<endl;
         }
      if(onkoVoitto(lauta))
      {
-        jatkuuko = false;
+        jatkuuko_peli = false;
         cout<<"You won"<<endl;
      }
 
