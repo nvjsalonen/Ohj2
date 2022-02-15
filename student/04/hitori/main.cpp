@@ -45,13 +45,28 @@ return kentta;
 vector<vector<string>> lueSyote()
 {
 string syote;
-cin>>syote;
 vector<vector<string>> kentta;
+bool jatketaanko = false;
 
-//while(syote != "r" || "i")
-//{
-//continue;
-//}
+while(jatketaanko)
+{
+cout<<"Select start (R for random, I for input): ";
+cin>>syote;
+    if(syote != "r")
+    {
+        jatketaanko = false;
+    }
+    if (syote != "i")
+    {
+        jatketaanko = false;
+    }
+}
+while(syote != "i")
+{
+cout<<"Select start (R for random, I for input): ";
+cin>>syote;
+}
+
 if(syote == "r")
 {
     kentta = satunnainenKentta();
@@ -261,8 +276,8 @@ void poistaKohta(vector<vector<string>>& lauta)
          break;
      }
 
-     x = stoi_with_check(a);
-     y = stoi_with_check(b);
+     x = stoi_with_check(b);
+     y = stoi_with_check(a);
 
 
 
@@ -392,7 +407,6 @@ void print(const vector<vector<string>>& gameboard)
 
 int main()
 {
-    cout<<"Select start (R for random, I for input): ";
     vector<vector<string>> pelilauta = lueSyote();
     print(pelilauta);
     poistaKohta(pelilauta);
