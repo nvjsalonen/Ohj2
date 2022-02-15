@@ -142,7 +142,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
          }
 
     // Muiden alueiden tarkistus
-    for(int x = 1; x < BOARD_SIDE-1;x++)
+    for(unsigned int x = 1; x < BOARD_SIDE-1;x++)
         for(unsigned int y = 1; y < BOARD_SIDE-1;y++)
         {
             if(lauta.at(y).at(x) != "0")
