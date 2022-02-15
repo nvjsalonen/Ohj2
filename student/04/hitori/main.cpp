@@ -3,6 +3,7 @@
 #include <string>
 #include <random>
 #include <cstdlib>
+#include <bits/stdc++.h>
 
 using namespace std;
 const unsigned int BOARD_SIZE = 25;
@@ -174,133 +175,71 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
 bool onkoVoitto(vector<vector<string>>& lauta)
 {
-    int ykkosia = 0;
-    int kakkosia = 0;
-    int kolmosia = 0;
-    int nelosia = 0;
-    int vitosia = 0;
-    int sykkosia = 0;
-    int skakkosia = 0;
-    int skolmosia = 0;
-    int snelosia = 0;
-    int svitosia = 0;
-    bool onkoriveilla = false;
-    bool onkosarakkeilla = false;
-    bool paluuarvo = false;
-    for(int x = 0; x < BOARD_SIDE;x++)
+    bool onko = false;
+    vector<unsigned int> luvut;
+    //Tarkastaa rivit
+    for(unsigned int x = 0; x < BOARD_SIDE;x++)
+    {
         for(unsigned int y = 0; y < BOARD_SIDE;y++)
         {
 
-            if(lauta.at(y).at(x) == "1")
-            {
-                ykkosia += 1;
-                if(ykkosia > 1)
-                {
-                    onkoriveilla = false;
-                    break;
-                }
-            }
-            if(lauta.at(y).at(x) == "2")
-            {
-                kakkosia += 1;
-                if(kakkosia > 1)
-                {
-                    onkoriveilla = false;
-                    break;
-                }
-            }
-            if(lauta.at(y).at(x) == "3")
-            {
-                kolmosia += 1;
-                if(kolmosia > 1)
-                {
-                    onkoriveilla = false;
-                    break;
-                }
-            }
-            if(lauta.at(y).at(x) == "4")
-            {
-                nelosia += 1;
-                if(nelosia > 1)
-                {
-                    onkoriveilla = false;
-                    break;
-                }
-            }
-            if(lauta.at(y).at(x) == "5")
-            {
-                vitosia += 1;
-                if(vitosia > 1)
-                {
-                    onkoriveilla = false;
-                    break;
-                }
-            }
-            else
-              {
-                onkoriveilla = true;
-            }
+            luvut.push_back(stoi_with_check(lauta.at(y).at(x)));
+         }
+    sort(luvut.begin(), luvut.end());
+    for(unsigned int i = 0; i < luvut.size()-1;i++)
+    {
+        if(luvut.at(i)==0 || luvut.at(i+1)==0)
+        {
+            continue;
         }
+        if(luvut.at(i)== luvut.at(i+1))
+        {
+            onko = false;
+            break;
+        }
+        else
+        {
+            onko = true;
+        }
+    }
+    luvut.clear();
+ }
+
+    // Tarkistaa sarakkeet
     for(unsigned int y = 0; y < BOARD_SIDE;y++)
+    {
         for(unsigned int x = 0; x < BOARD_SIDE;x++)
         {
 
-            if(lauta.at(y).at(x) == "1")
-            {
-                sykkosia += 1;
-                if(sykkosia > 1)
-                {
-                    onkosarakkeilla = false;
-                    break;
-                }
-            }
-            if(lauta.at(y).at(x) == "2")
-            {
-                skakkosia += 1;
-                if(skakkosia > 1)
-                {
-                    onkosarakkeilla = false;
-                    break;
-                }
-            }
-            if(lauta.at(y).at(x) == "3")
-            {
-                skolmosia += 1;
-                if(skolmosia > 1)
-                {
-                    onkosarakkeilla = false;
-                    break;
-                }
-            }
-            if(lauta.at(y).at(x) == "4")
-            {
-                snelosia += 1;
-                if(snelosia > 1)
-                {
-                    onkosarakkeilla = false;
-                    break;
-                }
-            }
-            if(lauta.at(y).at(x) == "5")
-            {
-                svitosia += 1;
-                if(svitosia > 1)
-                {
-                    onkosarakkeilla = false;
-                    break;
-                }
-            }
-            else
-              {
-                onkosarakkeilla = true;
-            }
-        }
-    if(onkoriveilla == true && onkosarakkeilla == true)
+            luvut.push_back(stoi_with_check(lauta.at(y).at(x)));
+         }
+    sort(luvut.begin(), luvut.end());
+    for(unsigned int i = 0; i < luvut.size()-1;i++)
     {
-        paluuarvo =true;
+        if(luvut.at(i)==0 || luvut.at(i+1)==0)
+        {
+            continue;
+        }
+        if(luvut.at(i)== luvut.at(i+1))
+        {
+            onko = false;
+            break;
+        }
+        else
+        {
+            onko = true;
+        }
     }
-    return paluuarvo;
+    luvut.clear();
+ }
+    return onko;
 }
+
+
+
+
+
+
 
 
 void poistaKohta(vector<vector<string>>& lauta)
@@ -315,17 +254,27 @@ void poistaKohta(vector<vector<string>>& lauta)
         cout<<"Enter removable element (x, y): ";
         cin>>x;
         cin>>y;
+    if(x <= 0 || x >= 6 || y <= 0 || y >= 6 )
+    {
+        cout<<"Out of board"<<endl;
+        continue;
+    }
+    if(lauta.at(x-1).at(y-1) == "0")
+    {
+        cout<<"Already removed"<<endl;
+        continue;
+    }
         lauta.at(x-1).at(y-1) = "0";
         print(lauta);
      if(onkoHavio(lauta))
         {
             jatkuuko = false;
-            cout<<"Luuseri";
+            cout<<"You lost";
         }
      if(onkoVoitto(lauta))
      {
         jatkuuko = false;
-        cout<<"Yeah boi";
+        cout<<"You won"<<endl;
      }
 
     }
