@@ -34,7 +34,8 @@
  * E-Mail: nikolas.salonen@tuni.fi
  *
  * Huomioita ohjelmasta ja sen toteutuksesta:
- * Ohjelma toimii, mutta ei ole erityisen kaunis.
+ * Ohjelma toimii, mutta ei ole erityisen kaunis. Poikkeusten käsittelyä ei inputissa ole.
+ * Kaatuu jos syötetään yli 25 tai alle 25.
  * */
 
 
@@ -45,8 +46,8 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const unsigned int BOARD_SIDE_IN_VECTOR = 9;
-const unsigned int BOARD_SIDE = 10;
+const unsigned int BOARD_SIDE_IN_VECTOR = 4;
+const unsigned int BOARD_SIDE = 5;
 const unsigned char EMPTY = ' ';
 
 unsigned int stoi_with_check(const string& str);
@@ -182,8 +183,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
     bool onko_havio = false;
 
     //Nurkkien tarkistus
-    if(lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR) != "0" && lauta.at(BOARD_SIDE_IN_VECTOR -1).at(BOARD_SIDE_IN_VECTOR) == "0")
-        if(lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR -1) == "0")
+    if(lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR) != "0" && lauta.at(BOARD_SIDE_IN_VECTOR -1).at(BOARD_SIDE_IN_VECTOR) == "0" && lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR -1) == "0")
            {
         onko_havio = true;
            }
