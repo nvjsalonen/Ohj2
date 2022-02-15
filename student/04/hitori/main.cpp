@@ -46,30 +46,29 @@ vector<vector<string>> lueSyote()
 {
 string syote;
 vector<vector<string>> kentta;
-bool jatketaanko = false;
+bool jatketaanko = true;
 
 while(jatketaanko)
 {
 cout<<"Select start (R for random, I for input): ";
-cin>>syote;
+getline(cin, syote);
     if(syote != "r")
     {
-        jatketaanko = false;
+        jatketaanko = true;
     }
     if (syote != "i")
     {
+        jatketaanko = true;
+    }
+    else
+    {
         jatketaanko = false;
     }
-}
-while(syote != "i")
-{
-cout<<"Select start (R for random, I for input): ";
-cin>>syote;
 }
 
 if(syote == "r")
 {
-    kentta = satunnainenKentta();
+   kentta = satunnainenKentta();
 }
 if(syote == "i")
 {
@@ -87,7 +86,11 @@ bool onkoHavio (vector<vector<string>>& lauta)
         {
             if(lauta.at(x).at(y) != "0")
             {
-                continue;
+                if(lauta.at(x).at(y-1) == "0" && lauta.at(x).at(y+1) == "0" )
+                {
+                   onko = true;
+                }
+
             }
             if(lauta.at(x).at(y+1) == "0")
             {
@@ -106,7 +109,10 @@ bool onkoHavio (vector<vector<string>>& lauta)
          {
              if(lauta.at(x).at(y) != "0")
              {
-                 continue;
+                 if(lauta.at(x).at(y-1) == "0" && lauta.at(x).at(y+1) == "0" )
+                 {
+                    onko = true;
+                 }
              }
              if(lauta.at(x).at(y+1) == "0")
              {
@@ -125,9 +131,11 @@ bool onkoHavio (vector<vector<string>>& lauta)
          {
              if(lauta.at(x).at(y) != "0")
              {
-                 continue;
+                 if(lauta.at(x+1).at(y) == "0" && lauta.at(x-1).at(y) == "0" )
+                 {
+                    onko = true;
+                 }
              }
-
              if(lauta.at(x+1).at(y) == "0")
              {
                  onko = true;
@@ -143,7 +151,10 @@ bool onkoHavio (vector<vector<string>>& lauta)
          {
              if(lauta.at(x).at(y) != "0")
              {
-                 continue;
+                 if(lauta.at(x+1).at(y) == "0" && lauta.at(x-1).at(y) == "0" )
+                 {
+                    onko = true;
+                 }
              }
 
              if(lauta.at(x+1).at(y) == "0")
@@ -269,8 +280,13 @@ void poistaKohta(vector<vector<string>>& lauta)
     {
         cout<<"Enter removable element (x, y): ";
         cin>>a;
-        cin>>b;
-     if(a == "q" || b == "q")
+         if(a == "q")
+         {
+             cout<<"Quitting"<<endl;
+             break;
+         }
+         cin>>b;
+     if(b == "q")
      {
          cout<<"Quitting"<<endl;
          break;
