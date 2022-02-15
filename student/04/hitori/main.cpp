@@ -224,7 +224,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
         }
 
     //Alareunan tarkistus
-    for(int x = BOARD_SIDE_IN_VECTOR; x < BOARD_SIDE;++x)
+    for(unsigned int x = BOARD_SIDE_IN_VECTOR; x < BOARD_SIDE;++x)
          for(unsigned int y = 1; y < BOARD_SIDE_IN_VECTOR;y++)
          {
              if(lauta.at(x).at(y) != "0")
