@@ -54,11 +54,13 @@ unsigned int stoi_with_check(const string& str);
 vector<vector<string>> syotaKentta();
 void print(const vector<vector<string>>& gameboard);
 
-// Ei todellisuudessa ole satunnainen. Palauttaa käyttäjälle valmiin kentän
+// Pseudosatunnainen. Palauttaa käyttäjälle valmiin kentän
 // seed valuen perusteella hyödyntäen switch-rakennetta. Palauttaa kentän
-// vektorin vektorina.
+// vektorin vektorina. Toisin kuin täysin satunnaistamalla
+// nyt peli on pelattavissa loppuun.
 vector<vector<string>> satunnainenKentta()
 {
+    default_random_engine rand_gen;
     string syote;
     string sana;
     vector<string> jono;
@@ -66,13 +68,15 @@ vector<vector<string>> satunnainenKentta()
     int seed_value;
     cout<<"Enter seed value: ";
     cin>>seed_value;
+    rand_gen.seed(seed_value);
+    uniform_int_distribution<int> distribution(1, 10);
     while (seed_value <= 0 || seed_value > 10)
     {
         cout<<"Seed value has to be between 1 and 10"<<endl;
         cout<<"Enter seed value: ";
         cin>>seed_value;
     }
-    switch (seed_value){
+    switch (distribution(rand_gen)){
         case 1 :
             syote = "5 1 4 5 3 5 3 4 5 4 3 4 5 1 2 4 1 1 4 5 3 5 3 4 4";
             break;
@@ -220,7 +224,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
         }
 
     //Alareunan tarkistus
-    for(int x = 4; x < 5;++x)
+    for(int x = BOARD_SIDE_IN_VECTOR; x < BOARD_SIDE;++x)
          for(unsigned int y = 1; y < BOARD_SIDE_IN_VECTOR;y++)
          {
              if(lauta.at(x).at(y) != "0")
@@ -259,7 +263,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
          }
 
     //Oikean sivun tarkistus
-    for(int y = 4; y < 5;++y)
+    for(int y = BOARD_SIDE_IN_VECTOR; y < BOARD_SIDE;++y)
          for(unsigned int x = 1; x < BOARD_SIDE_IN_VECTOR;x++)
          {
              if(lauta.at(x).at(y) != "0")
