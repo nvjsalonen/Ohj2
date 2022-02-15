@@ -6,42 +6,96 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const unsigned int BOARD_SIZE = 25;
+const unsigned int BOARD_SIDE_IN_VECTOR = 4;
 const unsigned int BOARD_SIDE = 5;
 const unsigned char EMPTY = ' ';
 unsigned int stoi_with_check(const string& str);
 vector<vector<string>> syotaKentta();
 void print(const vector<vector<string>>& gameboard);
+
+// Ei todellisuudessa ole satunnainen. Palauttaa käyttäjälle valmiin kentän
+// seed valuen perusteella hyödyntäen switch-rakennetta. Palauttaa kentän
+// vektorin vektorina.
 vector<vector<string>> satunnainenKentta()
 {
-    default_random_engine rand_gen;
-    string numero;
-    vector<vector<string>> kentta;
+    string syote;
+    string sana;
     vector<string> jono;
-    int seed_value = 0;
-
+    vector<vector<string>> kentta;
+    int seed_value;
     cout<<"Enter seed value: ";
     cin>>seed_value;
-    rand_gen.seed(seed_value);
-    uniform_int_distribution<int> distribution(1, 9);
-    for(unsigned int i =0; i < BOARD_SIZE;i++)
+    while (seed_value <= 0 || seed_value > 10)
     {
-        if(jono.size()< BOARD_SIDE)
+        cout<<"Seed value has to be between 1 and 10"<<endl;
+        cout<<"Enter seed value: ";
+        cin>>seed_value;
+    }
+    switch (seed_value){
+        case 1 :
+            syote = "5 1 4 5 3 5 3 4 5 4 3 4 5 1 2 4 1 1 4 5 3 5 3 4 4";
+            break;
+        case 2 :
+            syote = "5 3 5 2 4 3 2 4 4 5 5 3 2 3 2 4 1 4 5 2 5 5 4 2 4";
+            break;
+        case 3 :
+            syote = "5 1 4 5 3 5 3 4 5 4 3 4 5 1 2 4 1 1 4 5 3 5 3 4 4";
+            break;
+        case 4 :
+            syote = "5 3 3 1 4 4 3 1 5 1 1 3 5 3 3 2 5 1 3 4 5 1 4 1 5";
+            break;
+        case 5 :
+            syote = "3 3 4 4 2 3 2 5 3 4 2 5 5 2 1 2 1 4 5 1 2 4 5 3 5";
+            break;
+        case 6 :
+            syote = "2 3 4 1 4 3 4 4 5 3 5 2 1 2 4 4 2 3 2 1 3 1 1 4 3";
+        case 7 :
+            syote = "5 5 2 3 1 1 2 1 4 2 2 1 4 1 5 3 5 1 3 4 1 1 2 5 2";
+            break;
+        case 8 :
+            syote = "3 1 5 2 3 1 4 1 5 4 1 5 1 5 4 3 2 5 1 5 4 3 2 4 3";
+            break;
+        case 9 :
+            syote = "4 5 1 5 2 4 3 5 4 1 5 1 2 2 1 3 4 2 1 5 1 3 3 4 4";
+            break;
+        case 10 :
+            syote = "3 5 3 4 5 2 4 2 1 3 3 3 1 5 3 5 1 2 3 5 5 3 3 2 5";
+            break;
+        default:
+            syote = "5 1 4 5 3 5 3 4 5 4 3 4 5 1 2 4 1 1 4 5 3 5 3 4 4";
+    }
+
+    for (const char c : syote)
+    {
+        if(c == EMPTY)
         {
-           numero = distribution(rand_gen);
-           jono.push_back(numero);
-           continue;
+            continue;
+        }
+        if(jono.size() < BOARD_SIDE)
+        {
+                sana = c;
+                jono.push_back(sana);
+                continue;
+            }
+
+     else{
+            kentta.push_back(jono);
+            jono.clear();
+            sana = c;
+            jono.push_back(sana);
+
         }
 
-        kentta.push_back(jono);
-        jono.clear();
-
-    }
-return kentta;
 }
+    kentta.push_back(jono);
+    return kentta;
+    }
+
+
 
 
 // Lukee vasta syötteen, haluaako käyttäjä luoda kentän itse vai tehdä satunnaisesti.
+// Kutsuu kentän luovaa aliohjelmaa ja palauttaa luodun kentän.
 vector<vector<string>> lueSyote()
 {
 string syote;
@@ -76,19 +130,24 @@ if(syote == "I")
 }
 return kentta;
 }
-// Tarkistaa onko tyhjiä kohtia tyhjien vieressä. Silmukat käyvät erikseen reunat läpi ja yksi silmukka käy muut alueet.
+
+
+// Tarkistaa onko tyhjiä ruutuja tyhjien  vieressä ja onko mikään ruutu yksin.
+// Ottaa parametreikseen string tyyppisen vektorin vektorin "lauta". Nurkkien tarkistus on tehty erikseen alkuun.
+// Reunojen ja keskialueiden toteutus on tehty silmukoilla. Funktio palauttaa totuusarvon true tai false sen mukaan onko
+// peli hävitty.
 bool onkoHavio (vector<vector<string>>& lauta)
 {
     bool onko = false;
-    if(lauta.at(BOARD_SIDE-1).at(BOARD_SIDE-1) != "0" && lauta.at(BOARD_SIDE-1-1).at(BOARD_SIDE-1) == "0" && lauta.at(BOARD_SIDE-1).at(BOARD_SIDE-1-1) == "0")
+    if(lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR) != "0" && lauta.at(BOARD_SIDE_IN_VECTOR -1).at(BOARD_SIDE_IN_VECTOR) == "0" && lauta.at(BOARD_SIDE_IN_VECTOR).at(BOARD_SIDE_IN_VECTOR -1) == "0")
            {
         onko = true;
            }
-    if(lauta.at(BOARD_SIDE-1).at(0) != "0" && lauta.at(BOARD_SIDE-1).at(1) == "0" && lauta.at(BOARD_SIDE-1-1).at(0) == "0")
+    if(lauta.at(BOARD_SIDE_IN_VECTOR).at(0) != "0" && lauta.at(BOARD_SIDE_IN_VECTOR).at(1) == "0" && lauta.at(BOARD_SIDE_IN_VECTOR -1).at(0) == "0")
            {
         onko = true;
            }
-    if(lauta.at(0).at(BOARD_SIDE-1) != "0" && lauta.at(1).at(BOARD_SIDE-1) == "0" && lauta.at(0).at(BOARD_SIDE-1-1) == "0")
+    if(lauta.at(0).at(BOARD_SIDE_IN_VECTOR) != "0" && lauta.at(1).at(BOARD_SIDE_IN_VECTOR) == "0" && lauta.at(0).at(BOARD_SIDE_IN_VECTOR-1) == "0")
            {
         onko = true;
            }
@@ -98,7 +157,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
            }
     // Yläreunan tarkistus
     for(int x = 0; x < 1;++x)
-        for(unsigned int y = 1; y < BOARD_SIDE-1;y++)
+        for(unsigned int y = 1; y < BOARD_SIDE_IN_VECTOR;y++)
         {
             if(lauta.at(x).at(y) != "0")
             {
@@ -118,7 +177,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
     //Alareunan tarkistus
     for(int x = 4; x < 5;++x)
-         for(unsigned int y = 1; y < BOARD_SIDE-1;y++)
+         for(unsigned int y = 1; y < BOARD_SIDE_IN_VECTOR;y++)
          {
              if(lauta.at(x).at(y) != "0")
              {
@@ -138,7 +197,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
     //Vasemman sivun tarkistus
     for(int y = 0; y < 1;++y)
-         for(unsigned int x = 1; x < BOARD_SIDE-1;x++)
+         for(unsigned int x = 1; x < BOARD_SIDE_IN_VECTOR;x++)
          {
              if(lauta.at(x).at(y) != "0")
              {
@@ -157,7 +216,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
     //Oikean sivun tarkistus
     for(int y = 4; y < 5;++y)
-         for(unsigned int x = 1; x < BOARD_SIDE-1;x++)
+         for(unsigned int x = 1; x < BOARD_SIDE_IN_VECTOR;x++)
          {
              if(lauta.at(x).at(y) != "0")
              {
@@ -176,8 +235,8 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
 
     // Muiden alueiden tarkistus
-    for(unsigned int x = 1; x < BOARD_SIDE-1;x++)
-        for(unsigned int y = 1; y < BOARD_SIDE-1;y++)
+    for(unsigned int x = 1; x < BOARD_SIDE_IN_VECTOR;x++)
+        for(unsigned int y = 1; y < BOARD_SIDE_IN_VECTOR;y++)
         {
             if(lauta.at(y).at(x) != "0")
             {
@@ -216,6 +275,10 @@ bool onkoHavio (vector<vector<string>>& lauta)
     return onko;
 }
 
+//Funktio tarkastaa onko riveillä tai sarakkeilla samoja lukuja tallentamalla
+//tallentamalla luvut vektoriin ja sen jälkeen järjestää ne suuruusjärjestykseen
+//ja tarkistaa duplikaatit. Ottaa parametrinä string-tyyppisen vektorin vektorin
+//ja palauttaa true tai falsem riippuen onko voittoa vai ei.
 bool onkoVoitto(vector<vector<string>>& lauta)
 {
     bool onko = false;
@@ -279,12 +342,9 @@ bool onkoVoitto(vector<vector<string>>& lauta)
 }
 
 
-
-
-
-
-
-
+//Lukee käyttäjältä koordinaatit tai käskyn lopettaa.
+//Poistaa halutun kohdan, kutsuu print-funktiota sekä voiton ja häviön
+// tarkistavia funktioita. Ottaa parametrina string-tyyppisen vektorin vektorin.
 void poistaKohta(vector<vector<string>>& lauta)
 {
     vector<vector<string>> uusi_lauta = lauta;
@@ -344,7 +404,8 @@ void poistaKohta(vector<vector<string>>& lauta)
 }
 
 
-// Funktio luo vektorin vektorn käyttäjän syötteen perusteella
+// Funktio luo vektorin vektorn käyttäjän syötteen perusteella.
+// Paluuarvona palauttaa vektorin vektorin käyttäjän haluamilla luvuilla
 vector<vector<string>> syotaKentta()
 {
     string syote;
