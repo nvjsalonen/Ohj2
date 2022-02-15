@@ -263,7 +263,7 @@ bool onkoHavio (vector<vector<string>>& lauta)
          }
 
     //Oikean sivun tarkistus
-    for(int y = BOARD_SIDE_IN_VECTOR; y < BOARD_SIDE;++y)
+    for(unsigned int y = BOARD_SIDE_IN_VECTOR; y < BOARD_SIDE;++y)
          for(unsigned int x = 1; x < BOARD_SIDE_IN_VECTOR;x++)
          {
              if(lauta.at(x).at(y) != "0")
