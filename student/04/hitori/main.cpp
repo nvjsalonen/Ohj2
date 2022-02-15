@@ -51,21 +51,17 @@ bool jatketaanko = true;
 while(jatketaanko)
 {
 cout<<"Select start (R for random, I for input): ";
-getline(cin, syote);
-    if(syote != "r")
-    {
-        jatketaanko = true;
-    }
-    if (syote != "i")
+getline(cin,syote);
+    if(syote != "r" && syote != "i" && syote != "I" )
     {
         jatketaanko = true;
     }
     else
     {
         jatketaanko = false;
+
     }
 }
-
 if(syote == "r")
 {
    kentta = satunnainenKentta();
@@ -73,6 +69,10 @@ if(syote == "r")
 if(syote == "i")
 {
    kentta = syotaKentta();
+}
+if(syote == "I")
+{
+    kentta = syotaKentta();
 }
 return kentta;
 }
@@ -335,7 +335,6 @@ vector<vector<string>> syotaKentta()
     vector<string> jono;
     vector<vector<string>> kentta;
     cout <<"Input: ";
-    cin.ignore();
     getline(cin, syote);
 
     for (const char c : syote)
