@@ -245,16 +245,28 @@ bool onkoVoitto(vector<vector<string>>& lauta)
 void poistaKohta(vector<vector<string>>& lauta)
 {
     vector<vector<string>> uusi_lauta = lauta;
-
+    string a;
+    string b;
     int x;
     int y;
     bool jatkuuko = true;
     while(jatkuuko)
     {
         cout<<"Enter removable element (x, y): ";
-        cin>>x;
-        cin>>y;
-    if(x <= 0 || x >= 6 || y <= 0 || y >= 6 )
+        cin>>a;
+        cin>>b;
+     if(a == "q" || b == "q")
+     {
+         cout<<"Quitting"<<endl;
+         break;
+     }
+
+     x = stoi_with_check(a);
+     y = stoi_with_check(b);
+
+
+
+    if((x) <= 0 || (x) >= 6 || (y) <= 0 || (y) >= 6 )
     {
         cout<<"Out of board"<<endl;
         continue;
@@ -278,6 +290,7 @@ void poistaKohta(vector<vector<string>>& lauta)
      }
 
     }
+    EXIT_SUCCESS;
 
 
 }
