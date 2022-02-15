@@ -79,18 +79,30 @@ return kentta;
 // Tarkistaa onko tyhjiä kohtia tyhjien vieressä. Silmukat käyvät erikseen reunat läpi ja yksi silmukka käy muut alueet.
 bool onkoHavio (vector<vector<string>>& lauta)
 {
-    // Yläreunan tarkistus
     bool onko = false;
+    if(lauta.at(BOARD_SIDE-1).at(BOARD_SIDE-1) != "0" && lauta.at(BOARD_SIDE-1-1).at(BOARD_SIDE-1) == "0" && lauta.at(BOARD_SIDE-1).at(BOARD_SIDE-1-1) == "0")
+           {
+        onko = true;
+           }
+    if(lauta.at(BOARD_SIDE-1).at(0) != "0" && lauta.at(BOARD_SIDE-1).at(1) == "0" && lauta.at(BOARD_SIDE-1-1).at(0) == "0")
+           {
+        onko = true;
+           }
+    if(lauta.at(0).at(BOARD_SIDE-1) != "0" && lauta.at(1).at(BOARD_SIDE-1) == "0" && lauta.at(0).at(BOARD_SIDE-1-1) == "0")
+           {
+        onko = true;
+           }
+    if(lauta.at(0).at(0) != "0" && lauta.at(1).at(0) == "0" && lauta.at(0).at(1) == "0")
+           {
+        onko = true;
+           }
+    // Yläreunan tarkistus
     for(int x = 0; x < 1;++x)
         for(unsigned int y = 1; y < BOARD_SIDE-1;y++)
         {
             if(lauta.at(x).at(y) != "0")
             {
-                if(lauta.at(x).at(y-1) == "0" && lauta.at(x).at(y+1) == "0" )
-                {
-                   onko = true;
-                }
-
+                continue;
             }
             if(lauta.at(x).at(y+1) == "0")
             {
@@ -103,16 +115,14 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
 
         }
+
     //Alareunan tarkistus
     for(int x = 4; x < 5;++x)
          for(unsigned int y = 1; y < BOARD_SIDE-1;y++)
          {
              if(lauta.at(x).at(y) != "0")
              {
-                 if(lauta.at(x).at(y-1) == "0" && lauta.at(x).at(y+1) == "0" )
-                 {
-                    onko = true;
-                 }
+                 continue;
              }
              if(lauta.at(x).at(y+1) == "0")
              {
@@ -125,36 +135,14 @@ bool onkoHavio (vector<vector<string>>& lauta)
 
 
     }
+
     //Vasemman sivun tarkistus
     for(int y = 0; y < 1;++y)
          for(unsigned int x = 1; x < BOARD_SIDE-1;x++)
          {
              if(lauta.at(x).at(y) != "0")
              {
-                 if(lauta.at(x+1).at(y) == "0" && lauta.at(x-1).at(y) == "0" )
-                 {
-                    onko = true;
-                 }
-             }
-             if(lauta.at(x+1).at(y) == "0")
-             {
-                 onko = true;
-             }
-             if(lauta.at(x-1).at(y) == "0")
-             {
-                 onko = true;
-             }
-         }
-    //Oikean sivun tarkistus
-    for(int y = 4; y < 5;++y)
-         for(unsigned int x = 1; x < BOARD_SIDE-1;x++)
-         {
-             if(lauta.at(x).at(y) != "0")
-             {
-                 if(lauta.at(x+1).at(y) == "0" && lauta.at(x-1).at(y) == "0" )
-                 {
-                    onko = true;
-                 }
+                 continue;
              }
 
              if(lauta.at(x+1).at(y) == "0")
@@ -166,6 +154,26 @@ bool onkoHavio (vector<vector<string>>& lauta)
                  onko = true;
              }
          }
+
+    //Oikean sivun tarkistus
+    for(int y = 4; y < 5;++y)
+         for(unsigned int x = 1; x < BOARD_SIDE-1;x++)
+         {
+             if(lauta.at(x).at(y) != "0")
+             {
+                 continue;
+             }
+
+             if(lauta.at(x+1).at(y) == "0")
+             {
+                 onko = true;
+             }
+             if(lauta.at(x-1).at(y) == "0")
+             {
+                 onko = true;
+             }
+         }
+
 
     // Muiden alueiden tarkistus
     for(unsigned int x = 1; x < BOARD_SIDE-1;x++)
@@ -173,6 +181,15 @@ bool onkoHavio (vector<vector<string>>& lauta)
         {
             if(lauta.at(y).at(x) != "0")
             {
+                if(lauta.at(y-1).at(x) == "0")
+                    if(lauta.at(y+1).at(x) == "0")
+                        if(lauta.at(y).at(x+1) == "0")
+                            if(lauta.at(y).at(x-1) == "0")
+                            {
+                                onko = true;
+                            }
+
+
                 continue;
               }
 
@@ -312,7 +329,7 @@ void poistaKohta(vector<vector<string>>& lauta)
      if(onkoHavio(lauta))
         {
             jatkuuko = false;
-            cout<<"You lost";
+            cout<<"You lost"<<endl;
         }
      if(onkoVoitto(lauta))
      {
