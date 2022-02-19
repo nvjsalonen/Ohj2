@@ -10,9 +10,9 @@ int main()
 
     string tallennettavan_tiedoston_nimi = "";
     string luettavan_tiedoston_nimi = "";
-    cout<<"Input file; ";
+    cout<<"Input file: ";
     cin>>luettavan_tiedoston_nimi;
-    cout<<"Output file; ";
+    cout<<"Output file: ";
     cin>>tallennettavan_tiedoston_nimi;
 
 
