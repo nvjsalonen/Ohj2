@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 using namespace std;
-void lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto);
+bool lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto);
 
 
 int main()
@@ -16,23 +16,32 @@ int main()
     cin>>tallennettavan_tiedoston_nimi;
 
 
-    lueTiedosto(luettavan_tiedoston_nimi, tallennettavan_tiedoston_nimi);
-    return EXIT_FAILURE;
+    if(lueTiedosto(luettavan_tiedoston_nimi, tallennettavan_tiedoston_nimi))
+    {
+            return EXIT_SUCCESS;
+     }
+    else
+    {
+            return EXIT_FAILURE;
+}
 }
 
-void lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto)
+
+
+
+bool lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto)
 {
-    int n = 1;
-    ofstream output(tallennettava_tiedosto);
+
     ifstream input(luettava_tiedosto);
         if(not input)
         {
             cout<<"Error! The file "<<luettava_tiedosto<<" cannot be opened."<<endl;
-
+            return false;
         }
         else{
             int n = 1;
             string jono;
+            ofstream output(tallennettava_tiedosto);
 
             while(getline(input,jono))
             {
@@ -44,7 +53,7 @@ void lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto)
             }
          input.close();
          output.close();
-
+        return true;
         }
 
 
