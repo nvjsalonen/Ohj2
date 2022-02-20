@@ -17,15 +17,13 @@ int main()
 
 
     lueTiedosto(luettavan_tiedoston_nimi, tallennettavan_tiedoston_nimi);
-    EXIT_FAILURE;
+    return EXIT_FAILURE;
 }
 
 void lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto)
 {
     int n = 1;
     ofstream output(tallennettava_tiedosto);
-    string syote_ulos = "";
-    string jono = "";
     ifstream input(luettava_tiedosto);
         if(not input)
         {
@@ -33,15 +31,13 @@ void lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto)
 
         }
         else{
-
-
+            int n = 1;
+            string jono;
 
             while(getline(input,jono))
             {
 
-                output<<n<<" ";
-                output<<jono;
-                output<<endl;
+                output<<n<<" "<<jono<<endl;
                 n += 1;
 
 
