@@ -28,15 +28,12 @@ void lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto)
     ifstream input(luettava_tiedosto);
         if(not input)
         {
-            cout<<"Input file: "<<luettava_tiedosto<<endl;
-            cout<<"Output file: "<< tallennettava_tiedosto<<endl;
             cout<<"Error! The file "<<luettava_tiedosto<<" cannot be opened."<<endl;
             EXIT_FAILURE;
         }
         if(input)
         {
-            cout<<"Input file: "<<luettava_tiedosto<<endl;
-            cout<<"Output file: "<< tallennettava_tiedosto<<endl;
+
 
             while(getline(input,jono))
             {
