@@ -17,6 +17,7 @@ int main()
 
 
     lueTiedosto(luettavan_tiedoston_nimi, tallennettavan_tiedoston_nimi);
+    EXIT_FAILURE;
 }
 
 void lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto)
@@ -29,10 +30,10 @@ void lueTiedosto(string luettava_tiedosto, string tallennettava_tiedosto)
         if(not input)
         {
             cout<<"Error! The file "<<luettava_tiedosto<<" cannot be opened."<<endl;
-            EXIT_FAILURE;
+
         }
-        if(input)
-        {
+        else{
+
 
 
             while(getline(input,jono))
