@@ -15,11 +15,11 @@ int main()
         if(avaaTiedosto(luettavan_tiedoston_nimi))
         {
             tulostaPisteet(luettavan_tiedoston_nimi);
-            EXIT_SUCCESS;
+            return EXIT_SUCCESS;
         }
         else{
             cout<<"Error! The file "<<luettavan_tiedoston_nimi<<" cannot be opened."<<endl;
-            EXIT_FAILURE;
+            return EXIT_FAILURE;
         }
 }
 
@@ -52,6 +52,7 @@ void tulostaPisteet(string input_tiedosto)
         taulukko.insert({kilpailija, kilpailijan_pisteet} );
     }
     }
+    cout<<"Final scores:"<<endl;
       for (auto& kilpailija : taulukko)
       {
           cout<<kilpailija.first<<": "<<kilpailija.second<<endl;
