@@ -16,11 +16,10 @@ int main()
     {
         if (word == "END")
         {
-
             return EXIT_SUCCESS;
         }
 
-        if(word.length() == 1)
+        if(word.length() <= 3)
         {
 
             std::cout << word << std::endl;
