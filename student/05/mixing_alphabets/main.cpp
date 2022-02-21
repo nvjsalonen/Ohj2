@@ -16,10 +16,18 @@ int main()
     {
         if (word == "END")
         {
+
             return EXIT_SUCCESS;
         }
 
-        // TODO: implement your solution here
+        if(word.length() == 1)
+        {
+
+            std::cout << word << std::endl;
+            continue;
+        }
+
+       shuffle(++word.begin(),--word.end(), generator);
 	
         std::cout << word << std::endl;
     }
