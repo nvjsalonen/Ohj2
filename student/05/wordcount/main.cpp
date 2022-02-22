@@ -6,7 +6,7 @@
 #include <sstream>
 using namespace std;
 using DATA_STRUCT = std::map<std::string, std::set<int>>;
-void avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivit);
+int avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivit);
 void muunnaData(DATA_STRUCT::const_iterator iter);
 void tulostaData(DATA_STRUCT const &rivit);
 
@@ -16,17 +16,18 @@ int main()
     string luettavan_tiedoston_nimi;
     cout<<"Input file: ";
     cin>>luettavan_tiedoston_nimi;
-    avaaTiedosto(luettavan_tiedoston_nimi, rivi_data);
+    int status = avaaTiedosto(luettavan_tiedoston_nimi, rivi_data);
 
     tulostaData(rivi_data);
+    return status;
 }
-void avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivi_data)
+int avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivi_data)
 {
     ifstream tiedosto(tiedoston_nimi);
     if(!tiedosto)
     {
           cout<<"Error! The file "<<tiedoston_nimi<<" cannot be opened."<<endl;
-          return;
+          return EXIT_FAILURE;
     }
 
     string apusana = "";
@@ -51,7 +52,8 @@ void avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivi_data)
             n++;
 
             }
-
+tiedosto.close();
+return EXIT_SUCCESS;
         }
         {
 
