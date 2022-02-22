@@ -6,38 +6,32 @@
 #include <sstream>
 using namespace std;
 using DATA_STRUCT = std::map<std::string, std::set<int>>;
-bool avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivit);
-
-
-void tulostaData(DATA_STRUCT &rivit);
+void avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivit);
+void muunnaData(DATA_STRUCT::const_iterator iter);
+void tulostaData(DATA_STRUCT const &rivit);
 
 int main()
 {
-    DATA_STRUCT rivi_data;
+    DATA_STRUCT rivi_data = {};
     string luettavan_tiedoston_nimi;
     cout<<"Input file: ";
     cin>>luettavan_tiedoston_nimi;
-    if(avaaTiedosto(luettavan_tiedoston_nimi, rivi_data))
-    {
+    avaaTiedosto(luettavan_tiedoston_nimi, rivi_data);
 
-        return EXIT_SUCCESS;
-    }
-    else{
-        cout<<"Error! The file "<<luettavan_tiedoston_nimi<<" cannot be opened."<<endl;
-        return EXIT_FAILURE;
-    }
+    tulostaData(rivi_data);
 }
-bool avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivit)
+void avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivi_data)
 {
-    int n = 1;
     ifstream tiedosto(tiedoston_nimi);
+    if(!tiedosto)
+    {
+          cout<<"Error! The file "<<tiedoston_nimi<<" cannot be opened."<<endl;
+          return;
+    }
+
     string apusana = "";
     string jono = "";
-    if(!tiedosto){
-        {
-            return false;
-           }
-
+    if(tiedosto){
         int n = 1;
         ifstream tiedosto(tiedoston_nimi);
         string apusana = "";
@@ -47,18 +41,51 @@ bool avaaTiedosto(string tiedoston_nimi, DATA_STRUCT &rivit)
                istringstream sanat(jono);
                while(sanat >> apusana)
                {
-                   if(rivit.find(apusana) == rivit.end())
+                   if(rivi_data.find(apusana) == rivi_data.end())
                    {
-                       rivit.insert({apusana, {}});
+                       rivi_data.insert({apusana, {}});
                    }
-                     rivit.at(apusana).insert(n);
+                     rivi_data.at(apusana).insert(n);
 
                }
+            n++;
 
             }
+
         }
-            return true;
+        {
+
+    }
+}
+void muunnaData(DATA_STRUCT::const_iterator iter)
+{
+      string avain = iter->first;
+      set<int> rivi_data = iter->second;
+
+      cout<< avain << " "<< rivi_data.size()<<": ";
+      for(set<int>::iterator iter = rivi_data.begin(); iter != rivi_data.end();iter++)
+        {
+            cout<< *iter;
+            if((++iter) != rivi_data.end())
+            {
+                cout<<", ";
+            }
+            else{
+                cout <<std::endl;
+            }
+            iter--;
         }
+
+
+}
+void tulostaData(DATA_STRUCT const &rivi_data)
+{
+    for(DATA_STRUCT::const_iterator iter = rivi_data.begin();iter != rivi_data.end();iter++)
+    {
+        muunnaData(iter);
+    }
+}
+
 
 
 
