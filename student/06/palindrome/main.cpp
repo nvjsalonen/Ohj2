@@ -12,6 +12,24 @@ bool palindrome_recursive(std::string s)
 
 
   // Add your implementation here
+int pituus = s.length();
+bool onko_palindromi = true;
+ if(pituus <= 1)
+ {
+     return onko_palindromi;
+ }
+if(s.at(0)== s.at(pituus-1))
+{
+     s = s.substr(1,(pituus-2));
+     palindrome_recursive(s);
+     onko_palindromi = true;
+ }
+ else
+ {
+     onko_palindromi = false;
+ }
+return onko_palindromi;
+
 }
 
 // Do not modify rest of the code, or the automated testing won't work.
