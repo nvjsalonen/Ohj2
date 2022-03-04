@@ -13,7 +13,7 @@ bool palindrome_recursive(std::string s)
 
   // Add your implementation here
 int pituus = s.length();
-bool onko_palindromi = true;
+bool onko_palindromi = false;
  if(pituus <= 1)
  {
      return onko_palindromi;
