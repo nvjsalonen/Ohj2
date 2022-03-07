@@ -6,38 +6,29 @@
 
 bool palindrome_recursive(std::string s)
 {
-  RECURSIVE_FUNC
-  // Do not remove RECURSIVE_FUNC declaration, it's necessary for automatic testing to work
-  // ------------
+    RECURSIVE_FUNC
+            // Do not remove RECURSIVE_FUNC declaration, it's necessary for automatic testing to work
+            // ------------
 
 
-  // Add your implementation here
-int pituus = s.length();
-bool onko_palindromi = false;
- if(pituus <= 1)
- {
-     onko_palindromi = true;
- }
-else if(s.at(0)== s.at(pituus-1))
-{
+            // Add your implementation here
+    int pituus = s.length();
+    if(pituus <= 1)
+    {
+        return true;
+    }
+    if(s.at(0)== s.at(pituus-1))
+    {
 
-     s = s.substr(1,(pituus-2));
-     if(palindrome_recursive(s))
-     {
-             palindrome_recursive(s);
-             onko_palindromi = true;
+        s = s.substr(1,(pituus-2));
+        return palindrome_recursive(s);
 
-     }
-     else
-     {
-         onko_palindromi = false;
-     }
-
- }
-return onko_palindromi;
-
+    }
+    return false;
 
 }
+
+
 
 
 // Do not modify rest of the code, or the automated testing won't work.
