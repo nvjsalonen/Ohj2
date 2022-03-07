@@ -13,6 +13,11 @@ void print_vertical(unsigned int num)
 
 
     // Add your implementation here
+    if(num >= 10)
+            print_vertical(num/10);
+    int numero = num % 10;
+
+    cout<<numero<< '\n';
 }
 
 // Do not modify rest of the code, or the automated testing won't work.
