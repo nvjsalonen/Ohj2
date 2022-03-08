@@ -62,7 +62,25 @@ void print(std::string avain, NET const &network, std::string sisennys = "")
 
 int depth(std::string avain);
 
-int count(std::string avain);
+int count(std::string avain, NET const &network)
+{
+    if(network.find(avain)==network.end()
+            || network.at(avain).empty())
+    {
+        return 0;
+    }
+
+    else
+    {
+     std::vector<std::string>::const_iterator iter = network.at(avain).begin();
+     int size_at_level = network.at(avain).size();
+     for(;iter != network.at(avain).end();iter++)
+     {
+        size_at_level += count(*iter, network);
+     }
+     return size_at_level;
+    }
+};
 
 int main()
 {
@@ -117,7 +135,7 @@ int main()
             }
             std::string id = parts.at(1);
 
-            // TODO: Implement the command here!
+            std::cout << count(id, network)<<std::endl;
 
         }
         else if(command == "D" or command == "d")
