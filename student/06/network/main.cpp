@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-
+#include <map>
 const std::string HELP_TEXT = "S = store id1 i2\nP = print id\n"
                               "C = count id\nD = depth id\n";
 
@@ -29,11 +29,44 @@ std::vector<std::string> split(const std::string& s,
     }
     return result;
 }
+using NET = std::map<std::string, std::vector<std::string>>;
+
+void store(std::string avain, std::string value, NET &network)
+{
+    if(network.find(avain) == network.end())
+    {
+        network.insert({avain, {}});
+    }
+    network.at(avain).push_back(value);
+};
+
+void print(std::string avain, NET const &network, std::string sisennys = "")
+{
+    if(network.find(avain)==network.end()
+            || network.at(avain).empty())
+    {
+        std::cout <<sisennys<< avain <<std::endl;
+    }
+
+    else
+    {
+        std::cout << sisennys << avain << std::endl;
+        std::vector<std::string>::const_iterator iter = network.at(avain).begin();
+        for(; iter !=network.at(avain).end();iter++)
+        {
+            print(*iter, network, sisennys + "..");
+        }
+
+    }
+}
+
+int depth(std::string avain);
+
+int count(std::string avain);
 
 int main()
 {
-    // TODO: Implement the datastructure here
-
+    std::map<std::string, std::vector<std::string>> network = {};
 
     while(true)
     {
@@ -60,7 +93,7 @@ int main()
             std::string id1 = parts.at(1);
             std::string id2 = parts.at(2);
 
-            // TODO: Implement the command here!
+            store(id1, id2, network);
 
         }
         else if(command == "P" or command == "p")
@@ -72,7 +105,7 @@ int main()
             }
             std::string id = parts.at(1);
 
-            // TODO: Implement the command here!
+            print(id, network);
 
         }
         else if(command == "C" or command == "c")
