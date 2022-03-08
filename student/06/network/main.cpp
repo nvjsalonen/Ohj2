@@ -60,7 +60,25 @@ void print(std::string avain, NET const &network, std::string sisennys = "")
     }
 }
 
-int depth(std::string avain);
+int depth(std::string avain, NET const &network)
+{
+
+int max_depth = 0;
+if(network.find(avain) != network.end())
+{
+    for(std::string id : network.at(avain))
+    {
+        if(depth(id, network) > max_depth)
+        {
+            max_depth = depth(id, network);
+        }
+    }
+}
+return max_depth +1;
+
+}
+
+
 
 int count(std::string avain, NET const &network)
 {
@@ -80,7 +98,7 @@ int count(std::string avain, NET const &network)
      }
      return size_at_level;
     }
-};
+}
 
 int main()
 {
@@ -147,7 +165,7 @@ int main()
             }
             std::string id = parts.at(1);
 
-            // TODO: Implement the command here!
+            std::cout<<depth(id, network) <<std::endl;
 
         }
         else if(command == "Q" or command == "q")
