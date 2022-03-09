@@ -49,7 +49,23 @@ std::vector<std::string> split( const std::string& str, char delim = ';' )
     return result;
 }
 
+bool avaa_tiedosto(std::string tiedoston_nimi)
+{
+
+}
 int main()
 {
+    std::string jono = "";
+    std::cout <<"Give a name for input file: ";
+    std::getline(std::cin,jono);
+    avaa_tiedosto(jono);
+    std::string komento = "";
+    while(komento != "QUIT")
+    {
+    std::cout<<"game>";
+    std::getline(std::cin, komento);
+    }
+
+
     return EXIT_SUCCESS;
 }
