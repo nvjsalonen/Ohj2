@@ -21,6 +21,45 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <set>
+
+void kaikkiPelit()
+{
+
+}
+void kaikkiPelaajat()
+{
+
+}
+void pelaaja(std::string)
+{
+
+}
+void lisaaPeli(std::string)
+{
+
+}
+void lisaaPelaaja(std::vector<std::string>)
+{
+
+}
+void poistaPelaaja(std::string)
+{
+
+}
+void naytaPeli(std::string)
+{
+
+}
+std::vector<std::string> erotaKomento(std::string)
+{
+
+}
+
+bool avaa_tiedosto(std::string tiedoston_nimi)
+{
+
+}
 
 // Casual split func, if delim char is between "'s, ignores it.
 std::vector<std::string> split( const std::string& str, char delim = ';' )
@@ -48,33 +87,59 @@ std::vector<std::string> split( const std::string& str, char delim = ';' )
     }
     return result;
 }
-void kaikkiPelit();
-void kaikkiPelaajat();
 
-bool avaa_tiedosto(std::string tiedoston_nimi)
-{
-
-}
 int main()
 {
     std::string jono = "";
     std::cout <<"Give a name for input file: ";
     std::getline(std::cin,jono);
     avaa_tiedosto(jono);
-    std::string komento = "";
+    std::string komento = " ";
     while(komento != "QUIT")
     {
     std::cout<<"game>";
     std::getline(std::cin, komento);
-    }
+
     if(komento == "ALL_GAMES")
     {
         kaikkiPelit();
+        continue;
     }
     if(komento == "ALL_PLAYERS")
     {
         kaikkiPelaajat();
     }
+    if(komento.find(" ") != std::string::npos)
+    {
+        std::vector<std::string> komento_erotetltuna  = erotaKomento(komento);
+        if(komento_erotetltuna.at(0)== "PLAYER")
+        {
+            pelaaja(komento_erotetltuna.at(1));
+        }
+        if(komento_erotetltuna.at(0)== "ADD_GAME")
+        {
+            lisaaPeli(komento_erotetltuna.at(1));
+        }
+        if(komento_erotetltuna.at(0)== "ADD_PLAYER")
+        {
+             lisaaPelaaja(komento_erotetltuna);
+        }
+        if(komento_erotetltuna.at(0)== "REMOVE")
+        {
+            poistaPelaaja(komento_erotetltuna.at(1));
+        }
+        if(komento_erotetltuna.at(0)== "GAME")
+        {
+            naytaPeli(komento_erotetltuna.at(1));
+        }
+        }
+        else
+        {
+        std::cout<<"Error: Invalid input."<<std::endl;
+        continue;
+        }
+
+        }
 
 
 
