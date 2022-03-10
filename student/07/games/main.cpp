@@ -51,9 +51,24 @@ void naytaPeli(std::string)
 {
 
 }
-std::vector<std::string> erotaKomento(std::string)
+std::vector<std::string> erotaKomento(std::string komento)
 {
-
+    std::string sana = "";
+    std::vector<std::string> syote;
+    for (const char c : komento)
+    {
+        if(c== ' ')
+        {
+            syote.push_back(sana);
+            sana.clear();
+        }
+        else
+        {
+            sana += c;
+        }
+    }
+    syote.push_back(sana);
+    return syote;
 }
 
 bool avaa_tiedosto(std::string tiedoston_nimi)
@@ -108,6 +123,7 @@ int main()
     if(komento == "ALL_PLAYERS")
     {
         kaikkiPelaajat();
+        continue;
     }
     if(komento.find(" ") != std::string::npos)
     {
@@ -115,22 +131,27 @@ int main()
         if(komento_erotetltuna.at(0)== "PLAYER")
         {
             pelaaja(komento_erotetltuna.at(1));
+            continue;
         }
         if(komento_erotetltuna.at(0)== "ADD_GAME")
         {
             lisaaPeli(komento_erotetltuna.at(1));
+            continue;
         }
         if(komento_erotetltuna.at(0)== "ADD_PLAYER")
         {
              lisaaPelaaja(komento_erotetltuna);
+             continue;
         }
         if(komento_erotetltuna.at(0)== "REMOVE")
         {
             poistaPelaaja(komento_erotetltuna.at(1));
+            continue;
         }
         if(komento_erotetltuna.at(0)== "GAME")
         {
             naytaPeli(komento_erotetltuna.at(1));
+            continue;
         }
         }
         else
