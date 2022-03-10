@@ -48,6 +48,8 @@ std::vector<std::string> split( const std::string& str, char delim = ';' )
     }
     return result;
 }
+void kaikkiPelit();
+void kaikkiPelaajat();
 
 bool avaa_tiedosto(std::string tiedoston_nimi)
 {
@@ -65,6 +67,15 @@ int main()
     std::cout<<"game>";
     std::getline(std::cin, komento);
     }
+    if(komento == "ALL_GAMES")
+    {
+        kaikkiPelit();
+    }
+    if(komento == "ALL_PLAYERS")
+    {
+        kaikkiPelaajat();
+    }
+
 
 
     return EXIT_SUCCESS;
