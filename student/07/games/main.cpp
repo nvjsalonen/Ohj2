@@ -19,9 +19,12 @@
  *
  * */
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
-#include <set>
+#include <map>
+std::vector<std::string> split( const std::string& str, char delim = ';' );
+using STAT = std::map<std::string, std::map<std::string, int>>;
 
 void kaikkiPelit()
 {
@@ -39,9 +42,9 @@ void lisaaPeli(std::string)
 {
 
 }
-void lisaaPelaaja(std::vector<std::string>)
+void lisaaPelaaja(std::vector<std::vector<std::string>> pelaajat)
 {
-
+    std::string testi = pelaajat.at(0).at(1);
 }
 void poistaPelaaja(std::string)
 {
@@ -51,33 +54,31 @@ void naytaPeli(std::string)
 {
 
 }
-std::vector<std::string> erotaKomento(std::string komento)
+
+
+void avaa_tiedosto(std::string tiedoston_nimi)
 {
-    std::string sana = "";
-    std::vector<std::string> syote;
-    for (const char c : komento)
-    {
-        if(c== ' ')
+    std::vector<std::vector<std::string>> syote;
+    std::ifstream input(tiedoston_nimi);
+        if(not input)
         {
-            syote.push_back(sana);
-            sana.clear();
+            std::cout<<"Error: File could not be read."<<std::endl;
         }
         else
         {
-            sana += c;
-        }
-    }
-    syote.push_back(sana);
-    return syote;
+            std::string jono;
+            while(getline(input,jono))
+            {
+
+                syote.push_back(split(jono));
+                lisaaPelaaja(syote);
+            }
+            input.close();
 }
-
-bool avaa_tiedosto(std::string tiedoston_nimi)
-{
-
 }
 
 // Casual split func, if delim char is between "'s, ignores it.
-std::vector<std::string> split( const std::string& str, char delim = ';' )
+std::vector<std::string> split( const std::string& str, char delim)
 {
     std::vector<std::string> result = {""};
     bool inside_quatation = false;
@@ -87,7 +88,7 @@ std::vector<std::string> split( const std::string& str, char delim = ';' )
         {
             inside_quatation = not inside_quatation;
         }
-        else if ( current_char == delim and not inside_quatation )
+        else if ( current_char == delim  and not inside_quatation )
         {
             result.push_back("");
         }
@@ -103,8 +104,10 @@ std::vector<std::string> split( const std::string& str, char delim = ';' )
     return result;
 }
 
+
 int main()
 {
+    std::map<std::string, std::map<std::string, int>> tilastot;
     std::string jono = "";
     std::cout <<"Give a name for input file: ";
     std::getline(std::cin,jono);
@@ -127,7 +130,7 @@ int main()
     }
     if(komento.find(" ") != std::string::npos)
     {
-        std::vector<std::string> komento_erotetltuna  = erotaKomento(komento);
+        std::vector<std::string> komento_erotetltuna  = split(komento, ' ');
         if(komento_erotetltuna.at(0)== "PLAYER")
         {
             pelaaja(komento_erotetltuna.at(1));
