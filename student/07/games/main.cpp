@@ -23,30 +23,86 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <set>
+#include <utility>
+struct pisteet{
+    std::string nimi;
+    unsigned int pisteet;
+};
 std::vector<std::string> split( const std::string& str, char delim = ';' );
-using STAT = std::map<std::string, std::map<std::string, int>>;
+using STAT = std::map<std::string, std::map<std::string, unsigned int>>;
+STAT tilastot;
+void lisaaPelaaja(std::vector<std::string> pelaajat, STAT& tilastot);
 
-void kaikkiPelit()
+unsigned int stoi_with_check(const std::string& str)
 {
+    bool is_numeric = true;
+    for(unsigned int i = 0; i < str.length(); ++i)
+    {
+        if(not isdigit(str.at(i)))
+        {
+            is_numeric = false;
+            break;
+        }
+    }
+    if(is_numeric)
+    {
+        return stoi(str);
+    }
+    else
+    {
+        return 0;
+    }
+}
 
+void kaikkiPelit(STAT tilastot)
+{
+    std::map<std::string,std::map<std::string, unsigned int>>::iterator iter;
+    iter = tilastot.begin();
+    while(iter != tilastot.end())
+    {
+        std::cout<<iter->first<<std::endl;
+        ++iter;
+    }
 }
 void kaikkiPelaajat()
 {
-
+   std::map<std::string,std::set<std::pair<std::string, int>>>::iterator iter;
 }
 void pelaaja(std::string)
 {
 
 }
-void lisaaPeli(std::string)
+void lisaaPeli(std::string peli, STAT& tilastot)
 {
+    std::vector<std::string> uusi_peli = {peli,""," "};
+    lisaaPelaaja(uusi_peli, tilastot);
+}
+void lisaaPelaaja(std::vector<std::string> pelaajat, STAT& tilastot)
+{
+    if(tilastot.find(pelaajat.at(0)) != tilastot.end())
+    {
+        std::string pelaaja = pelaajat.at(1);
+        unsigned int pisteet = stoi_with_check(pelaajat.at(2));
+        tilastot[pelaajat.at(0)].insert({pelaaja, pisteet});
 
-}
-void lisaaPelaaja(std::vector<std::vector<std::string>> pelaajat)
-{
-    std::string testi = pelaajat.at(0).at(1);
-}
-void poistaPelaaja(std::string)
+    }
+    else
+    {
+        std::string pelaaja = pelaajat.at(1);
+        unsigned int pisteet = stoi_with_check(pelaajat.at(2));
+        std::map<std::string, unsigned int> sisempi = {{pelaaja, pisteet}};
+        tilastot.insert({pelaajat.at(0), sisempi});
+    }
+
+
+
+
+
+
+    }
+
+void poistaPelaaja(std::string pelaaja, STAT& tilastot)
 {
 
 }
@@ -56,9 +112,9 @@ void naytaPeli(std::string)
 }
 
 
-void avaa_tiedosto(std::string tiedoston_nimi)
+void avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
 {
-    std::vector<std::vector<std::string>> syote;
+    std::vector<std::string> syote;
     std::ifstream input(tiedoston_nimi);
         if(not input)
         {
@@ -70,8 +126,8 @@ void avaa_tiedosto(std::string tiedoston_nimi)
             while(getline(input,jono))
             {
 
-                syote.push_back(split(jono));
-                lisaaPelaaja(syote);
+                syote = split(jono);
+                lisaaPelaaja(syote, tilastot);
             }
             input.close();
 }
@@ -107,11 +163,11 @@ std::vector<std::string> split( const std::string& str, char delim)
 
 int main()
 {
-    std::map<std::string, std::map<std::string, int>> tilastot;
+    STAT tilastot;
     std::string jono = "";
     std::cout <<"Give a name for input file: ";
     std::getline(std::cin,jono);
-    avaa_tiedosto(jono);
+    avaa_tiedosto(jono, tilastot);
     std::string komento = " ";
     while(komento != "QUIT")
     {
@@ -120,7 +176,7 @@ int main()
 
     if(komento == "ALL_GAMES")
     {
-        kaikkiPelit();
+        kaikkiPelit(tilastot);
         continue;
     }
     if(komento == "ALL_PLAYERS")
@@ -138,17 +194,17 @@ int main()
         }
         if(komento_erotetltuna.at(0)== "ADD_GAME")
         {
-            lisaaPeli(komento_erotetltuna.at(1));
+            lisaaPeli(komento_erotetltuna.at(1), tilastot);
             continue;
         }
         if(komento_erotetltuna.at(0)== "ADD_PLAYER")
         {
-             lisaaPelaaja(komento_erotetltuna);
+             lisaaPelaaja(komento_erotetltuna, tilastot);
              continue;
         }
         if(komento_erotetltuna.at(0)== "REMOVE")
         {
-            poistaPelaaja(komento_erotetltuna.at(1));
+            poistaPelaaja(komento_erotetltuna.at(1), tilastot);
             continue;
         }
         if(komento_erotetltuna.at(0)== "GAME")
