@@ -25,6 +25,7 @@
 #include <map>
 #include <set>
 #include <utility>
+#include <algorithm>
 struct pisteet{
     std::string nimi;
     unsigned int pisteet;
@@ -65,9 +66,23 @@ void kaikkiPelit(STAT tilastot)
         ++iter;
     }
 }
-void kaikkiPelaajat()
+void kaikkiPelaajat(STAT tilastot)
 {
-   std::map<std::string,std::set<std::pair<std::string, int>>>::iterator iter;
+std::vector<std::string> apuvektori;
+for(auto peli : tilastot)
+    for(auto pelaaja : peli.second)
+   {
+       apuvektori.push_back(pelaaja.first);
+       sort(apuvektori.begin(), apuvektori.end());
+       for(int i = 0;i < apuvektori.size(); i++)
+       {
+           if(apuvektori.at(i) != apuvektori.at(i+1))
+           {
+               std::cout<<apuvektori.at(i)<<std::endl;
+           }
+       }
+    }
+
 }
 void pelaaja(std::string)
 {
@@ -181,7 +196,7 @@ int main()
     }
     if(komento == "ALL_PLAYERS")
     {
-        kaikkiPelaajat();
+        kaikkiPelaajat(tilastot);
         continue;
     }
     if(komento.find(" ") != std::string::npos)
