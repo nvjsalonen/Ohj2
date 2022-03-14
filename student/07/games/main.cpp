@@ -69,21 +69,22 @@ void kaikkiPelit(STAT tilastot)
 void kaikkiPelaajat(STAT tilastot)
 {
 std::vector<std::string> apuvektori;
-for(auto peli : tilastot)
-    for(auto pelaaja : peli.second)
+for(auto& peli : tilastot)
+    for(auto& pelaaja : peli.second)
    {
        apuvektori.push_back(pelaaja.first);
+    }
        sort(apuvektori.begin(), apuvektori.end());
-       for(int i = 0;i < apuvektori.size(); i++)
+       for(unsigned int i = 1;i < apuvektori.size(); i++)
        {
-           if(apuvektori.at(i) != apuvektori.at(i+1))
+           if(apuvektori.at(i) != apuvektori.at(i-1))
            {
                std::cout<<apuvektori.at(i)<<std::endl;
            }
        }
     }
 
-}
+
 void pelaaja(std::string)
 {
 
