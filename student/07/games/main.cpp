@@ -106,6 +106,11 @@ bool onko_pelaaja = false;
 }
 void uusiPelaaja(string peli, string pelaaja, string pisteet  , STAT& tilastot)
 {
+    if(tilastot.find(peli) == tilastot.end())
+    {
+        std::cout<<"Error: Game could not be found."<<std::endl;
+    }
+    else{
     std::vector<std::string> uusi_pelaaja;
     bool loytyyko_pelaaja = false;
     for(auto& peli : tilastot)
@@ -125,6 +130,7 @@ void uusiPelaaja(string peli, string pelaaja, string pisteet  , STAT& tilastot)
         lisaaPelaaja(uusi_pelaaja,tilastot);
     }
 std::cout<<"Player was added."<<std::endl;
+}
 }
 
 
@@ -168,16 +174,23 @@ std::pair<unsigned int, std::string> kaannaMap(std::string pelaaja, unsigned int
 
 void poistaPelaaja(std::string pelaaja, STAT& tilastot)
 {
+    bool loytyyko_pelaaja = false;
     for(auto& peli : tilastot)
         for(auto& henkilo : peli.second)
         {
             if(henkilo.first == pelaaja)
             {
                 peli.second.erase(pelaaja);
+                std::cout<<"Player was removed from all games."<<std::endl;
+                loytyyko_pelaaja = true;
                 break;
             }
+
         }
-    std::cout<<"Player was removed from all games."<<std::endl;
+    if(!loytyyko_pelaaja)
+    {
+        std::cout<<"Error: Player could not be found."<<std::endl;
+    }
 }
 void naytaPeli(std::string haettava_peli, STAT tilastot)
 {
@@ -341,8 +354,16 @@ int main()
             }
             if(syote.at(0)== "ADD_PLAYER")
             {
+                if(syote.size()< 4)
+                {
+                    std::cout<<"Error: Invalid input."<<std::endl;
+                    continue;
+                }
+                else
+                {
                 uusiPelaaja(syote.at(1), syote.at(2),syote.at(3), tilastot);
                 continue;
+            }
             }
             if(syote.at(0)== "REMOVE")
             {
