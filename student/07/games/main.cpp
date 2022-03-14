@@ -26,10 +26,7 @@
 #include <set>
 #include <utility>
 #include <algorithm>
-struct pisteet{
-    std::string nimi;
-    unsigned int pisteet;
-};
+using namespace std;
 std::vector<std::string> split( const std::string& str, char delim = ';' );
 using STAT = std::map<std::string, std::map<std::string, unsigned int>>;
 STAT tilastot;
@@ -107,13 +104,43 @@ bool onko_pelaaja = false;
         std::cout<<"Error: Player could not be found."<<std::endl;
     }
 }
+void uusiPelaaja(string peli, string pelaaja, string pisteet  , STAT& tilastot)
+{
+    std::vector<std::string> uusi_pelaaja;
+    bool loytyyko_pelaaja = false;
+    for(auto& peli : tilastot)
+        for(auto& henkilo : peli.second)
+        {
+            if(henkilo.first == pelaaja)
+            {
+                henkilo.second = stoi_with_check(pisteet);
+                loytyyko_pelaaja = true;
+            }
+
+
+        }
+    if(!loytyyko_pelaaja)
+    {
+        uusi_pelaaja = {peli,pelaaja,pisteet};
+        lisaaPelaaja(uusi_pelaaja,tilastot);
+    }
+std::cout<<"Player was added."<<std::endl;
+}
+
 
 void lisaaPeli(std::string peli, STAT& tilastot)
 {
-    std::vector<std::string> uusi_peli = {peli," "," "};
-    lisaaPelaaja(uusi_peli, tilastot);
-    std::cout<<"Game was added."<<std::endl;
+    if(tilastot.find(peli) == tilastot.end())
+    {
+        std::vector<std::string> uusi_peli = {peli," "," "};
+        lisaaPelaaja(uusi_peli, tilastot);
+        std::cout<<"Game was added."<<std::endl;
+    }
+    else{
+        std::cout<<"Error: Already exists."<<std::endl;
+    }
 }
+
 void lisaaPelaaja(std::vector<std::string> pelaajat, STAT& tilastot)
 {
     if(tilastot.find(pelaajat.at(0)) != tilastot.end())
@@ -130,13 +157,8 @@ void lisaaPelaaja(std::vector<std::string> pelaajat, STAT& tilastot)
         std::map<std::string, unsigned int> sisempi = {{pelaaja, pisteet}};
         tilastot.insert({pelaajat.at(0), sisempi});
     }
+}
 
-
-
-
-
-
-    }
 std::pair<unsigned int, std::string> kaannaMap(std::string pelaaja, unsigned int pisteet)
 {
     std::pair<unsigned int, std::string> kaannetty (pisteet, pelaaja);
@@ -290,11 +312,12 @@ int main()
     std::string komento = " ";
     while(komento != "QUIT")
     {
-        std::cout<<"game>";
+        std::cout<<"games>";
         std::getline(std::cin, komento);
 
         if(komento == "ALL_GAMES")
         {
+
             kaikkiPelit(tilastot);
             continue;
         }
@@ -305,31 +328,31 @@ int main()
         }
         if(komento.find(" ") != std::string::npos)
         {
-            std::vector<std::string> komento_erotetltuna  = split(komento, ' ');
-            if(komento_erotetltuna.at(0)== "PLAYER")
+            std::vector<std::string> syote  = split(komento, ' ');
+            if(syote.at(0)== "PLAYER")
             {
-                pelaaja(komento_erotetltuna.at(1), tilastot);
+                pelaaja(syote.at(1), tilastot);
                 continue;
             }
-            if(komento_erotetltuna.at(0)== "ADD_GAME")
+            if(syote.at(0)== "ADD_GAME")
             {
-                lisaaPeli(komento_erotetltuna.at(1), tilastot);
+                lisaaPeli(syote.at(1), tilastot);
                 continue;
             }
-            if(komento_erotetltuna.at(0)== "ADD_PLAYER")
+            if(syote.at(0)== "ADD_PLAYER")
             {
-                lisaaPelaaja(komento_erotetltuna, tilastot);
+                uusiPelaaja(syote.at(1), syote.at(2),syote.at(3), tilastot);
                 continue;
             }
-            if(komento_erotetltuna.at(0)== "REMOVE")
+            if(syote.at(0)== "REMOVE")
             {
-                poistaPelaaja(komento_erotetltuna.at(1), tilastot);
+                poistaPelaaja(syote.at(1), tilastot);
                 continue;
             }
-            if(komento_erotetltuna.at(0)== "GAME" && komento_erotetltuna.size() >= 2)
+            if(syote.at(0)== "GAME" && syote.size() >= 2)
             {
 
-                naytaPeli(komento_erotetltuna.at(1),tilastot);
+                naytaPeli(syote.at(1),tilastot);
                 continue;
             }
         }
