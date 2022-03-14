@@ -283,6 +283,7 @@ bool avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
 }
 }
 
+
 // Casual split func, if delim char is between "'s, ignores it.
 std::vector<std::string> split( const std::string& str, char delim)
 {
@@ -310,6 +311,18 @@ std::vector<std::string> split( const std::string& str, char delim)
     return result;
 }
 
+vector<string> syoteIsoksi(vector<string> syote)
+{
+    string sana_isona;
+    string sana = syote.at(0);
+    for(unsigned int i = 0; i < sana.size();i++)
+    {
+        sana_isona.push_back(toupper(sana.at(i)));
+    }
+    syote.at(0) = sana_isona;
+    return syote;
+}
+
 
 int main()
 {
@@ -323,71 +336,74 @@ int main()
 
     };
     std::string komento = " ";
-    while(komento != "QUIT")
+    if(komento == "QUIT")
     {
-        std::cout<<"games>";
-        std::getline(std::cin, komento);
-
-        if(komento == "ALL_GAMES")
+        return EXIT_SUCCESS;
+    }
+    while(komento != "QUIT")
         {
-
-            kaikkiPelit(tilastot);
-            continue;
-        }
-        if(komento == "ALL_PLAYERS")
-        {
-            kaikkiPelaajat(tilastot);
-            continue;
-        }
-        if(komento.find(" ") != std::string::npos)
-        {
+            std::cout<<"games>";
+            std::getline(std::cin, komento);
             std::vector<std::string> syote  = split(komento, ' ');
-            if(syote.at(0)== "PLAYER")
+            syote = syoteIsoksi(syote);
+            if(syote.at(0) == "ALL_GAMES")
             {
-                pelaaja(syote.at(1), tilastot);
+
+                kaikkiPelit(tilastot);
                 continue;
             }
-            if(syote.at(0)== "ADD_GAME")
+            if(syote.at(0) == "ALL_PLAYERS")
             {
-                lisaaPeli(syote.at(1), tilastot);
+                kaikkiPelaajat(tilastot);
                 continue;
             }
-            if(syote.at(0)== "ADD_PLAYER")
-            {
-                if(syote.size()< 4)
+                if(syote.at(0)== "PLAYER")
                 {
-                    std::cout<<"Error: Invalid input."<<std::endl;
+                    pelaaja(syote.at(1), tilastot);
                     continue;
                 }
-                else
+                if(syote.at(0)== "ADD_GAME")
                 {
-                uusiPelaaja(syote.at(1), syote.at(2),syote.at(3), tilastot);
-                continue;
-            }
-            }
-            if(syote.at(0)== "REMOVE")
+                    lisaaPeli(syote.at(1), tilastot);
+                    continue;
+                }
+                if(syote.at(0)== "ADD_PLAYER")
+                {
+                    if(syote.size()< 4)
+                    {
+                        std::cout<<"Error: Invalid input."<<std::endl;
+                        continue;
+                    }
+                    else
+                    {
+                        uusiPelaaja(syote.at(1), syote.at(2),syote.at(3), tilastot);
+                        continue;
+                    }
+                }
+                if(syote.at(0)== "REMOVE")
+                {
+                    poistaPelaaja(syote.at(1), tilastot);
+                    continue;
+                }
+                if(syote.at(0)== "GAME" && syote.size() >= 2)
+                {
+
+                    naytaPeli(syote.at(1),tilastot);
+                    continue;
+                }
+
+            else if(komento != "QUIT")
             {
-                poistaPelaaja(syote.at(1), tilastot);
+
+
+                std::cout<<"Error: Invalid input."<<std::endl;
                 continue;
             }
-            if(syote.at(0)== "GAME" && syote.size() >= 2)
-            {
 
-                naytaPeli(syote.at(1),tilastot);
-                continue;
-            }
         }
-
-        else
-        {
-            std::cout<<"Error: Invalid input."<<std::endl;
-            continue;
-        }
-
     }
-    return EXIT_SUCCESS;
 
 
 
 
-}
+
