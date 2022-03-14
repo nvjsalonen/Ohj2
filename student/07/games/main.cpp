@@ -92,14 +92,28 @@ for(auto& peli : tilastot)
 
 void pelaaja(std::string henkilo, STAT tilastot)
 {
+    bool onko_pelaaja = true;
+    while(onko_pelaaja)
+    {
     for(auto& peli : tilastot)
         for(auto& pelaaja : peli.second)
         {
+            if(peli.second.find(henkilo) == peli.second.end())
+            {
+                std::cout<<"Error: Player could not be found."<<std::endl;
+                onko_pelaaja = false;
+                break;
+            }
+            else{
+
+
             if(pelaaja.first == henkilo)
             {
                 std::cout<<peli.first<<std::endl;
             }
         }
+}
+}
 }
 void lisaaPeli(std::string peli, STAT& tilastot)
 {
@@ -153,46 +167,59 @@ void poistaPelaaja(std::string pelaaja, STAT& tilastot)
 void naytaPeli(std::string haettava_peli, STAT tilastot)
 {
     std::vector<std::string> sama_nimiset;
-    unsigned int pisteet;
+    unsigned int pisteet = ' ';
+    if(tilastot.find(haettava_peli) == tilastot.end())
+    {
+        std::cout<<"Error: Game could not be found."<<std::endl;
+    }
+    else{
     std::cout<<"Game "<<haettava_peli<< " has these scores and players, listed in ascending order:"<<std::endl;
-    std::vector<std::pair<unsigned int, std::string>> parit;
+    std::set<std::pair<unsigned int, std::string>> parit;
     std::pair<unsigned int, std::string> kaannetty_pari;
     for(auto& peli : tilastot)
         if(peli.first == haettava_peli)
         {
+
             for(auto& henkilo : peli.second)
             {
-                parit.push_back((kaannaMap(henkilo.first, henkilo.second)));
-            }
-
-            for(unsigned int i = 0;i < parit.size();i++)
-            {
-                if(parit.at(i).first != parit.at(i+1).first)
+                if(henkilo.second != 0)
                 {
-                    if(!sama_nimiset.empty())
-                    {
-                        std::cout<<pisteet<<" : "<<sama_nimiset.at(0);
-                        for(unsigned int j = 1; j < sama_nimiset.size();j++)
-                        {
-                            std::cout<<", "<<sama_nimiset.at(j);
-                        }
-                    }
-                    std::cout<<std::endl;
-                    std::cout<<parit.at(i).first<<" : "<<parit.at(i).second<<std::endl;
+                parit.insert((kaannaMap(henkilo.first, henkilo.second)));
                 }
-                if(parit.at(i).first == parit.at(i+1).first)
-                {
-                    pisteet = parit.at(i).first;
-                    sama_nimiset.push_back(parit.at(i).second);
-                }
-
-
-
-            }
-
-
             }
         }
+    if(not parit.empty())
+    {
+
+      for(auto& pelaaja : parit)
+          {
+          if(pelaaja.first == 0)
+          {
+              break;
+          }
+          if(pelaaja.first != pisteet)
+          {
+              if(pisteet != ' ')
+              {
+                  std::cout<<std::endl;
+              }
+              pisteet = pelaaja.first;
+              std::cout<<pisteet<<" : "<<pelaaja.second;
+              continue;
+          }
+          if(pelaaja.first == pisteet)
+          {
+              std::cout<<", "<<pelaaja.second;
+          }
+
+      }
+      std::cout<<std::endl;
+      }
+}
+}
+
+
+
 
 
 
