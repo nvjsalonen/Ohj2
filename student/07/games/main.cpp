@@ -274,6 +274,7 @@ bool avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
                 if(syote.size() != 3)
                 {
                     std::cout<<"Error: Invalid format in file."<<std::endl;
+                    return false;
                     break;
                 }
                 lisaaPelaaja(syote, tilastot);
@@ -333,8 +334,7 @@ int main()
     if(!avaa_tiedosto(jono, tilastot))
     {
         return EXIT_FAILURE;
-
-    };
+    }
     std::string komento = " ";
     if(komento == "QUIT")
     {
@@ -342,7 +342,7 @@ int main()
     }
     while(komento != "QUIT")
         {
-            std::cout<<"games>";
+            std::cout<<"games> ";
             std::getline(std::cin, komento);
             std::vector<std::string> syote  = split(komento, ' ');
             syote = syoteIsoksi(syote);
