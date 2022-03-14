@@ -96,7 +96,7 @@ void pelaaja(std::string)
 }
 void lisaaPeli(std::string peli, STAT& tilastot)
 {
-    std::vector<std::string> uusi_peli = {peli,""," "};
+    std::vector<std::string> uusi_peli = {peli," "," "};
     lisaaPelaaja(uusi_peli, tilastot);
     std::cout<<"Game was added."<<std::endl;
 }
@@ -123,6 +123,12 @@ void lisaaPelaaja(std::vector<std::string> pelaajat, STAT& tilastot)
 
 
     }
+std::pair<unsigned int, std::string> kaannaMap(std::string pelaaja, unsigned int pisteet)
+{
+    std::pair<unsigned int, std::string> kaannetty (pisteet, pelaaja);
+    return kaannetty;
+}
+
 
 void poistaPelaaja(std::string pelaaja, STAT& tilastot)
 {
@@ -137,10 +143,32 @@ void poistaPelaaja(std::string pelaaja, STAT& tilastot)
         }
     std::cout<<"Player was removed from all games."<<std::endl;
 }
-void naytaPeli(std::string)
+void naytaPeli(std::string haettava_peli, STAT tilastot)
 {
+    std::cout<<"Game "<<haettava_peli<< " has these scores and players, listed in ascending order:"<<std::endl;
+    std::set<std::pair<unsigned int, std::string>> parit;
+    std::pair<unsigned int, std::string> kaannetty_pari;
+    for(auto& peli : tilastot)
+        if(peli.first == haettava_peli)
+        {
+            for(auto& henkilo : peli.second)
+            {
+                parit.insert(kaannaMap(henkilo.first, henkilo.second));
+            }
 
+        }
+    for(auto& tietopari : parit)
+    {
+        if(tietopari.first != 0 && tietopari.second != " ")
+        {
+            std::cout<<tietopari.first<<" : "<<tietopari.second<<std::endl;
+        }
+    }
 }
+
+
+
+
 
 
 bool avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
@@ -249,12 +277,14 @@ int main()
             poistaPelaaja(komento_erotetltuna.at(1), tilastot);
             continue;
         }
-        if(komento_erotetltuna.at(0)== "GAME")
+        if(komento_erotetltuna.at(0)== "GAME" && komento_erotetltuna.size() > 2)
         {
-            naytaPeli(komento_erotetltuna.at(1));
+
+            naytaPeli(komento_erotetltuna.at(1),tilastot);
             continue;
         }
-        }
+}
+
         else
         {
         std::cout<<"Error: Invalid input."<<std::endl;
