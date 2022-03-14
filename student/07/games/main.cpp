@@ -75,11 +75,16 @@ for(auto& peli : tilastot)
        apuvektori.push_back(pelaaja.first);
     }
        sort(apuvektori.begin(), apuvektori.end());
-       for(unsigned int i = 1;i < apuvektori.size(); i++)
+       std::string sana;
+       for(std::vector<std::string>::iterator it = apuvektori.begin(); it != apuvektori.end();it++)
        {
-           if(apuvektori.at(i) != apuvektori.at(i-1))
+           if(*it == sana)
            {
-               std::cout<<apuvektori.at(i)<<std::endl;
+               continue;
+           }
+           else{
+               std::cout<<*it<<std::endl;
+               sana = *it;
            }
        }
     }
@@ -93,6 +98,7 @@ void lisaaPeli(std::string peli, STAT& tilastot)
 {
     std::vector<std::string> uusi_peli = {peli,""," "};
     lisaaPelaaja(uusi_peli, tilastot);
+    std::cout<<"Game was added."<<std::endl;
 }
 void lisaaPelaaja(std::vector<std::string> pelaajat, STAT& tilastot)
 {
@@ -120,7 +126,16 @@ void lisaaPelaaja(std::vector<std::string> pelaajat, STAT& tilastot)
 
 void poistaPelaaja(std::string pelaaja, STAT& tilastot)
 {
-
+    for(auto& peli : tilastot)
+        for(auto& henkilo : peli.second)
+        {
+            if(henkilo.first == pelaaja)
+            {
+                peli.second.erase(pelaaja);
+                break;
+            }
+        }
+    std::cout<<"Player was removed from all games."<<std::endl;
 }
 void naytaPeli(std::string)
 {
@@ -128,13 +143,14 @@ void naytaPeli(std::string)
 }
 
 
-void avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
+bool avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
 {
     std::vector<std::string> syote;
     std::ifstream input(tiedoston_nimi);
         if(not input)
         {
             std::cout<<"Error: File could not be read."<<std::endl;
+            return false;
         }
         else
         {
@@ -143,9 +159,15 @@ void avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
             {
 
                 syote = split(jono);
+                if(syote.size() != 3)
+                {
+                    std::cout<<"Error: Invalid format in file."<<std::endl;
+                    break;
+                }
                 lisaaPelaaja(syote, tilastot);
             }
             input.close();
+            return true;
 }
 }
 
@@ -183,7 +205,11 @@ int main()
     std::string jono = "";
     std::cout <<"Give a name for input file: ";
     std::getline(std::cin,jono);
-    avaa_tiedosto(jono, tilastot);
+    if(!avaa_tiedosto(jono, tilastot))
+    {
+       return EXIT_FAILURE;
+
+    };
     std::string komento = " ";
     while(komento != "QUIT")
     {
@@ -233,11 +259,12 @@ int main()
         {
         std::cout<<"Error: Invalid input."<<std::endl;
         continue;
-        }
+    }
 
         }
-
-
-
     return EXIT_SUCCESS;
+
+
+
+
 }
