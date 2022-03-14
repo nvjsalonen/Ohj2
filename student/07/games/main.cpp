@@ -90,9 +90,16 @@ for(auto& peli : tilastot)
     }
 
 
-void pelaaja(std::string)
+void pelaaja(std::string henkilo, STAT tilastot)
 {
-
+    for(auto& peli : tilastot)
+        for(auto& pelaaja : peli.second)
+        {
+            if(pelaaja.first == henkilo)
+            {
+                std::cout<<peli.first<<std::endl;
+            }
+        }
 }
 void lisaaPeli(std::string peli, STAT& tilastot)
 {
@@ -145,26 +152,48 @@ void poistaPelaaja(std::string pelaaja, STAT& tilastot)
 }
 void naytaPeli(std::string haettava_peli, STAT tilastot)
 {
+    std::vector<std::string> sama_nimiset;
+    unsigned int pisteet;
     std::cout<<"Game "<<haettava_peli<< " has these scores and players, listed in ascending order:"<<std::endl;
-    std::set<std::pair<unsigned int, std::string>> parit;
+    std::vector<std::pair<unsigned int, std::string>> parit;
     std::pair<unsigned int, std::string> kaannetty_pari;
     for(auto& peli : tilastot)
         if(peli.first == haettava_peli)
         {
             for(auto& henkilo : peli.second)
             {
-                parit.insert(kaannaMap(henkilo.first, henkilo.second));
+                parit.push_back((kaannaMap(henkilo.first, henkilo.second)));
             }
 
+            for(unsigned int i = 0;i < parit.size();i++)
+            {
+                if(parit.at(i).first != parit.at(i+1).first)
+                {
+                    if(!sama_nimiset.empty())
+                    {
+                        std::cout<<pisteet<<" : "<<sama_nimiset.at(0);
+                        for(unsigned int j = 1; j < sama_nimiset.size();j++)
+                        {
+                            std::cout<<", "<<sama_nimiset.at(j);
+                        }
+                    }
+                    std::cout<<std::endl;
+                    std::cout<<parit.at(i).first<<" : "<<parit.at(i).second<<std::endl;
+                }
+                if(parit.at(i).first == parit.at(i+1).first)
+                {
+                    pisteet = parit.at(i).first;
+                    sama_nimiset.push_back(parit.at(i).second);
+                }
+
+
+
+            }
+
+
+            }
         }
-    for(auto& tietopari : parit)
-    {
-        if(tietopari.first != 0 && tietopari.second != " ")
-        {
-            std::cout<<tietopari.first<<" : "<<tietopari.second<<std::endl;
-        }
-    }
-}
+
 
 
 
@@ -235,63 +264,63 @@ int main()
     std::getline(std::cin,jono);
     if(!avaa_tiedosto(jono, tilastot))
     {
-       return EXIT_FAILURE;
+        return EXIT_FAILURE;
 
     };
     std::string komento = " ";
     while(komento != "QUIT")
     {
-    std::cout<<"game>";
-    std::getline(std::cin, komento);
+        std::cout<<"game>";
+        std::getline(std::cin, komento);
 
-    if(komento == "ALL_GAMES")
-    {
-        kaikkiPelit(tilastot);
-        continue;
-    }
-    if(komento == "ALL_PLAYERS")
-    {
-        kaikkiPelaajat(tilastot);
-        continue;
-    }
-    if(komento.find(" ") != std::string::npos)
-    {
-        std::vector<std::string> komento_erotetltuna  = split(komento, ' ');
-        if(komento_erotetltuna.at(0)== "PLAYER")
+        if(komento == "ALL_GAMES")
         {
-            pelaaja(komento_erotetltuna.at(1));
+            kaikkiPelit(tilastot);
             continue;
         }
-        if(komento_erotetltuna.at(0)== "ADD_GAME")
+        if(komento == "ALL_PLAYERS")
         {
-            lisaaPeli(komento_erotetltuna.at(1), tilastot);
+            kaikkiPelaajat(tilastot);
             continue;
         }
-        if(komento_erotetltuna.at(0)== "ADD_PLAYER")
+        if(komento.find(" ") != std::string::npos)
         {
-             lisaaPelaaja(komento_erotetltuna, tilastot);
-             continue;
-        }
-        if(komento_erotetltuna.at(0)== "REMOVE")
-        {
-            poistaPelaaja(komento_erotetltuna.at(1), tilastot);
-            continue;
-        }
-        if(komento_erotetltuna.at(0)== "GAME" && komento_erotetltuna.size() > 2)
-        {
+            std::vector<std::string> komento_erotetltuna  = split(komento, ' ');
+            if(komento_erotetltuna.at(0)== "PLAYER")
+            {
+                pelaaja(komento_erotetltuna.at(1), tilastot);
+                continue;
+            }
+            if(komento_erotetltuna.at(0)== "ADD_GAME")
+            {
+                lisaaPeli(komento_erotetltuna.at(1), tilastot);
+                continue;
+            }
+            if(komento_erotetltuna.at(0)== "ADD_PLAYER")
+            {
+                lisaaPelaaja(komento_erotetltuna, tilastot);
+                continue;
+            }
+            if(komento_erotetltuna.at(0)== "REMOVE")
+            {
+                poistaPelaaja(komento_erotetltuna.at(1), tilastot);
+                continue;
+            }
+            if(komento_erotetltuna.at(0)== "GAME" && komento_erotetltuna.size() >= 2)
+            {
 
-            naytaPeli(komento_erotetltuna.at(1),tilastot);
-            continue;
+                naytaPeli(komento_erotetltuna.at(1),tilastot);
+                continue;
+            }
         }
-}
 
         else
         {
-        std::cout<<"Error: Invalid input."<<std::endl;
-        continue;
-    }
-
+            std::cout<<"Error: Invalid input."<<std::endl;
+            continue;
         }
+
+    }
     return EXIT_SUCCESS;
 
 
