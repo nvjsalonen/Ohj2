@@ -55,6 +55,7 @@ unsigned int stoi_with_check(const std::string& str)
 
 void kaikkiPelit(STAT tilastot)
 {
+    cout<<"All games in alphabetical order:"<<endl;
     std::map<std::string,std::map<std::string, unsigned int>>::iterator iter;
     iter = tilastot.begin();
     while(iter != tilastot.end())
@@ -65,6 +66,7 @@ void kaikkiPelit(STAT tilastot)
 }
 void kaikkiPelaajat(STAT tilastot)
 {
+cout<<"All players in alphabetical order:"<<endl;
 std::vector<std::string> apuvektori;
 for(auto& peli : tilastot)
     for(auto& pelaaja : peli.second)
@@ -85,24 +87,43 @@ for(auto& peli : tilastot)
            }
        }
     }
+bool loytyykoPelaaja(std::string henkilo, STAT tilastot)
+{
+    for(auto& peli : tilastot)
+        for(auto& pelaaja : peli.second)
+        {
+            if(pelaaja.first == henkilo)
+            {
+                return true;
+                break;
+            }
+
+            }
+    return false;
+}
+
 
 
 void pelaaja(std::string henkilo, STAT tilastot)
 {
-bool onko_pelaaja = false;
+if(loytyykoPelaaja(henkilo, tilastot))
+{
+    cout<<"Player "<<henkilo<<" playes the following games:"<<endl;
     for(auto& peli : tilastot)
         for(auto& pelaaja : peli.second)
         {
             if(pelaaja.first == henkilo)
             {
                 std::cout<<peli.first<<std::endl;
-                onko_pelaaja = true;
+
             }
         }
-    if(!onko_pelaaja)
+}
+   else{
     {
         std::cout<<"Error: Player could not be found."<<std::endl;
     }
+}
 }
 void uusiPelaaja(string peli, string pelaaja, string pisteet  , STAT& tilastot)
 {
@@ -174,22 +195,19 @@ std::pair<unsigned int, std::string> kaannaMap(std::string pelaaja, unsigned int
 
 void poistaPelaaja(std::string pelaaja, STAT& tilastot)
 {
-    bool loytyyko_pelaaja = false;
-    for(auto& peli : tilastot)
-        for(auto& henkilo : peli.second)
-        {
-            if(henkilo.first == pelaaja)
-            {
-                peli.second.erase(pelaaja);
-                std::cout<<"Player was removed from all games."<<std::endl;
-                loytyyko_pelaaja = true;
-                break;
-            }
-
-        }
-    if(!loytyyko_pelaaja)
+    if(loytyykoPelaaja(pelaaja, tilastot))
     {
-        std::cout<<"Error: Player could not be found."<<std::endl;
+        for(auto& peli : tilastot)
+            for(auto& henkilo : peli.second)
+            {
+                if(henkilo.first == pelaaja)
+                {
+                    peli.second.erase(pelaaja);
+                    continue;
+                }
+            }
+        std::cout<<"Player was removed from all games."<<std::endl;
+
     }
 }
 void naytaPeli(std::string haettava_peli, STAT tilastot)
@@ -336,72 +354,74 @@ int main()
         return EXIT_FAILURE;
     }
     std::string komento = " ";
-    if(komento == "QUIT")
+
+    while(komento != "QUIT" || komento != "quit" )
     {
-        return EXIT_SUCCESS;
-    }
-    while(komento != "QUIT")
+        std::cout<<"games> ";
+        std::getline(std::cin, komento);
+        std::vector<std::string> syote  = split(komento, ' ');
+        syote = syoteIsoksi(syote);
+        if(syote.at(0) == "ALL_GAMES")
         {
-            std::cout<<"games> ";
-            std::getline(std::cin, komento);
-            std::vector<std::string> syote  = split(komento, ' ');
-            syote = syoteIsoksi(syote);
-            if(syote.at(0) == "ALL_GAMES")
+
+            kaikkiPelit(tilastot);
+            continue;
+        }
+        if(syote.at(0) == "ALL_PLAYERS")
+        {
+            kaikkiPelaajat(tilastot);
+            continue;
+        }
+        if(syote.at(0)== "PLAYER")
+        {
+            pelaaja(syote.at(1), tilastot);
+            continue;
+        }
+        if(syote.at(0)== "ADD_GAME")
+        {
+            lisaaPeli(syote.at(1), tilastot);
+            continue;
+        }
+        if(syote.at(0)== "ADD_PLAYER")
+        {
+            if(syote.size()< 4)
             {
-
-                kaikkiPelit(tilastot);
-                continue;
-            }
-            if(syote.at(0) == "ALL_PLAYERS")
-            {
-                kaikkiPelaajat(tilastot);
-                continue;
-            }
-                if(syote.at(0)== "PLAYER")
-                {
-                    pelaaja(syote.at(1), tilastot);
-                    continue;
-                }
-                if(syote.at(0)== "ADD_GAME")
-                {
-                    lisaaPeli(syote.at(1), tilastot);
-                    continue;
-                }
-                if(syote.at(0)== "ADD_PLAYER")
-                {
-                    if(syote.size()< 4)
-                    {
-                        std::cout<<"Error: Invalid input."<<std::endl;
-                        continue;
-                    }
-                    else
-                    {
-                        uusiPelaaja(syote.at(1), syote.at(2),syote.at(3), tilastot);
-                        continue;
-                    }
-                }
-                if(syote.at(0)== "REMOVE")
-                {
-                    poistaPelaaja(syote.at(1), tilastot);
-                    continue;
-                }
-                if(syote.at(0)== "GAME" && syote.size() >= 2)
-                {
-
-                    naytaPeli(syote.at(1),tilastot);
-                    continue;
-                }
-
-            else if(komento != "QUIT")
-            {
-
-
                 std::cout<<"Error: Invalid input."<<std::endl;
                 continue;
             }
-
+            else
+            {
+                uusiPelaaja(syote.at(1), syote.at(2),syote.at(3), tilastot);
+                continue;
+            }
         }
+        if(syote.at(0)== "REMOVE")
+        {
+            poistaPelaaja(syote.at(1), tilastot);
+            continue;
+        }
+        if(syote.at(0)== "GAME" && syote.size() >= 2)
+        {
+
+            naytaPeli(syote.at(1),tilastot);
+            continue;
+        }
+        if(syote.at(0)== "QUIT")
+        {
+            return EXIT_SUCCESS;
+        }
+
+        else
+        {
+
+
+            std::cout<<"Error: Invalid input."<<std::endl;
+            continue;
+        }
+
     }
+    return EXIT_SUCCESS;
+}
 
 
 
