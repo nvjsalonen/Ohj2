@@ -207,7 +207,9 @@ void poistaPelaaja(std::string pelaaja, STAT& tilastot)
                 }
             }
         std::cout<<"Player was removed from all games."<<std::endl;
-
+    }
+    else{
+        cout<<"Error: Player could not be found."<<endl;
     }
 }
 void naytaPeli(std::string haettava_peli, STAT tilastot)
