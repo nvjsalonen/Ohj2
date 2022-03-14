@@ -92,29 +92,22 @@ for(auto& peli : tilastot)
 
 void pelaaja(std::string henkilo, STAT tilastot)
 {
-    bool onko_pelaaja = true;
-    while(onko_pelaaja)
-    {
+bool onko_pelaaja = false;
     for(auto& peli : tilastot)
         for(auto& pelaaja : peli.second)
         {
-            if(peli.second.find(henkilo) == peli.second.end())
-            {
-                std::cout<<"Error: Player could not be found."<<std::endl;
-                onko_pelaaja = false;
-                break;
-            }
-            else{
-
-
             if(pelaaja.first == henkilo)
             {
                 std::cout<<peli.first<<std::endl;
+                onko_pelaaja = true;
             }
         }
+    if(!onko_pelaaja)
+    {
+        std::cout<<"Error: Player could not be found."<<std::endl;
+    }
 }
-}
-}
+
 void lisaaPeli(std::string peli, STAT& tilastot)
 {
     std::vector<std::string> uusi_peli = {peli," "," "};
