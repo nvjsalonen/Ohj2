@@ -67,7 +67,7 @@ void kaikkiPelit(STAT tilastot)
 void kaikkiPelaajat(STAT tilastot)
 {
 cout<<"All players in alphabetical order:"<<endl;
-std::vector<std::string> apuvektori;
+std::vector<std::string> apuvektori = {};
 for(auto& peli : tilastot)
     for(auto& pelaaja : peli.second)
    {
@@ -125,33 +125,33 @@ if(loytyykoPelaaja(henkilo, tilastot))
     }
 }
 }
-void uusiPelaaja(string peli, string pelaaja, string pisteet  , STAT& tilastot)
+void uusiPelaaja(string peli, string pelaaja, string pisteet, STAT& tilastot)
 {
     if(tilastot.find(peli) == tilastot.end())
     {
         std::cout<<"Error: Game could not be found."<<std::endl;
     }
     else{
-    std::vector<std::string> uusi_pelaaja;
-    bool loytyyko_pelaaja = false;
-    for(auto& peli : tilastot)
-        for(auto& henkilo : peli.second)
-        {
-            if(henkilo.first == pelaaja)
+        std::vector<std::string> uusi_pelaaja = {};
+        bool loytyyko_pelaaja = false;
+        for(auto& peli : tilastot)
+            for(auto& henkilo : peli.second)
             {
-                henkilo.second = stoi_with_check(pisteet);
-                loytyyko_pelaaja = true;
+                if(henkilo.first == pelaaja)
+                {
+                    henkilo.second = stoi_with_check(pisteet);
+                    loytyyko_pelaaja = true;
+                }
+
+
             }
-
-
+        if(!loytyyko_pelaaja)
+        {
+            uusi_pelaaja = {peli,pelaaja,pisteet};
+            lisaaPelaaja(uusi_pelaaja,tilastot);
         }
-    if(!loytyyko_pelaaja)
-    {
-        uusi_pelaaja = {peli,pelaaja,pisteet};
-        lisaaPelaaja(uusi_pelaaja,tilastot);
+        std::cout<<"Player was added."<<std::endl;
     }
-std::cout<<"Player was added."<<std::endl;
-}
 }
 
 
@@ -186,7 +186,7 @@ void lisaaPelaaja(std::vector<std::string> pelaajat, STAT& tilastot)
     }
 }
 
-std::pair<unsigned int, std::string> kaannaMap(std::string pelaaja, unsigned int pisteet)
+std::pair<unsigned int, std::string> flip(string pelaaja, unsigned int pisteet)
 {
     std::pair<unsigned int, std::string> kaannetty (pisteet, pelaaja);
     return kaannetty;
@@ -212,64 +212,63 @@ void poistaPelaaja(std::string pelaaja, STAT& tilastot)
         cout<<"Error: Player could not be found."<<endl;
     }
 }
+
+void tulostaPisteet(set<std::pair<unsigned int, string>> peli_tilanne )
+{
+    unsigned int pisteet = ' ';
+    for(auto& pelaaja : peli_tilanne)
+    {
+        if(pelaaja.first == 0)
+        {
+            break;
+        }
+        if(pelaaja.first != pisteet)
+        {
+            if(pisteet != ' ')
+            {
+                std::cout<<std::endl;
+            }
+            pisteet = pelaaja.first;
+            std::cout<<pisteet<<" : "<<pelaaja.second;
+            continue;
+        }
+        if(pelaaja.first == pisteet)
+        {
+            std::cout<<", "<<pelaaja.second;
+        }
+    }
+    std::cout<<std::endl;
+}
+
+
 void naytaPeli(std::string haettava_peli, STAT tilastot)
 {
-    std::vector<std::string> sama_nimiset;
-    unsigned int pisteet = ' ';
     if(tilastot.find(haettava_peli) == tilastot.end())
     {
         std::cout<<"Error: Game could not be found."<<std::endl;
     }
-    else{
-    std::cout<<"Game "<<haettava_peli<< " has these scores and players, listed in ascending order:"<<std::endl;
-    std::set<std::pair<unsigned int, std::string>> parit;
-    std::pair<unsigned int, std::string> kaannetty_pari;
-    for(auto& peli : tilastot)
-        if(peli.first == haettava_peli)
-        {
-
-            for(auto& henkilo : peli.second)
+    else
+    {
+        std::cout<<"Game "<<haettava_peli<< " has these scores and players, "
+        "listed in ascending order:"<<std::endl;
+        std::set<std::pair<unsigned int, std::string>> parit = {};
+        for(auto& peli : tilastot)
+            if(peli.first == haettava_peli)
             {
-                if(henkilo.second != 0)
+                for(auto& henkilo : peli.second)
                 {
-                parit.insert((kaannaMap(henkilo.first, henkilo.second)));
+                    if(henkilo.second != 0)
+                    {
+                        parit.insert((flip(henkilo.first, henkilo.second)));
+                    }
                 }
             }
+        if(not parit.empty())
+        {
+            tulostaPisteet(parit);
         }
-    if(not parit.empty())
-    {
-
-      for(auto& pelaaja : parit)
-          {
-          if(pelaaja.first == 0)
-          {
-              break;
-          }
-          if(pelaaja.first != pisteet)
-          {
-              if(pisteet != ' ')
-              {
-                  std::cout<<std::endl;
-              }
-              pisteet = pelaaja.first;
-              std::cout<<pisteet<<" : "<<pelaaja.second;
-              continue;
-          }
-          if(pelaaja.first == pisteet)
-          {
-              std::cout<<", "<<pelaaja.second;
-          }
-
-      }
-      std::cout<<std::endl;
-      }
+    }
 }
-}
-
-
-
-
-
 
 
 
@@ -277,31 +276,31 @@ void naytaPeli(std::string haettava_peli, STAT tilastot)
 
 bool avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
 {
-    std::vector<std::string> syote;
+    std::vector<std::string> syote = {};
     std::ifstream input(tiedoston_nimi);
-        if(not input)
+    if(not input)
+    {
+        std::cout<<"Error: File could not be read."<<std::endl;
+        return false;
+    }
+    else
+    {
+        std::string jono;
+        while(getline(input,jono))
         {
-            std::cout<<"Error: File could not be read."<<std::endl;
-            return false;
-        }
-        else
-        {
-            std::string jono;
-            while(getline(input,jono))
-            {
 
-                syote = split(jono);
-                if(syote.size() != 3)
-                {
-                    std::cout<<"Error: Invalid format in file."<<std::endl;
-                    return false;
-                    break;
-                }
-                lisaaPelaaja(syote, tilastot);
+            syote = split(jono);
+            if(syote.size() != 3)
+            {
+                std::cout<<"Error: Invalid format in file."<<std::endl;
+                return false;
+                break;
             }
-            input.close();
-            return true;
-}
+            lisaaPelaaja(syote, tilastot);
+        }
+        input.close();
+        return true;
+    }
 }
 
 
@@ -334,7 +333,7 @@ std::vector<std::string> split( const std::string& str, char delim)
 
 vector<string> syoteIsoksi(vector<string> syote)
 {
-    string sana_isona;
+    string sana_isona = "";
     string sana = syote.at(0);
     for(unsigned int i = 0; i < sana.size();i++)
     {
@@ -365,7 +364,6 @@ int main()
         syote = syoteIsoksi(syote);
         if(syote.at(0) == "ALL_GAMES")
         {
-
             kaikkiPelit(tilastot);
             continue;
         }
@@ -415,14 +413,10 @@ int main()
 
         else
         {
-
-
             std::cout<<"Error: Invalid input."<<std::endl;
             continue;
         }
-
     }
-    return EXIT_SUCCESS;
 }
 
 
