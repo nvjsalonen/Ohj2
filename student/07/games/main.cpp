@@ -322,7 +322,7 @@ bool avaa_tiedosto(std::string tiedoston_nimi, STAT& tilastot)
         {
 
             syote = split(jono);
-            if(syote.size() != 3)
+            if(syote.size() != 3 )
             {
                 std::cout<<"Error: Invalid format in file."<<std::endl;
                 return false;
@@ -365,7 +365,7 @@ int komentoLuvuksi(std::vector<std::string> komento)
     {
         return 4;
     }
-    if(komento.at(0)== "ADD_PLAYER" && komento.size()< 4)
+    if(komento.at(0)== "ADD_PLAYER" && komento.size() >= 4)
     {
         return 5;
     }
@@ -397,7 +397,7 @@ bool syotaKomentoja(STAT tilastot)
     int komento_lukuna = komentoLuvuksi(syote);
     switch(komento_lukuna){
     case 1:
-        kaikkiPelaajat(tilastot);
+        kaikkiPelit(tilastot);
         break;
     case 2:
         kaikkiPelaajat(tilastot);
