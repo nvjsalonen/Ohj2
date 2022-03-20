@@ -95,18 +95,16 @@ void modifyStudentNumber(Student *s)
     std::cout<< "Enter a new phone number: ";
     std::string new_number;
     std::getline(std::cin, new_number);
-    std::cout<<std::endl;
-    if(!is_valid_phone_number(new_number))
+    if(is_valid_phone_number(new_number))
     {
-        std::cout<<"Erroneous phone number: "<<new_number<< "\n" << std::endl;
-        return;
+        s->phone_number = new_number;
     }
-    s->phone_number = new_number;
+
 }
 
-void saveData(std::map<std::string, Student*> const &user_ids)
+void saveData(std::map<std::string, Student*> const &user_ids, std::string const &filename)
 {
-    std::ofstream file("data.txt");
+    std::ofstream file(filename);
 
     if(!file)
     {
@@ -116,13 +114,13 @@ void saveData(std::map<std::string, Student*> const &user_ids)
     for(std::pair<std::string, Student*> p : user_ids)
     {
         Student* student = p.second;
-        std::string line = student -> student_number + ";"
-                            +student->user_id + ";"
-                            +student ->name + ";"
-                            +student -> phone_number + ";"
-                            +student-> email + ";"
-                            +student->skype;
-        file <<line<<std::endl;
+        file << student -> student_number + ";"
+             << student->user_id + ";"
+             << student ->name + ";"
+             << student -> phone_number + ";"
+             << student-> email + ";"
+             << student->skype << std::endl;
+
     }
     file.close();
 
@@ -185,14 +183,14 @@ int main() {
             std::string student_number = parts.at(1);
             if(student_numbers.find(student_number) == student_numbers.end())
             {
-                std::cout <<"There is no student with the given number!"<<std::endl<<std::endl;
-                continue;
+                std::cout <<"There is no student with the given number!"<<std::endl;
             }
             modifyStudentNumber(student_numbers.at(student_number));
+            saveData(user_ids, file_name);
 
 
         } else if(command == "Q" or command == "q") {
-            saveData(user_ids);
+
             // Deleting the data structure: deallocating memory
             // and nullifying pointers
             for(auto pair: student_numbers) {
