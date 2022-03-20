@@ -187,6 +187,7 @@ int main() {
             }
             modifyStudentNumber(student_numbers.at(student_number));
             saveData(user_ids, file_name);
+            std::cout<<std::endl;
 
 
         } else if(command == "Q" or command == "q") {
