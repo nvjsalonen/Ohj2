@@ -81,6 +81,7 @@ bool is_valid_phone_number(const std::string number) {
         if(!(('0' <= number[i] and number[i] <= '9')
              or number[i] == ' '
              or number[i] == '-')) {
+            std::cout<<std::endl;
             std::cout << "Erroneous phone number: "
                       << number
                       << std::endl << std::endl;
