@@ -83,8 +83,7 @@ bool is_valid_phone_number(const std::string number) {
              or number[i] == '-')) {
             std::cout<<std::endl;
             std::cout << "Erroneous phone number: "
-                      << number
-                      << std::endl << std::endl;
+                      << number;
             return false;
         }
     }
@@ -109,7 +108,7 @@ void saveData(std::map<std::string, Student*> const &user_ids, std::string const
 
     if(!file)
     {
-        std::cout<< "file not foudn"<<std::endl;
+        std::cout<< "file not found"<<std::endl;
     }
 
     for(std::pair<std::string, Student*> p : user_ids)
