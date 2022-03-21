@@ -89,7 +89,7 @@ bool Cards::top_to_bottom()
 
 void Cards::print_from_bottom_to_top(std::ostream &s)
 {
-
+    s<<"juu"<<std::endl;
 }
 
 
@@ -106,5 +106,6 @@ Cards::~Cards()
 
 int Cards::recursive_print(Card_data *top, std::ostream &s)
 {
-
+    s <<top<<std::endl;
+    return 1;
 }
