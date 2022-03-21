@@ -64,6 +64,7 @@ bool Cards::bottom_to_top()
     toiseksi_viimeinen->next = nullptr;
     pohjimmainen->next = top_;
     top_ = pohjimmainen;
+    return true;
 
 }
 
@@ -88,21 +89,20 @@ bool Cards::top_to_bottom()
 
 void Cards::print_from_bottom_to_top(std::ostream &s)
 {
-        Card_data* item_to_be_printed = top_;
-        int running_number = 1;
 
-        while ( item_to_be_printed->next == nullptr ) {
-           s << running_number << ": " << item_to_be_printed->data << std::endl;
-           ++running_number;
-           item_to_be_printed = item_to_be_printed->next;
-        }
 }
 
 
 Cards::~Cards()
 {
+       while ( top_ != nullptr ) {
+          Card_data* poistettava_kortti = top_;
+          top_ = top_->next;
 
-}
+          delete poistettava_kortti;
+       }
+    }
+
 
 int Cards::recursive_print(Card_data *top, std::ostream &s)
 {
