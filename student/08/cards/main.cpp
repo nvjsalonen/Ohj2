@@ -19,14 +19,31 @@ int main() {
         deck.add(i);
     }
 
+
+
     cout << endl << "print_from_top_to_bottom" << endl;
     deck.print_from_top_to_bottom(cout);
 
-    cout << endl << "bottom_to_top * 2" << endl;
-    deck.bottom_to_top();
+    cout << endl << "print_from_bottom_to_top" << endl;
+    deck.print_from_bottom_to_top(cout);
+
+
+    /*cout << endl << "Remove card" << endl;
+    int i = 2;
+    deck.remove(i);
+    std::cout<<i<<std::endl;*/
+
     deck.bottom_to_top();
 
     cout << endl << "print_from_top_to_bottom" << endl;
+    deck.print_from_top_to_bottom(cout);
+
+    /*cout << endl << "bottom_to_top * 2" << endl;
+    deck.bottom_to_top();
+    deck.bottom_to_top();
+    */
+
+    /*cout << endl << "print_from_top_to_bottom" << endl;
     deck.print_from_top_to_bottom(cout);
 
     cout << endl << "top_to_bottom * 1" << endl;
@@ -45,5 +62,6 @@ int main() {
     }
 
     cout << endl << "destructor" << endl;
+    */
     return EXIT_SUCCESS;
 }
