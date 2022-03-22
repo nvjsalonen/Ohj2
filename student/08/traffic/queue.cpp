@@ -60,12 +60,12 @@ bool Queue::dequeue()
 
 void Queue::switch_light()
 {
-    if(is_green_)
-    {
-        is_green_ = false;
-        print();
-    }
-    else{
+if(is_green_)
+{
+    is_green_ = false;
+    print();
+}
+else{
     is_green_ = true;
     unsigned int maara = 0;
     if(cycle_ > count())
@@ -76,8 +76,12 @@ void Queue::switch_light()
         {
         dequeue();
         }
+        if(maara != 0)
+        {
+        is_green_ = false;
+        }
     }
-    else{
+    else if(count() != 0){
     maara = cycle_;
     print();
     string ajoneuvo;
@@ -89,6 +93,7 @@ void Queue::switch_light()
 }
 }
 }
+
 
 void Queue::reset_cycle(unsigned int cycle)
 {
@@ -119,7 +124,7 @@ void Queue::print()
             cout << tulostettava_auto->reg_num <<" ";
             tulostettava_auto = tulostettava_auto->next;
         }
-        cout<<" waiting in traffic lights"<<endl;
+        cout<<"waiting in traffic lights"<<endl;
     }
     else{
 
@@ -136,7 +141,7 @@ void Queue::print()
             cout << tulostettava_auto->reg_num <<" ";
             tulostettava_auto = tulostettava_auto->next;
         }
-        cout<<" can go on"<<endl;
+        cout<<"can go on"<<endl;
     }
 
 }
