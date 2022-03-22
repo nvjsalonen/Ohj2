@@ -25,7 +25,7 @@ void Queue::enqueue(const string &reg)
        last_ = uusi_auto;
        if(is_green_)
        {
-       delete uusi_auto;
+        dequeue();
            cout<<"GREEN: The vehicle "<< reg << " need not stop to wait"<<endl;
        }
     } else {
