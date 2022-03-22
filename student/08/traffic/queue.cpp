@@ -60,15 +60,34 @@ bool Queue::dequeue()
 
 void Queue::switch_light()
 {
+    if(is_green_)
+    {
+        is_green_ = false;
+        print();
+    }
+    else{
     is_green_ = true;
+    unsigned int maara = 0;
+    if(cycle_ > count())
+    {
+        maara = count();
+        print();
+        for(unsigned int i = 0;i < maara;i++)
+        {
+        dequeue();
+        }
+    }
+    else{
+    maara = cycle_;
     print();
     string ajoneuvo;
-    int maara = cycle_;
-    for(int i = 0;i < maara;i++)
+    for(unsigned int i = 0;i < maara;i++)
     {
     dequeue();
     }
     is_green_ = false;
+}
+}
 }
 
 void Queue::reset_cycle(unsigned int cycle)
@@ -76,13 +95,26 @@ void Queue::reset_cycle(unsigned int cycle)
     cycle_ = cycle;
 }
 
-void Queue::print() const
+void Queue::print()
 {
+    if(first_== nullptr)
+    {
+        if(!is_green_)
+        {
+                        cout<<"RED: No vehicles waiting in traffic lights"<<endl;
+        }
+        if(is_green_)
+        {
+            cout<<"GREEN: No vehicles waiting in traffic lights"<<endl;
+        }
+    }
+    else{
     Vehicle* tulostettava_auto = first_;
 
     if(!is_green_)
     {
-        cout<<"Red: Vehicle(s) ";
+
+        cout<<"RED: Vehicle(s) ";
         while ( tulostettava_auto != nullptr ) {
             cout << tulostettava_auto->reg_num <<" ";
             tulostettava_auto = tulostettava_auto->next;
@@ -90,13 +122,34 @@ void Queue::print() const
         cout<<" waiting in traffic lights"<<endl;
     }
     else{
-        cout<<"Green: Vehicle(s) ";
-        for (unsigned int i= 0;i < 3;i++) {
+
+        unsigned int maara = 0;
+        if(cycle_ > count())
+        {
+            maara = count();
+        }
+        else{
+            maara = cycle_;
+        }
+        cout<<"GREEN: Vehicle(s) ";
+        for (unsigned int i= 0;i < maara;i++) {
             cout << tulostettava_auto->reg_num <<" ";
             tulostettava_auto = tulostettava_auto->next;
         }
         cout<<" can go on"<<endl;
     }
 
+}
+}
+
+unsigned int Queue::count()
+{
+    Vehicle* laskettava_auto = first_;
+    unsigned int laskuri = 0;
+    while ( laskettava_auto != nullptr ) {
+        laskettava_auto = laskettava_auto->next;
+    laskuri++;
+}
+    return laskuri;
 }
 

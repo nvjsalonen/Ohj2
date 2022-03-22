@@ -32,7 +32,7 @@ public:
 
     // Prints the color of traffic light and the register numbers of those
     // cars that are waiting in the traffic light queue (if any).
-    void print() const;
+    void print();
 
 private:
     // A single vehicle, i.e. queue element
@@ -40,6 +40,7 @@ private:
         string reg_num;
         Vehicle* next;
     };
+    unsigned int count();
 
     // Pointer to the first vehicle in the traffic light queue
     Vehicle* first_ = nullptr;
