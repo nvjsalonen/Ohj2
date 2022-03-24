@@ -21,6 +21,7 @@ vector< string > split(const string& s,
 // The converted float will be assigned into reference parameter result.
 // The implementation of the function uses stringstream for the sake of example.
 bool string_to_double(const string& s, double& result);
+string syoteIsoksi(string syote);
 
 
 // TODO: Explore the following data structures!
@@ -32,6 +33,9 @@ struct Command {
 };
 
 const vector<Command> COMMANDS = {
+    {"^", 2, false, potens},
+    {"POWER", 2, false, potens},
+    {"EXP", 2, false, potens},
     {"+", 2, false, addition},
     {"-", 2, false, subtraction},
     {"*", 2, false, multiplication},
@@ -87,8 +91,39 @@ int main() {
 
         string command_to_be_executed = pieces.at(0);
 
-        // TODO: Implement command execution here!
 
+        for(auto& lasku : COMMANDS)
+        {
+            if(syoteIsoksi(command_to_be_executed) == lasku.str)
+            {
+                if(pieces.size()-1 != lasku.parameter_number)
+                {
+                    cout<<"Error: wrong number of parameters."<<endl;
+                    break;
+                }
+
+                double param1 = ' ';
+                double param2 = ' ';
+
+                if(!string_to_double(pieces.at(1), param1)
+                || !string_to_double(pieces.at(2), param2))
+                {
+                        cout<<"Error: a non-number operand."<<endl;
+                        break;
+                }
+
+                cout<<lasku.action(param1, param2)<<endl;
+
+
+            }
+            else if(lasku.is_exit)
+            {
+
+                cout<<GREETING_AT_END<<endl;
+                return EXIT_SUCCESS;
+            }
+
+        }
     }
 }
 
@@ -160,4 +195,14 @@ vector< string > split(const string& s,
         result.push_back(tmp);
     }
     return result;
+}
+
+string syoteIsoksi(string syote)
+{
+    string sana_isona = "";
+    for(unsigned int i = 0; i < syote.size();i++)
+    {
+      sana_isona.push_back(toupper(syote.at(i)));
+    }
+    return sana_isona;
 }
