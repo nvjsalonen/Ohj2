@@ -96,6 +96,11 @@ int main() {
         {
             if(syoteIsoksi(command_to_be_executed) == lasku.str)
             {
+                if(lasku.is_exit)
+                {
+                    cout<<GREETING_AT_END<<endl;
+                    return EXIT_SUCCESS;
+                }
                 if(pieces.size()-1 != lasku.parameter_number)
                 {
                     cout<<"Error: wrong number of parameters."<<endl;
@@ -115,12 +120,9 @@ int main() {
                 cout<<lasku.action(param1, param2)<<endl;
 
 
-            }
-            else if(lasku.is_exit)
-            {
 
-                cout<<GREETING_AT_END<<endl;
-                return EXIT_SUCCESS;
+
+
             }
 
         }
