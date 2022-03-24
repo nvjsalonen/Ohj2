@@ -99,10 +99,7 @@ int main() {
             {
 
                 command_found = true;
-                if(lasku.is_exit)
-                {
-                    cout<<GREETING_AT_END<<endl;
-                    return EXIT_SUCCESS;
+
                 }
                 if(pieces.size()-1 != lasku.parameter_number)
                 {
@@ -119,6 +116,10 @@ int main() {
                         cout<<"Error: a non-number operand."<<endl;
                         break;
                 }
+                if(lasku.is_exit)
+                {
+                    cout<<GREETING_AT_END<<endl;
+                    return EXIT_SUCCESS;
 
 
                 cout<<lasku.action(param1, param2)<<endl;
