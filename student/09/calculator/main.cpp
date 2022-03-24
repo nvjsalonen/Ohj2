@@ -112,22 +112,27 @@ int main() {
                 double param2 = ' ';
 
                 if(!string_to_double(pieces.at(1), param1)
-                || !string_to_double(pieces.at(2), param2))
+                        || !string_to_double(pieces.at(2), param2))
                 {
-                        cout<<"Error: a non-number operand."<<endl;
-                        break;
+                    cout<<"Error: a non-number operand."<<endl;
+                    break;
                 }
 
                 cout<<lasku.action(param1, param2)<<endl;
 
-
-
-
-
             }
+            else{
+                cout<<"Error: unknown command."<<endl;
+
+
+
+
+
 
         }
+
     }
+}
 }
 
 
