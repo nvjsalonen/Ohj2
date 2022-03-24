@@ -108,7 +108,7 @@ int main() {
                     return EXIT_SUCCESS;
                     }
                     else{
-                        cout<<"Error: unknown command."<<endl;
+                        cout<<"Error: wrong number of parameters."<<endl;
                         break;
                     }
 
