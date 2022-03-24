@@ -91,11 +91,14 @@ int main() {
 
         string command_to_be_executed = pieces.at(0);
 
+        bool command_found = false;
 
         for(auto& lasku : COMMANDS)
         {
             if(syoteIsoksi(command_to_be_executed) == lasku.str)
             {
+
+                command_found = true;
                 if(lasku.is_exit)
                 {
                     cout<<GREETING_AT_END<<endl;
@@ -117,17 +120,22 @@ int main() {
                         break;
                 }
 
+
                 cout<<lasku.action(param1, param2)<<endl;
-
-
-
 
 
             }
 
+
+            }
+        if(!command_found)
+        {
+            cout<<"Error: unknown command"<<endl;
+        }
+
         }
     }
-}
+
 
 
 // This function exemplifies istringstreams.
