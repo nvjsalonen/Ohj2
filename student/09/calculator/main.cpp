@@ -100,7 +100,20 @@ int main() {
 
                 command_found = true;
 
+                if(lasku.is_exit)
+                {
+                    if(pieces.size() == 1)
+                    {
+                    cout<<GREETING_AT_END<<endl;
+                    return EXIT_SUCCESS;
+                    }
+                    else{
+                        cout<<"Error: unknown command."<<endl;
+                        break;
+                    }
+
                 }
+
                 if(pieces.size()-1 != lasku.parameter_number)
                 {
                     cout<<"Error: wrong number of parameters."<<endl;
@@ -121,6 +134,7 @@ int main() {
                     cout<<GREETING_AT_END<<endl;
                     return EXIT_SUCCESS;
 
+                }
 
                 cout<<lasku.action(param1, param2)<<endl;
 
@@ -131,11 +145,12 @@ int main() {
             }
         if(!command_found)
         {
-            cout<<"Error: unknown command"<<endl;
+            cout<<"Error: unknown command."<<endl;
         }
 
         }
     }
+
 
 
 
