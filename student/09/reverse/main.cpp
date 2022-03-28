@@ -30,11 +30,14 @@ int main() {
     cout << endl << "print" << endl;
     deck.print(cout);
 
+
     cout << endl;
-    int value = 0;
-    while(deck.remove(value)) {
+    int value = 4;
+    deck.remove(value);{
         cout << "remove " << value << endl;
     }
+    cout << endl << "print" << endl;
+    deck.print(cout);
 
     cout << endl << "destructor" << endl;
     return EXIT_SUCCESS;
