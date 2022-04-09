@@ -18,6 +18,10 @@ public:
 private slots:
     void onColorChanged();
 
+    void on_spinBoxRed_valueChanged(int arg1);
+
+    void on_horizontalSliderRed_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
 

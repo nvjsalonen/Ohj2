@@ -51,3 +51,17 @@ void MainWindow::onColorChanged()
     colorMap.fill(selectedColor);
     ui->colorLabel->setPixmap(colorMap);
 }
+
+void MainWindow::on_spinBoxRed_valueChanged(int arg1)
+{
+    ui->horizontalSliderRed->setValue(arg1);
+    onColorChanged();
+}
+
+
+void MainWindow::on_horizontalSliderRed_valueChanged(int value)
+{
+    ui->spinBoxRed->setValue(value);
+    onColorChanged();
+}
+

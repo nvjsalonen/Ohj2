@@ -115,22 +115,6 @@
  <resources/>
  <connections>
   <connection>
-   <sender>spinBoxRed</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>horizontalSliderRed</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>229</x>
-     <y>135</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>164</x>
-     <y>135</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>spinBoxGreen</sender>
    <signal>valueChanged(int)</signal>
    <receiver>horizontalSliderGreen</receiver>
@@ -163,54 +147,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSliderRed</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>spinBoxRed</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>149</x>
-     <y>134</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>232</x>
-     <y>142</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSliderGreen</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>spinBoxGreen</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>109</x>
-     <y>172</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>232</x>
-     <y>179</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSliderBlue</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>spinBoxBlue</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>143</x>
-     <y>207</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>236</x>
-     <y>211</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>horizontalSliderBlue</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBoxBlue</receiver>
@@ -239,22 +175,6 @@
     <hint type="destinationlabel">
      <x>237</x>
      <y>177</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSliderRed</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBoxRed</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>108</x>
-     <y>137</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>228</x>
-     <y>140</y>
     </hint>
    </hints>
   </connection>
