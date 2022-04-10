@@ -30,3 +30,4 @@ unsigned int compare_mean_and_gui_score(float mean, unsigned int g);
 
 #endif // GRADECOUNTER_HH
 
+
