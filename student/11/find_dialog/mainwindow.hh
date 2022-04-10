@@ -16,9 +16,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_fileLineEdit_returnPressed();
+    void on_fileLineEdit_editingFinished();
 
-    void on_keyLineEdit_returnPressed();
+    void on_keyLineEdit_editingFinished();
 
     void on_findPushButton_clicked();
 

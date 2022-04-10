@@ -18,25 +18,31 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_fileLineEdit_returnPressed()
+void MainWindow::on_fileLineEdit_editingFinished()
 {
     etsittava_tiedosto_ = ui->fileLineEdit->text();
 }
 
 
-void MainWindow::on_keyLineEdit_returnPressed()
+void MainWindow::on_keyLineEdit_editingFinished()
 {
     etsittava_sana_ = ui->keyLineEdit->text();
-}
 
-bool etsiSana()
-{
 
 }
+
+
+
 
 void MainWindow::on_findPushButton_clicked()
 {
-    QFile input (etsittava_tiedosto_);
+    QString tiedosto = etsittava_tiedosto_;
+
+    if(!ui->matchCheckBox->isChecked())
+    {
+        tiedosto = etsittava_tiedosto_.toLower();
+    }
+    QFile input (tiedosto);
     if(!input.exists())
     {
         QString str = "File not found";
@@ -44,32 +50,50 @@ void MainWindow::on_findPushButton_clicked()
     }
     if(input.exists())
     {
-        if(etsittava_sana_.isEmpty())
+        if(etsittava_sana_ == "<word>")
         {
             QString str = "File found";
             ui->textBrowser->setText(str);
         }
         else
         {
-               input.open(QIODevice::ReadOnly);
-               QString str = input.readAll();
-               if(str.contains(etsittava_sana_))
-               {
-                   QString str = "Word found";
-                   ui->textBrowser->setText(str);
-               }
-               else
-               {
-                   QString str = "Word not found";
-                   ui->textBrowser->setText(str);
+            input.open(QIODevice::ReadOnly);
+            QString str = input.readAll();
+            if(!ui->matchCheckBox->isChecked())
+            {
+                if(str.contains(etsittava_sana_, Qt::CaseInsensitive))
+                {
+                    QString str = "Word found";
+                    ui->textBrowser->setText(str);
+                }
+                else
+                {
+                    QString str = "Word not found";
+                    ui->textBrowser->setText(str);
+
+                }
+            }
+            else
+            {
+                if(str.contains(etsittava_sana_))
+                {
+                    QString str = "Word found";
+                    ui->textBrowser->setText(str);
+                }
+                else
+                {
+                    QString str = "Word not found";
+                    ui->textBrowser->setText(str);
 
 
+                }
+
+            }
         }
 
-        }
     }
-
 }
+
 
 void MainWindow::tulostaTeksti()
 {
