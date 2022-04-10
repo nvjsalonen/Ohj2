@@ -49,8 +49,8 @@ void MainWindow::on_countPushButton_clicked()
 {
     grade_ = count_final_grade(n_, g_, p_, exam_grade_);
     QString grade = QVariant(grade_).toString();
-    QString str = " ";
-    str.append("Total grade:");
+    QString str = "";
+    str.append("Total grade: ");
     str.append(grade);
     ui->textBrowser->setText(str);
 
