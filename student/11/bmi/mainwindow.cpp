@@ -66,6 +66,10 @@ void MainWindow::on_countButton_clicked()
         {
             ui->infoTextBrowser->setText(OVERRWEIGHT);
         }
+        else
+        {
+            ui->infoTextBrowser->setText(NORMAL);
+        }
     }
 }
 
