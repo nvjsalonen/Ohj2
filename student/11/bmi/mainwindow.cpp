@@ -1,6 +1,6 @@
 #include "mainwindow.hh"
 #include "ui_mainwindow.h"
-const QString UNDERWEIGHT = "You are underweight.";
+const  QString UNDERWEIGHT = "You are underweight.";
 const QString OVERRWEIGHT = "You are overweight.";
 const QString NORMAL = "Your weight is normal.";
 
@@ -52,7 +52,7 @@ void MainWindow::on_countButton_clicked()
 
     if(calculateBmi() == 0)
     {
-        ui->resultLabel->setText("Cannot count.");
+        ui->resultLabel->setText("Cannot count");
     }
     else{
         QString bmi = QString::number(calculateBmi());
@@ -60,11 +60,11 @@ void MainWindow::on_countButton_clicked()
         ui->resultLabel->setText(bmi);
         if(bmi.toDouble() < 18.5)
         {
-            ui->infotextBrowser->setText(UNDERWEIGHT);
+            ui->infoTextBrowser->setText(UNDERWEIGHT);
         }
         if(bmi.toDouble()> 25)
         {
-            ui->infotextBrowser->setText(OVERRWEIGHT);
+            ui->infoTextBrowser->setText(OVERRWEIGHT);
         }
     }
 }
