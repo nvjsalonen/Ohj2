@@ -66,7 +66,7 @@ void MainWindow::on_countButton_clicked()
         {
             ui->infoTextBrowser->setText(OVERRWEIGHT);
         }
-        else
+        if(bmi.toDouble() > 18.5 && bmi.toDouble()< 25)
         {
             ui->infoTextBrowser->setText(NORMAL);
         }
