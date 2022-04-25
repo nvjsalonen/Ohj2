@@ -46,6 +46,8 @@ public:
     // Returns the element (number tile) in the given coordinates.
     NumberTile* get_item(Coords coords);
 
+
+
 private:
     // Internal structure of the game board
     std::vector<std::vector<NumberTile*>> board_;

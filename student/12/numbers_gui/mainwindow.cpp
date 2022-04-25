@@ -11,15 +11,46 @@ MainWindow::MainWindow(QWidget *parent)
     pelikentta_ = new QGraphicsScene(this);
     ui->graphicsView->setScene(pelikentta_);
 
-    QBrush  valkoinenBrush(Qt::white);
-    QPen    blackpen(Qt::black);
-    blackpen.setWidth(2);
 
-    ruutu_ = pelikentta_->addRect(5, 5, 100, 100, blackpen, valkoinenBrush);
+
+
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::piirraRuutu()
+{
+    QBrush  valkoinenBrush(Qt::white);
+    QPen    blackpen(Qt::black);
+    blackpen.setWidth(2);
+    for (int row = 0; row < SIZE; row++) {
+        for (int column = 0; column < SIZE; column++){
+
+            ruutu_ = pelikentta_->addRect(column * PRINT_WIDTH*10, row * PRINT_WIDTH*10,
+                                          PRINT_WIDTH*10, PRINT_WIDTH*10, blackpen, valkoinenBrush);
+        }
+    }
+}
+
+
+void MainWindow::on_seedLineEdit_returnPressed()
+{
+    seed_ = ui->seedLineEdit->text();
+    board.init_empty();
+    fill(seed_.toInt());
+    piirraRuutu();
+    tulostaLabelit();
+
+}
+
+void MainWindow::tulostaLabelit()
+{
+
+
+
 }
 
