@@ -28,6 +28,7 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *pelikentta_;
     QGraphicsRectItem *ruutu_;
+    QGraphicsTextItem * text_;
     void piirraRuutu();
     void tulostaLabelit();
     QString seed_;
