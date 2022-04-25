@@ -34,13 +34,15 @@ public:
 
     // Sets the value of is_merged_ as false.
     void reset_turn();
+    int value_;
+    Coords coords_;
 
 private:
     // Value in the number tile
-    int value_;
+
 
     // Coordinates of the number tile
-    Coords coords_;
+
 
     // Pointer to the gameboard, where the number tile lies
     GameBoard* board_;

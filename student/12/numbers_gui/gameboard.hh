@@ -46,6 +46,9 @@ public:
     // Returns the element (number tile) in the given coordinates.
     NumberTile* get_item(Coords coords);
 
+    std::vector<std::vector<NumberTile*>> returnBoard();
+
+
 
 
 private:

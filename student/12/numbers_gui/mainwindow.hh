@@ -31,7 +31,8 @@ private:
     void piirraRuutu();
     void tulostaLabelit();
     QString seed_;
-    std::vector<std::vector<NumberTile*>> lauta;
+    GameBoard lauta_;
+    std::vector<std::vector<NumberTile*>> ruudut;
 
 };
 #endif // MAINWINDOW_HH

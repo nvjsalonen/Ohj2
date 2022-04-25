@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QGraphicsView>
 #include <gameboard.hh>
+#include <string>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -40,17 +41,29 @@ void MainWindow::piirraRuutu()
 void MainWindow::on_seedLineEdit_returnPressed()
 {
     seed_ = ui->seedLineEdit->text();
-    board.init_empty();
-    fill(seed_.toInt());
+    lauta_.init_empty();
+    lauta_.fill(seed_.toInt());
     piirraRuutu();
     tulostaLabelit();
 
-}
 
+}
 void MainWindow::tulostaLabelit()
 {
+    for(auto y : ruudut)
+    {
+        for(auto x : y )
+        {
+            QLabel *teksti = new QLabel(this);
+            int arvo = x->value_;
 
+            teksti->setText(sto_string
+
+        }
+    }
 
 
 }
+
+
 

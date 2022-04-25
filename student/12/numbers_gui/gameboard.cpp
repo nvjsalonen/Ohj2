@@ -50,6 +50,7 @@ void GameBoard::fill(int seed)
     {
         new_value();
     }
+
 }
 
 void GameBoard::new_value(bool check_if_empty)
@@ -109,6 +110,11 @@ bool GameBoard::move(Coords dir, int goal)
 NumberTile* GameBoard::get_item(Coords coords)
 {
     return board_.at(coords.first).at(coords.second);
+}
+
+std::vector<std::vector<NumberTile *> > GameBoard::returnBoard()
+{
+    return board_;
 }
 
 bool GameBoard::is_full() const
