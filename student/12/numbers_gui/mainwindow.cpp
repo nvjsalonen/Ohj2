@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     pelikentta_ = new QGraphicsScene(this);
     ui->graphicsView->setScene(pelikentta_);
 
+    ui->seedSpinBox->setRange(0,99999);
+    ui->goalSpinBox->setRange(0, 999999);
 
 
 
@@ -79,26 +81,27 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     piirraRuutu();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void MainWindow::on_seedSpinBox_valueChanged(int arg1)
 {
+    seed_ = arg1;
+}
 
+
+
+
+
+void MainWindow::on_goalSpinBox_valueChanged(int arg1)
+{
+    goal_ = arg1;
+}
+
+
+
+
+void MainWindow::on_startButton_clicked()
+{
     lauta_.init_empty();
-    lauta_.fill(arg1);
+    lauta_.fill(seed_);
     piirraRuutu();
 }
 

@@ -17,8 +17,8 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>20</y>
+      <x>90</x>
+      <y>180</y>
       <width>561</width>
       <height>341</height>
      </rect>
@@ -27,13 +27,19 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>410</y>
-      <width>251</width>
-      <height>111</height>
+      <x>170</x>
+      <y>30</y>
+      <width>290</width>
+      <height>118</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="2">
+      <widget class="QSpinBox" name="seedSpinBox"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QSpinBox" name="goalSpinBox"/>
+     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -41,10 +47,27 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QSpinBox" name="seedSpinBox"/>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Give a goal value:</string>
+       </property>
+      </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="startButton">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>130</y>
+      <width>84</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Aloita peli</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

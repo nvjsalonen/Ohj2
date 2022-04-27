@@ -24,14 +24,22 @@ protected:
 private slots:
     void on_seedSpinBox_valueChanged(int arg1);
 
+
+
+    void on_goalSpinBox_valueChanged(int arg1);
+
+    void on_startButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *pelikentta_;
     QGraphicsTextItem * text_;
     void piirraRuutu();
-    QString seed_;
-    GameBoard lauta_;
+;    GameBoard lauta_;
     std::vector<std::vector<NumberTile*>> ruudut;
+
+    int seed_;
+    int goal_;
 
 
 
