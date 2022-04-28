@@ -21,12 +21,14 @@ protected:
         QGraphicsRectItem *ruutu_;
 
 private slots:
+    //Käyttäjä syöttää spinboxiin luvun, jonka
+    //haluaa siemenluvuksi. Siemenluku tallennetaan
+    //seed-muuttujaan.
     void on_seedSpinBox_valueChanged(int arg1);
-
-
-
+    //Käyttäjä syöttää halutun pistemäärän ja
+    //pistemäärä tallennetaan goal-muuttujaan.
     void on_goalSpinBox_valueChanged(int arg1);
-
+    //
     void on_startButton_clicked();
 
     void on_vasenPushButton_clicked();

@@ -42,11 +42,12 @@ public:
     // move method for each number tile).
     // Finally, resets turn of all number tiles.
     bool move(Coords dir, int goal);
+    //Clears the board_ -variable.
     void emptyBoard();
 
     // Returns the element (number tile) in the given coordinates.
     NumberTile* get_item(Coords coords);
-
+    //Return the board variable.
     std::vector<std::vector<NumberTile*>> returnBoard();
 
 
