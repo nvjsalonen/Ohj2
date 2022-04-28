@@ -20,8 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-
-
 }
 
 MainWindow::~MainWindow()
@@ -39,6 +37,7 @@ void MainWindow::piirraRuutu()
     {
         for(auto x : y)
         {
+
             ruutu_ = pelikentta_->addRect(x->coords_.second * PRINT_WIDTH*10, x->coords_.first * PRINT_WIDTH*10,
                                           PRINT_WIDTH*10, PRINT_WIDTH*10, blackpen, valkoinenBrush);
 
@@ -46,19 +45,33 @@ void MainWindow::piirraRuutu()
             {
 
                 QLabel *text_ = new QLabel(this,Qt::Window | Qt::WindowStaysOnTopHint);
+                text_->setStyleSheet("color:darkRed;");
                 text_->setText(QString::number(x->value_));
                 pelikentta_->addWidget(text_);
                 text_->setGeometry(x->coords_.second * PRINT_WIDTH*10, x->coords_.first* PRINT_WIDTH*10,
                                    PRINT_WIDTH*10, PRINT_WIDTH*10);
                 text_->setAlignment(Qt::AlignCenter);
-
-
-
-
+                text_->setAttribute(Qt::WA_TranslucentBackground);
             }
 
         }
     }
+}
+
+void MainWindow::suljePushButtonit()
+{
+    ui->alasPushButton->setDisabled(true);
+    ui->ylosPushButton->setDisabled(true);
+    ui->vasenPushButton->setDisabled(true);
+    ui->oikeaPushButton->setDisabled(true);
+}
+
+void MainWindow::avaaPushButtonit()
+{
+    ui->alasPushButton->setDisabled(false);
+    ui->ylosPushButton->setDisabled(false);
+    ui->vasenPushButton->setDisabled(false);
+    ui->oikeaPushButton->setDisabled(false);
 }
 
 
@@ -82,6 +95,7 @@ void MainWindow::on_goalSpinBox_valueChanged(int arg1)
 
 void MainWindow::on_startButton_clicked()
 {
+    avaaPushButtonit();
     lauta_.init_empty();
     lauta_.fill(seed_);
     piirraRuutu();
@@ -94,6 +108,7 @@ void MainWindow::on_vasenPushButton_clicked()
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
         onkoVoitto = true;
+        suljePushButtonit();
     }
     else
     {
@@ -109,11 +124,13 @@ void MainWindow::on_oikeaPushButton_clicked()
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
         onkoVoitto = true;
+        suljePushButtonit();
     }
     else
     {
         lauta_.new_value(false);
         piirraRuutu();
+
     }
 
 }
@@ -125,6 +142,7 @@ void MainWindow::on_alasPushButton_clicked()
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
         onkoVoitto = true;
+        suljePushButtonit();
     }
     else
     {
@@ -141,6 +159,7 @@ void MainWindow::on_ylosPushButton_clicked()
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
         onkoVoitto = true;
+        suljePushButtonit();
     }
     else
     {
@@ -150,8 +169,9 @@ void MainWindow::on_ylosPushButton_clicked()
     }
 
 }
-
-
-
-
-
+void MainWindow::on_resetPushButton_clicked()
+{
+    pelikentta_->clear();
+    lauta_.emptyBoard();
+    suljePushButtonit();
+}

@@ -37,6 +37,8 @@ private slots:
 
     void on_ylosPushButton_clicked();
 
+    void on_resetPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *pelikentta_;
@@ -55,6 +57,9 @@ private:
     const Coords UP = {-1, 0};
     const Coords RIGHT = {0, 1};
     const Coords DOWN = {1, 0};
+    void suljePushButtonit();
+    void avaaPushButtonit();
+    void piirraLuvut();
 
 };
 #endif // MAINWINDOW_HH
