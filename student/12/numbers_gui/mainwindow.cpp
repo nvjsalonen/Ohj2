@@ -97,6 +97,7 @@ void MainWindow::on_goalSpinBox_valueChanged(int arg1)
 
 void MainWindow::on_startButton_clicked()
 {
+    ui->startButton->setDisabled(true);
     avaaPushButtonit();
     lauta_.init_empty();
     lauta_.fill(seed_);
@@ -192,6 +193,7 @@ void MainWindow::on_ylosPushButton_clicked()
 }
 void MainWindow::on_resetPushButton_clicked()
 {
+    ui->startButton->setDisabled(false);
     ui->seedSpinBox->setDisabled(false);
     ui->goalSpinBox->setDisabled(false);
     pelikentta_->clear();
