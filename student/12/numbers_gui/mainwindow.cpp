@@ -4,6 +4,8 @@
 #include <gameboard.hh>
 #include <string>
 #include <QKeyEvent>
+#include <iostream>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -59,27 +61,7 @@ void MainWindow::piirraRuutu()
     }
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-    if(event->key() == Qt::Key_W)
-    {
-        lauta_.move(UP, 2048);
-    }
-    if(event->key() == Qt::Key_S)
-    {
-        lauta_.move(DOWN, 2048);
-    }
-    if(event->key() == Qt::Key_A)
-    {
-        lauta_.move(LEFT, 2048);
-    }
-    if(event->key() == Qt::Key_D)
-    {
-        lauta_.move(RIGHT, 2048);
-    }
-    lauta_.new_value(false);
-    piirraRuutu();
-}
+
 
 void MainWindow::on_seedSpinBox_valueChanged(int arg1)
 {
@@ -104,4 +86,72 @@ void MainWindow::on_startButton_clicked()
     lauta_.fill(seed_);
     piirraRuutu();
 }
+
+
+void MainWindow::on_vasenPushButton_clicked()
+{
+    if(lauta_.move(LEFT, goal_))
+    {
+        QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
+        onkoVoitto = true;
+    }
+    else
+    {
+        lauta_.new_value(false);
+        piirraRuutu();
+    }
+}
+
+
+void MainWindow::on_oikeaPushButton_clicked()
+{
+    if(lauta_.move(RIGHT, goal_))
+    {
+        QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
+        onkoVoitto = true;
+    }
+    else
+    {
+        lauta_.new_value(false);
+        piirraRuutu();
+    }
+
+}
+
+
+void MainWindow::on_alasPushButton_clicked()
+{
+    if(lauta_.move(DOWN, goal_))
+    {
+        QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
+        onkoVoitto = true;
+    }
+    else
+    {
+        lauta_.new_value(false);
+        piirraRuutu();
+    }
+
+}
+
+
+void MainWindow::on_ylosPushButton_clicked()
+{
+    if(lauta_.move(UP, goal_))
+    {
+        QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
+        onkoVoitto = true;
+    }
+    else
+    {
+        lauta_.new_value(false);
+        piirraRuutu();
+
+    }
+
+}
+
+
+
+
 

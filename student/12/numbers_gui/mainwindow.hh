@@ -18,7 +18,6 @@ public:
     ~MainWindow();
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
         QGraphicsRectItem *ruutu_;
 
 private slots:
@@ -30,6 +29,14 @@ private slots:
 
     void on_startButton_clicked();
 
+    void on_vasenPushButton_clicked();
+
+    void on_oikeaPushButton_clicked();
+
+    void on_alasPushButton_clicked();
+
+    void on_ylosPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *pelikentta_;
@@ -40,9 +47,10 @@ private:
 
     int seed_;
     int goal_;
+    bool onkoVoitto = false;
 
 
-
+    const Coords DEFAULT_DIR = {0, 0};
     const Coords LEFT = {0, -1};
     const Coords UP = {-1, 0};
     const Coords RIGHT = {0, 1};
