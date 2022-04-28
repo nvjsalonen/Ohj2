@@ -49,7 +49,7 @@ public:
     NumberTile* get_item(Coords coords);
     //Return the board variable.
     std::vector<std::vector<NumberTile*>> returnBoard();
-    int changeSize(int size = 5);
+    int changeSize(int size = 1);
 
 
 
@@ -63,8 +63,7 @@ private:
     // they work better, if they are attributes of a class.
     std::default_random_engine randomEng_;
     std::uniform_int_distribution<int> distribution_;
-    int SIZE = 5;
-
+    int SIZE = 4;
 };
 
 #endif // GAMEBOARD_HH

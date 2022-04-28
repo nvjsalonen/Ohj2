@@ -30,6 +30,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::on_kokoSpinBox_valueChanged(int arg1)
+{
+    koko = arg1;
+}
 
 
 void MainWindow::piirraRuutu()
@@ -85,10 +89,6 @@ void MainWindow::on_seedSpinBox_valueChanged(int arg1)
     seed_ = arg1;
 }
 
-
-
-
-
 void MainWindow::on_goalSpinBox_valueChanged(int arg1)
 {
     goal_ = arg1;
@@ -97,6 +97,7 @@ void MainWindow::on_goalSpinBox_valueChanged(int arg1)
 
 void MainWindow::on_startButton_clicked()
 {
+    lauta_.changeSize(koko);
     ui->startButton->setDisabled(true);
     avaaPushButtonit();
     lauta_.init_empty();
@@ -112,7 +113,6 @@ void MainWindow::on_vasenPushButton_clicked()
     if(lauta_.move(LEFT, goal_))
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
-        onkoVoitto = true;
         suljePushButtonit();
     }
     else if(lauta_.is_full())
@@ -124,6 +124,8 @@ void MainWindow::on_vasenPushButton_clicked()
     {
         lauta_.new_value(false);
         piirraRuutu();
+        laskuri++;
+        naytaPisteet();
     }
 }
 
@@ -145,6 +147,8 @@ void MainWindow::on_oikeaPushButton_clicked()
 
         lauta_.new_value(false);
         piirraRuutu();
+        laskuri++;
+        naytaPisteet();
     }
 }
 
@@ -154,7 +158,6 @@ void MainWindow::on_alasPushButton_clicked()
     if(lauta_.move(DOWN, goal_))
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
-        onkoVoitto = true;
         suljePushButtonit();
     }
     else if(lauta_.is_full())
@@ -167,6 +170,8 @@ void MainWindow::on_alasPushButton_clicked()
 
         lauta_.new_value(false);
         piirraRuutu();
+        laskuri++;
+        naytaPisteet();
     }
 }
 
@@ -176,7 +181,6 @@ void MainWindow::on_ylosPushButton_clicked()
     if(lauta_.move(UP, goal_))
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
-        onkoVoitto = true;
         suljePushButtonit();
     }
     else if(lauta_.is_full())
@@ -188,21 +192,27 @@ void MainWindow::on_ylosPushButton_clicked()
     {
         lauta_.new_value(false);
         piirraRuutu();
+        laskuri++;
+        naytaPisteet();
     }
 
 }
 void MainWindow::on_resetPushButton_clicked()
 {
+    laskuri = 0;
+    ui->pisteetLabel->clear();
     ui->startButton->setDisabled(false);
     ui->seedSpinBox->setDisabled(false);
     ui->goalSpinBox->setDisabled(false);
     pelikentta_->clear();
     lauta_.emptyBoard();
     suljePushButtonit();
+
 }
 
-void MainWindow::on_kokoSpinBox_valueChanged(int arg1)
+
+void MainWindow::naytaPisteet()
 {
-    lauta_.changeSize(arg1);
+    ui->pisteetLabel->setText(QString::number(laskuri));
 }
 

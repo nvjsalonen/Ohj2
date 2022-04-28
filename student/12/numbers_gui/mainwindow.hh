@@ -43,6 +43,8 @@ private slots:
 
     void on_kokoSpinBox_valueChanged(int arg1);
 
+    void naytaPisteet();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *pelikentta_;
@@ -53,7 +55,7 @@ private:
 
     int seed_ = time(NULL);
     int goal_ = 2048;
-    bool onkoVoitto = false;
+
 
 
     const Coords DEFAULT_DIR = {0, 0};
@@ -63,8 +65,8 @@ private:
     const Coords DOWN = {1, 0};
     void suljePushButtonit();
     void avaaPushButtonit();
-    void piirraLuvut();
     int koko = 5;
+    int laskuri = 0;
 
 };
 #endif // MAINWINDOW_HH
