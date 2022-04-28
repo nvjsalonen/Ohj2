@@ -49,8 +49,8 @@ private:
 ;    GameBoard lauta_;
     std::vector<std::vector<NumberTile*>> ruudut;
 
-    int seed_;
-    int goal_;
+    int seed_ = time(NULL);
+    int goal_ = 2048;
     bool onkoVoitto = false;
 
 
