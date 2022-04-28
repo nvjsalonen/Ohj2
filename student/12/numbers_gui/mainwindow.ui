@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1376</width>
+    <height>747</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,17 +17,17 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>10</x>
       <y>180</y>
-      <width>561</width>
-      <height>341</height>
+      <width>1211</width>
+      <height>541</height>
      </rect>
     </property>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>360</x>
       <y>30</y>
       <width>290</width>
       <height>118</height>
@@ -40,13 +40,6 @@
      <item row="1" column="2">
       <widget class="QSpinBox" name="goalSpinBox"/>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Anna siemenluku:</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -54,13 +47,30 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Anna siemenluku:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Ruutujen määrä:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QSpinBox" name="kokoSpinBox"/>
+     </item>
     </layout>
    </widget>
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>130</y>
+      <x>470</x>
+      <y>150</y>
       <width>84</width>
       <height>28</height>
      </rect>
@@ -72,7 +82,7 @@
    <widget class="QPushButton" name="ylosPushButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>800</x>
       <y>30</y>
       <width>84</width>
       <height>28</height>
@@ -85,7 +95,7 @@
    <widget class="QPushButton" name="alasPushButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>800</x>
       <y>110</y>
       <width>84</width>
       <height>28</height>
@@ -98,7 +108,7 @@
    <widget class="QPushButton" name="vasenPushButton">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>710</x>
       <y>70</y>
       <width>84</width>
       <height>28</height>
@@ -111,7 +121,7 @@
    <widget class="QPushButton" name="oikeaPushButton">
     <property name="geometry">
      <rect>
-      <x>710</x>
+      <x>900</x>
       <y>70</y>
       <width>84</width>
       <height>28</height>
@@ -124,7 +134,7 @@
    <widget class="QPushButton" name="resetPushButton">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>250</x>
       <y>80</y>
       <width>84</width>
       <height>28</height>
@@ -137,7 +147,7 @@
    <widget class="QPushButton" name="poistuPushButton">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>250</x>
       <y>40</y>
       <width>84</width>
       <height>28</height>
@@ -153,7 +163,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1376</width>
      <height>25</height>
     </rect>
    </property>

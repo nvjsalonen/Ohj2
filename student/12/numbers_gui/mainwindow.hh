@@ -41,6 +41,8 @@ private slots:
 
     void on_resetPushButton_clicked();
 
+    void on_kokoSpinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *pelikentta_;
@@ -62,6 +64,7 @@ private:
     void suljePushButtonit();
     void avaaPushButtonit();
     void piirraLuvut();
+    int koko = 5;
 
 };
 #endif // MAINWINDOW_HH

@@ -200,3 +200,9 @@ void MainWindow::on_resetPushButton_clicked()
     lauta_.emptyBoard();
     suljePushButtonit();
 }
+
+void MainWindow::on_kokoSpinBox_valueChanged(int arg1)
+{
+    lauta_.changeSize(arg1);
+}
+

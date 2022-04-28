@@ -74,6 +74,6 @@ void NumberTile::reset_turn()
 
 bool NumberTile::is_on_board(Coords coords)
 {
-    return coords.first >= 0 and coords.first < SIZE and
-           coords.second >= 0 and coords.second < SIZE;
+    return coords.first >= 0 and coords.first < board_->changeSize() and
+           coords.second >= 0 and coords.second < board_->changeSize();
 }

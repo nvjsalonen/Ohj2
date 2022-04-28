@@ -117,6 +117,12 @@ std::vector<std::vector<NumberTile *> > GameBoard::returnBoard()
     return board_;
 }
 
+int GameBoard::changeSize(int size)
+{
+    SIZE = size;
+    return size;
+}
+
 bool GameBoard::is_full() const
 {
     for( auto y : board_ )
@@ -136,3 +142,5 @@ void GameBoard::emptyBoard()
 {
     board_.clear();
 }
+
+

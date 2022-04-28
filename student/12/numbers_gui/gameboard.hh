@@ -5,7 +5,7 @@
 #include <vector>
 #include <random>
 
-const int SIZE = 4;
+
 const int PRINT_WIDTH = 5;
 const int NEW_VALUE = 2;
 const int DEFAULT_GOAL = 2048;
@@ -49,6 +49,8 @@ public:
     NumberTile* get_item(Coords coords);
     //Return the board variable.
     std::vector<std::vector<NumberTile*>> returnBoard();
+    int changeSize(int size = 5);
+
 
 
 
@@ -61,6 +63,8 @@ private:
     // they work better, if they are attributes of a class.
     std::default_random_engine randomEng_;
     std::uniform_int_distribution<int> distribution_;
+    int SIZE = 5;
+
 };
 
 #endif // GAMEBOARD_HH
