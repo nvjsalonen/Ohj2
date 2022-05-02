@@ -30,11 +30,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-void MainWindow::on_kokoSpinBox_valueChanged(int arg1)
-{
-    koko = arg1;
-}
-
 
 void MainWindow::piirraRuutu()
 {
@@ -46,17 +41,17 @@ void MainWindow::piirraRuutu()
         for(auto x : y)
         {
 
-            ruutu_ = pelikentta_->addRect(x->coords_.second * PRINT_WIDTH*10, x->coords_.first * PRINT_WIDTH*10,
+            ruutu_ = pelikentta_->addRect(x->returnCoords().second * PRINT_WIDTH*10, x->returnCoords().first * PRINT_WIDTH*10,
                                           PRINT_WIDTH*10, PRINT_WIDTH*10, blackpen, valkoinenBrush);
 
-            if(x->value_ != 0)
+            if(x->returnValue() != 0)
             {
 
                 QLabel *text_ = new QLabel(this,Qt::Window | Qt::WindowStaysOnTopHint);
                 text_->setStyleSheet("color:darkRed;");
-                text_->setText(QString::number(x->value_));
+                text_->setText(QString::number(x->returnValue()));
                 pelikentta_->addWidget(text_);
-                text_->setGeometry(x->coords_.second * PRINT_WIDTH*10, x->coords_.first* PRINT_WIDTH*10,
+                text_->setGeometry(x->returnCoords().second * PRINT_WIDTH*10, x->returnCoords().first* PRINT_WIDTH*10,
                                    PRINT_WIDTH*10, PRINT_WIDTH*10);
                 text_->setAlignment(Qt::AlignCenter);
                 text_->setAttribute(Qt::WA_TranslucentBackground);
@@ -97,7 +92,6 @@ void MainWindow::on_goalSpinBox_valueChanged(int arg1)
 
 void MainWindow::on_startButton_clicked()
 {
-    lauta_.changeSize(koko);
     ui->startButton->setDisabled(true);
     avaaPushButtonit();
     lauta_.init_empty();

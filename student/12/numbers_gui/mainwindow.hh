@@ -41,9 +41,10 @@ private slots:
 
     void on_resetPushButton_clicked();
 
-    void on_kokoSpinBox_valueChanged(int arg1);
+
 
     void naytaPisteet();
+
 
 private:
     Ui::MainWindow *ui;

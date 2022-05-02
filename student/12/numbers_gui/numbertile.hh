@@ -35,11 +35,12 @@ public:
     // Sets the value of is_merged_ as false.
     void reset_turn();
 
-    // Value in the number tile
-    int value_;
+    //Returns the value of the numbertile.
+    int returnValue();
 
-    // Coordinates of the number tile
-    Coords coords_;
+    //Returns the coordinates of the numbertile
+    Coords returnCoords();
+
 
 private:
     // Pointer to the gameboard, where the number tile lies
@@ -52,6 +53,12 @@ private:
     // Returns true, if the given coordinates are on the gameboard,
     // otherwise returns false.
     bool is_on_board(Coords coords);
+    // Value in the number tile
+    int value_;
+
+    // Coordinates of the number tile
+    Coords coords_;
+
 };
 
 #endif // NUMBERTILE_HH

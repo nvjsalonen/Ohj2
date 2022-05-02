@@ -117,11 +117,6 @@ std::vector<std::vector<NumberTile *> > GameBoard::returnBoard()
     return board_;
 }
 
-int GameBoard::changeSize(int size)
-{
-    SIZE = size;
-    return SIZE;
-}
 
 bool GameBoard::is_full() const
 {

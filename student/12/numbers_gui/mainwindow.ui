@@ -61,9 +61,6 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QSpinBox" name="kokoSpinBox"/>
-     </item>
     </layout>
    </widget>
    <widget class="QPushButton" name="startButton">
