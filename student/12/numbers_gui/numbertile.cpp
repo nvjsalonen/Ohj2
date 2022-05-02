@@ -72,6 +72,14 @@ void NumberTile::reset_turn()
     is_merged_ = false;
 }
 
+
+
+bool NumberTile::is_on_board(Coords coords)
+{
+    return coords.first >= 0 and coords.first < SIZE and
+           coords.second >= 0 and coords.second < SIZE;
+}
+
 int NumberTile::returnValue()
 {
     return value_;
@@ -82,10 +90,4 @@ Coords NumberTile::returnCoords()
     return coords_;
 }
 
-
-bool NumberTile::is_on_board(Coords coords)
-{
-    return coords.first >= 0 and coords.first < SIZE and
-           coords.second >= 0 and coords.second < SIZE;
-}
 

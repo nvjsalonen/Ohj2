@@ -43,6 +43,13 @@ public:
 
 
 private:
+
+    // Value in the number tile
+    int value_;
+
+    // Coordinates of the number tile
+    Coords coords_;
+
     // Pointer to the gameboard, where the number tile lies
     GameBoard* board_;
 
@@ -53,11 +60,9 @@ private:
     // Returns true, if the given coordinates are on the gameboard,
     // otherwise returns false.
     bool is_on_board(Coords coords);
-    // Value in the number tile
-    int value_;
 
-    // Coordinates of the number tile
-    Coords coords_;
+
+
 
 };
 
