@@ -10,6 +10,7 @@ const int PRINT_WIDTH = 5;
 const int NEW_VALUE = 2;
 const int DEFAULT_GOAL = 2048;
 
+
 class GameBoard
 {
 public:
@@ -42,12 +43,12 @@ public:
     // move method for each number tile).
     // Finally, resets turn of all number tiles.
     bool move(Coords dir, int goal);
-    //Clears the board_ -variable.
+    //Clears the board.
     void emptyBoard();
 
     // Returns the element (number tile) in the given coordinates.
     NumberTile* get_item(Coords coords);
-    //Return the board variable.
+    //Return the vector that holds the numbertiles.
     std::vector<std::vector<NumberTile*>> returnBoard();
 
 

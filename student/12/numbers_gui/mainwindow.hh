@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include "gameboard.hh"
+const QString VOITTO = "Voitit pelin.";
+const QString HAVIO = "Hävisit pelin.";
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -94,6 +96,8 @@ private:
 
     //Nuolinäppäinten aktivoimiseen ja sulkemiseen.
     void muutaNappaintenTilaa(bool onkoKaynnissa);
+    //Tyhjentää laudan.
+    void tyhjennaLauta();
 
 
     int laskuri = 0;

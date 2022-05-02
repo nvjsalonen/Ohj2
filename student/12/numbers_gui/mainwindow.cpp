@@ -7,6 +7,38 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QDateTime>
+#include <cmath>
+
+/* Numbers_gui
+ *
+ * Kuvaus:
+ * Ohjelma luo graafisen käyttöliittymän 2048-pelille. Pelin
+ * back end on toteutettu gameboard.cpp ja numbertile.cpp-
+ * tiedostoissa. Pelissä pelaajalta kysytään ensin siemenlukua, jonka
+ * perusteella luodaan satunnainen kenttä. Pelaaja antaa sitten
+ * kakkosen potenssin, jonka haluaa tavoiteluvuksi. Aloita peli
+ * näppäimestä voi aloittaa pelin, jolloin nuolinäppäimet vapautuvat
+ * ja spinboxien, sekä aloitusnäppäimen, käyttö on estetty. Pelin
+ * voi halutessaan resetoida milloin tahansa, jolloin aiemmin
+ * mainitut näppäimet vapautuvat taas käytettäväksi. Nuolinäppäimistä
+ * pelaaja voi valita mihin suuntaan tiiliä liikutetaan. Aina kun tiiliä
+ * liikutetaan, satunnaiseen vapaaseen ruuutuun ilmestyy kakkonen. Vierekkäiset
+ * ruudut, joissa on sama luku, lisätään yhteen. Tarkoituksena on saada ruutuun
+ * tavoiteluvun summa, jolloin pelaaja on voittanut. Jos lauta täyttyy niin
+ * pelaaja on hävinnyt. Pelissä on myös pistelaskuri, joka laskee käytetyt
+ * siirrot.
+ *
+ *
+ * Ohjelman kirjoittaja
+ * Nimi: Nikolas Salonen
+ * Opiskelijanumero: 050158931
+ * Käyttäjätunnus: chnisa ( Git-repositorion hakemistonimi. )
+ * E-Mail: nikolas.salonen@tuni.fi
+ *
+ * Huomioita ohjelmasta ja sen toteutuksesta:
+ *
+ * */
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->seedSpinBox->setRange(0,99999);
-    ui->goalSpinBox->setRange(0, 999999);
+    ui->goalSpinBox->setRange(2, 30);
     ui->alasPushButton->setDisabled(true);
     ui->ylosPushButton->setDisabled(true);
     ui->vasenPushButton->setDisabled(true);
@@ -78,6 +110,7 @@ void MainWindow::muutaNappaintenTilaa(bool onkoKaynnissa)
 
 
 
+
 void MainWindow::on_seedSpinBox_valueChanged(int arg1)
 {
     seed_ = arg1;
@@ -85,7 +118,8 @@ void MainWindow::on_seedSpinBox_valueChanged(int arg1)
 
 void MainWindow::on_goalSpinBox_valueChanged(int arg1)
 {
-    goal_ = arg1;
+    goal_ = pow(2, arg1);
+    ui->tavoiteLabel->setText(QString::number(goal_));
 }
 
 
@@ -106,12 +140,12 @@ void MainWindow::on_vasenPushButton_clicked()
 {
     if(lauta_.move(LEFT, goal_))
     {
-        QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
+        QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
-        QMessageBox::about(this,"Häviö", "Voittosumma: 0 euroa");
+        QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
     }
     else
@@ -128,12 +162,12 @@ void MainWindow::on_oikeaPushButton_clicked()
 {
     if(lauta_.move(RIGHT, goal_))
     {
-        QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
+        QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
-        QMessageBox::about(this,"Häviö", "Voittosumma: 0 euroa");
+        QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
     }
     else
@@ -151,12 +185,12 @@ void MainWindow::on_alasPushButton_clicked()
 {
     if(lauta_.move(DOWN, goal_))
     {
-        QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
+        QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
-        QMessageBox::about(this,"Häviö", "Voittosumma: 0 euroa");
+        QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
     }
     else
@@ -174,12 +208,12 @@ void MainWindow::on_ylosPushButton_clicked()
 {
     if(lauta_.move(UP, goal_))
     {
-        QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
+        QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
-        QMessageBox::about(this,"Häviö", "Voittosumma: 0 euroa");
+        QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
     }
     else
@@ -199,6 +233,7 @@ void MainWindow::on_resetPushButton_clicked()
     ui->seedSpinBox->setDisabled(false);
     ui->goalSpinBox->setDisabled(false);
     pelikentta_->clear();
+    tyhjennaLauta();
     lauta_.emptyBoard();
     muutaNappaintenTilaa(false);
 
@@ -209,4 +244,18 @@ void MainWindow::naytaPisteet()
 {
     ui->pisteetLabel->setText(QString::number(laskuri));
 }
+
+void MainWindow::tyhjennaLauta()
+{
+    for(auto y : lauta_.returnBoard())
+    {
+        for(auto x : y)
+        {
+            delete x;
+            x = nullptr;
+        }
+
+}
+}
+
 

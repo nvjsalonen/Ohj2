@@ -43,7 +43,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Anna tavoite pisteet:</string>
+        <string>Anna potenssi:</string>
        </property>
       </widget>
      </item>
@@ -173,6 +173,19 @@
       <x>280</x>
       <y>130</y>
       <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tavoiteLabel">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>70</y>
+      <width>51</width>
       <height>20</height>
      </rect>
     </property>
