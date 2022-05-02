@@ -1,0 +1,34 @@
+***Dokumentti***
+Numbers-peli. 
+
+Pelissä ruutuja liikutetaan joko ylös, alas, vasemmalle tai oikealle. 
+Vierekkäiset ruudut, joissa on sama luku, lasketaan yhteen ja ne yhdistetään 
+yhdeksi ruuduksi. Pelin tarkoituksena on näin saada aikaan tavoiteluku.
+Aina ruutuja siirrellessä satunnaiseent tyhjään ruutuun ilmestyy luku kaksi.  
+
+Käynnistettäessä ohjelma nuolinäppäimet ovat poissa käytöstä. Käyttäjän tulee 
+antaa siemenluku tai muussa tapauksessa se tulee tietokoneen kellon mukaan. 
+Käyttäjän tulee myös antaa tavoiteluku kakkosen potenssina. Jos lukua ei muuta niin
+tavoitelukuna on 4. Tämä johtuu siitä,että spinboxin arvo on automaattisesti vähintää 2, 
+koska muuten peli jatkuisi loputtomiin. Aloittaakseen pelin, tulee painaa aloita peli 
+näppäintä, jolloin nuolinäppäimet vapautuvat ja aloita peli-näppäin sekä siemenluvun ja potenssin laatikko poistuvat
+käytöstä. Pelikenttä luodaan ja ruudut ilmestyvät näkyviin.
+Neljään satunnaiseen satunnaislukugeneraattorin siemenarvon perusteella valittuun 
+ruutuun ilmestyy numero kaksi. Nuolinäppäimiä painamalla ruutuja pystytään siirtelemään. Aina kun 
+pelaaja liikuttaa ruutuja, pistelaskuriin lisätään yksi piste. Pelin tarkoitus on saada 
+tavoiteluku mahdollisimman alhaisilla liikkeillä. 
+Peli jatkuu kunnes lauta on täynnä lukuja, jolloin peli on hävitty, 
+tai saavutetaan tavoiteluku ensimmäisessä kappaleessa kuvatuin keinoin. Pelistä voi myös poistua 
+poistu-näppäimestä. Peli voidaan myös resetoida missä vaiheessa tahansa, jolloin ollaan taas 
+samassa tilanteessa, kuin alussa ja pisteet alusteaan. Aikaisemmin syötetyt arvot ovat kuitenkin valmiina laatikoissa.
+
+Pelin ruutujen liikuttelu on tehty painonäppäimillä, koska näppäimistön käyttö loi jatkuvasti ongelmia ja
+tämän vuoksi liikuttelu toteutetaan nuolinäppäimillä. Pelissä ei back endissä tapahdu ennen aloita peli-painikkeen 
+painamista muuta kuin spinboxien arvojen tallentamista muuttujiin. Vasta painettaessa aloita peli-näppäintä
+kutsutaan funktioita, jotka luovat ruudut ja labelit. Tämä toiminnallisuus on luotu, jotta peliä ei pysty kaataamaan 
+painamalla nuolinäppäimiä ennen kuin pelilautaa on luotu. Samasta syystä spinboxit poistetaan käytöstä, kun peli
+aloitetaan. Painonappeja painaessa kyseisen funktion slotissa kutsutaan move-funktiota ja tehdään voiton 
+sekä häviön tarkastukset. Tämän jälkeen taas kutsutaan new_value-funktiota sekä piirraLauta 
+funktiota. 
+Pelin pistenäyttö taas on toteutettu labelina, joka näyttää laskurin arvon, jota aina kasvatetaan yhdellä kun  peliä liikutellaan. 
+
