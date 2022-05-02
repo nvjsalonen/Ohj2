@@ -3,9 +3,10 @@
 #include <QGraphicsView>
 #include <gameboard.hh>
 #include <string>
-#include <QKeyEvent>
 #include <iostream>
 #include <QMessageBox>
+#include <QTimer>
+#include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     pelikentta_ = new QGraphicsScene(this);
     ui->graphicsView->setScene(pelikentta_);
+
+
+
 
     ui->seedSpinBox->setRange(0,99999);
     ui->goalSpinBox->setRange(0, 999999);
@@ -61,6 +65,8 @@ void MainWindow::piirraRuutu()
     }
 }
 
+
+
 void MainWindow::suljePushButtonit()
 {
     ui->alasPushButton->setDisabled(true);
@@ -99,6 +105,7 @@ void MainWindow::on_startButton_clicked()
     piirraRuutu();
     ui->seedSpinBox->setDisabled(true);
     ui->goalSpinBox->setDisabled(true);
+
 }
 
 

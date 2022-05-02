@@ -17,6 +17,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+
+
+
 protected:
         QGraphicsRectItem *ruutu_;
 
@@ -53,12 +57,8 @@ private:
     void piirraRuutu();
 ;    GameBoard lauta_;
     std::vector<std::vector<NumberTile*>> ruudut;
-
     int seed_ = time(NULL);
     int goal_ = 2048;
-
-
-
     const Coords DEFAULT_DIR = {0, 0};
     const Coords LEFT = {0, -1};
     const Coords UP = {-1, 0};
@@ -66,8 +66,8 @@ private:
     const Coords DOWN = {1, 0};
     void suljePushButtonit();
     void avaaPushButtonit();
-    int koko = 5;
     int laskuri = 0;
+
 
 };
 #endif // MAINWINDOW_HH
