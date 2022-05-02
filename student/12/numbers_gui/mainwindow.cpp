@@ -67,21 +67,14 @@ void MainWindow::piirraRuutu()
 
 
 
-void MainWindow::suljePushButtonit()
+void MainWindow::muutaNappaintenTilaa(bool onkoKaynnissa)
 {
-    ui->alasPushButton->setDisabled(true);
-    ui->ylosPushButton->setDisabled(true);
-    ui->vasenPushButton->setDisabled(true);
-    ui->oikeaPushButton->setDisabled(true);
+    ui->alasPushButton->setEnabled(onkoKaynnissa);
+    ui->ylosPushButton->setEnabled(onkoKaynnissa);
+    ui->vasenPushButton->setEnabled(onkoKaynnissa);
+    ui->oikeaPushButton->setEnabled(onkoKaynnissa);
 }
 
-void MainWindow::avaaPushButtonit()
-{
-    ui->alasPushButton->setDisabled(false);
-    ui->ylosPushButton->setDisabled(false);
-    ui->vasenPushButton->setDisabled(false);
-    ui->oikeaPushButton->setDisabled(false);
-}
 
 
 
@@ -99,7 +92,7 @@ void MainWindow::on_goalSpinBox_valueChanged(int arg1)
 void MainWindow::on_startButton_clicked()
 {
     ui->startButton->setDisabled(true);
-    avaaPushButtonit();
+    muutaNappaintenTilaa(true);
     lauta_.init_empty();
     lauta_.fill(seed_);
     piirraRuutu();
@@ -114,12 +107,12 @@ void MainWindow::on_vasenPushButton_clicked()
     if(lauta_.move(LEFT, goal_))
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
-        suljePushButtonit();
+        muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
         QMessageBox::about(this,"Häviö", "Voittosumma: 0 euroa");
-        suljePushButtonit();
+        muutaNappaintenTilaa(false);
     }
     else
     {
@@ -136,12 +129,12 @@ void MainWindow::on_oikeaPushButton_clicked()
     if(lauta_.move(RIGHT, goal_))
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
-        suljePushButtonit();
+        muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
         QMessageBox::about(this,"Häviö", "Voittosumma: 0 euroa");
-        suljePushButtonit();
+        muutaNappaintenTilaa(false);
     }
     else
     {
@@ -159,12 +152,12 @@ void MainWindow::on_alasPushButton_clicked()
     if(lauta_.move(DOWN, goal_))
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
-        suljePushButtonit();
+        muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
         QMessageBox::about(this,"Häviö", "Voittosumma: 0 euroa");
-        suljePushButtonit();
+        muutaNappaintenTilaa(false);
     }
     else
     {
@@ -182,12 +175,12 @@ void MainWindow::on_ylosPushButton_clicked()
     if(lauta_.move(UP, goal_))
     {
         QMessageBox::about(this,"Voitto", "Olette hyvin älykäs");
-        suljePushButtonit();
+        muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
         QMessageBox::about(this,"Häviö", "Voittosumma: 0 euroa");
-        suljePushButtonit();
+        muutaNappaintenTilaa(false);
     }
     else
     {
@@ -207,7 +200,7 @@ void MainWindow::on_resetPushButton_clicked()
     ui->goalSpinBox->setDisabled(false);
     pelikentta_->clear();
     lauta_.emptyBoard();
-    suljePushButtonit();
+    muutaNappaintenTilaa(false);
 
 }
 
