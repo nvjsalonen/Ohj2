@@ -255,7 +255,7 @@ void MainWindow::tyhjennaLauta()
             x = nullptr;
         }
 
-}
+    }
 }
 
 
