@@ -200,10 +200,56 @@
     <property name="title">
      <string>Menu</string>
     </property>
+    <widget class="QMenu" name="menuVaihda_taustav_ri">
+     <property name="title">
+      <string>Vaihda taustaväriä</string>
+     </property>
+     <addaction name="actionPunainen"/>
+     <addaction name="actionValkoinen"/>
+     <addaction name="actionVihrea"/>
+     <addaction name="actionMusta"/>
+    </widget>
+    <addaction name="actionKayttoohjeet"/>
+    <addaction name="separator"/>
+    <addaction name="menuVaihda_taustav_ri"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionKayttoohjeet">
+   <property name="text">
+    <string>Käyttöohjeet</string>
+   </property>
+  </action>
+  <action name="actionPunainen">
+   <property name="text">
+    <string>Punainen</string>
+   </property>
+  </action>
+  <action name="actionValkoinen">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Valkoinen</string>
+   </property>
+  </action>
+  <action name="actionVihrea">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Vihreä</string>
+   </property>
+  </action>
+  <action name="actionMusta">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Musta</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>

@@ -294,3 +294,36 @@ void MainWindow::tyhjennaLauta()
 }
 
 
+
+void MainWindow::on_actionKayttoohjeet_triggered()
+{
+    QMessageBox::about(this, "Käyttöohjeet", "Pelin tarkoituksena on saavuttaa asettamasi tavoiteluku. Tiiliä on tarkoituksena liikutella "
+"siten, että samanlukuiset tiilet ovat vierekkäin jolloin ne lasketaan yhteen ja yhdistetään."
+"Anna ensin siemenluku ja sitten haluamasi kakkosen potenssi. Peli alkaa painamalla Aloita peli. Nuolinäppäimillä voit liikuttaa tiiliä."
+"Reset-nappula resetoi pelin. Voit myös poistua milloin tahansa poistu-näppäimestä.");
+}
+
+
+void MainWindow::on_actionPunainen_triggered()
+{
+    pelikentta_->setBackgroundBrush(Qt::red);
+}
+
+
+void MainWindow::on_actionValkoinen_triggered()
+{
+    pelikentta_->setBackgroundBrush(Qt::white);
+}
+
+
+void MainWindow::on_actionVihrea_triggered()
+{
+    pelikentta_->setBackgroundBrush(Qt::green);
+}
+
+
+void MainWindow::on_actionMusta_triggered()
+{
+    pelikentta_->setBackgroundBrush(Qt::black);
+}
+

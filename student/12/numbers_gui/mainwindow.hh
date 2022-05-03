@@ -70,6 +70,16 @@ private slots:
     QColor vaihdaVari(int arvo);
 
 
+    void on_actionKayttoohjeet_triggered();
+
+    void on_actionPunainen_triggered();
+
+    void on_actionValkoinen_triggered();
+
+    void on_actionVihrea_triggered();
+
+    void on_actionMusta_triggered();
+
 private:
     Ui::MainWindow *ui;
 
