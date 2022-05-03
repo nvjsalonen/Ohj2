@@ -1,10 +1,21 @@
 ***Dokumentti***
 Numbers-peli. 
+Peliin on toteutettu kaikki minimivaatimukset sekä seuraavat lisäominaisuudet lyhyesti:
+
+*Pelissä on alkeellinen pistelaskuri, jonka arvo kasvaa jokaisella liikkeellä yhdellä.
+*Pelissä on valikko, josta voi vaihtaa taustaväriä ja nähdä käyttöohjeet 
+*Pelin taustaväri vaihtuu voitto ja häviö tilanteessa sekä palautuu resetoidessa. 
+*Ruutujen väri muuttuu lukujen arvon mukaan 2048 asti. Sen jälkeen väri on aina valkoinen 
+*Pelille voi syöttää vain kakkosen potensseja ja peli näyttää sen jälkeen tavoiteluvun.
+
+Tästä alaspäin esitellään pelin kulkua yksityiskohtaisemmin. 
+
 
 Pelissä ruutuja liikutetaan joko ylös, alas, vasemmalle tai oikealle. 
 Vierekkäiset ruudut, joissa on sama luku, lasketaan yhteen ja ne yhdistetään 
-yhdeksi ruuduksi. Pelin tarkoituksena on näin saada aikaan tavoiteluku.
-Aina ruutuja siirrellessä satunnaiseent tyhjään ruutuun ilmestyy luku kaksi.  
+yhdeksi ruuduksi. Pelin tarkoituksena on näin saada aikaan pelaajan asettama tavoiteluku.
+Tavoiteluku kakkosen potenssina on rajoitettu 30:een, jotta ei tule muistivuotoja.
+Aina ruutuja siirrellessä satunnaiseen tyhjään ruutuun ilmestyy luku kaksi.  
 
 Käynnistettäessä ohjelma nuolinäppäimet ovat poissa käytöstä. Käyttäjän tulee 
 antaa siemenluku tai muussa tapauksessa se tulee tietokoneen kellon mukaan. 
@@ -15,12 +26,16 @@ näppäintä, jolloin nuolinäppäimet vapautuvat ja aloita peli-näppäin sekä
 käytöstä. Pelikenttä luodaan ja ruudut ilmestyvät näkyviin.
 Neljään satunnaiseen satunnaislukugeneraattorin siemenarvon perusteella valittuun 
 ruutuun ilmestyy numero kaksi. Nuolinäppäimiä painamalla ruutuja pystytään siirtelemään. Aina kun 
-pelaaja liikuttaa ruutuja, pistelaskuriin lisätään yksi piste. Pelin tarkoitus on saada 
-tavoiteluku mahdollisimman alhaisilla liikkeillä. 
-Peli jatkuu kunnes lauta on täynnä lukuja, jolloin peli on hävitty, 
-tai saavutetaan tavoiteluku ensimmäisessä kappaleessa kuvatuin keinoin. Pelistä voi myös poistua 
+pelaaja liikuttaa ruutuja, pistelaskuriin lisätään yksi piste.Ruutuja laskettaessa yhteen, 
+uusi luku saa uuden väärin. 2048 pisteen jälkeen väri on aina valkoinen.  Pelin tarkoitus on saada 
+tavoiteluku mahdollisimman alhaisilla liikkeillä.
+ 
+Peli jatkuu kunnes lauta on täynnä lukuja, jolloin peli on hävitty. Tällöin pelilaudan tausta muuttaa väriä
+punaiseksi. Kun tavoiteluku taas saavutetaan niin tausta muuttuu vihreäksi.
+Molemmista tilanteista tulee myös viestilaatikko. Pelistä voi myös poistua 
 poistu-näppäimestä. Peli voidaan myös resetoida missä vaiheessa tahansa, jolloin ollaan taas 
-samassa tilanteessa, kuin alussa ja pisteet alusteaan. Aikaisemmin syötetyt arvot ovat kuitenkin valmiina laatikoissa.
+samassa tilanteessa, kuin alussa ja pisteet alustetaan. Aikaisemmin syötetyt arvot ovat kuitenkin valmiina laatikoissa.
+Resetoidessa vapautetaan edellisen laudan muistipaikat ja varataan uudet muistipaikat uudelle laudalle, jotta vältytään muistiongelmilta.
 
 Pelin ruutujen liikuttelu on tehty painonäppäimillä, koska näppäimistön käyttö loi jatkuvasti ongelmia ja
 tämän vuoksi liikuttelu toteutetaan nuolinäppäimillä. Pelissä ei back endissä tapahdu ennen aloita peli-painikkeen 
@@ -31,4 +46,5 @@ aloitetaan. Painonappeja painaessa kyseisen funktion slotissa kutsutaan move-fun
 sekä häviön tarkastukset. Tämän jälkeen taas kutsutaan new_value-funktiota sekä piirraLauta 
 funktiota. 
 Pelin pistenäyttö taas on toteutettu labelina, joka näyttää laskurin arvon, jota aina kasvatetaan yhdellä kun  peliä liikutellaan. 
+Pelissä on myös yläpalkissa valikko, josta voidaan vaihtaa pelin taustaväriä ja näyttää käyttöohjeet. Nämä on toteutettu Qt Designerin kautta. 
 
