@@ -9,6 +9,14 @@ const QString HAVIO = "Hävisit pelin.";
 const QBrush HAVION_VARI = Qt::red;
 const QBrush VOITON_VARI = Qt::green;
 const QBrush NORMAALI_VARI =Qt::white;
+const QString KAYTTO_OHJEET = "Pelin tarkoituksena on saavuttaa asettamasi "
+"tavoiteluku. Tiiliä on tarkoituksena liikutella "
+"siten, että samanlukuiset tiilet ovat vierekkäin jolloin"
+" ne lasketaan yhteen ja yhdistetään."
+" Anna ensin siemenluku ja sitten haluamasi kakkosen potenssi. "
+" Peli alkaa painamalla Aloita peli."
+" Nuolinäppäimillä voit liikuttaa tiiliä."" Reset-nappula"
+" resetoi pelin. Voit myös poistua milloin tahansa poistu-näppäimestä.";
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -43,7 +51,8 @@ private slots:
     //Samalla vapauttaa suuntanuolet ja sulkee muut buttonit
     void on_startButton_clicked();
 
-    //Kutsuu move-funktiota, joka siirtää numbertilen koordinaatteja vasemmalle.
+    //Kutsuu move-funktiota, joka siirtää numbertilen koordinaatteja
+    //vasemmalle.
     //Tarkastaa myös voitto ja häviö tilanteet sekä päivittää ruudukon.
     void on_vasenPushButton_clicked();
 
@@ -69,16 +78,31 @@ private slots:
     //Parametrina on numbertilen value_.
     QColor vaihdaVari(int arvo);
 
-
+    //Valikoista käyttöohjeita painaessa lähettää funktiolle
+    //signaalin. Funktio avaa messageboxin johon ohjeet tulostuvat.
     void on_actionKayttoohjeet_triggered();
 
+    //Muuttaa taustan punaiseksi. Signaali tulee valikosta painaessa.
     void on_actionPunainen_triggered();
 
+    //Muuttaa taustan valkoiseksi. Signaali tulee valikoista painaessa.
     void on_actionValkoinen_triggered();
 
+    //Muuttaa taustan vihreäksi. Signaali tulee valikoista painaessa.
     void on_actionVihrea_triggered();
 
+    //Muuttaa taustan mustaksi. Signaali tulee valikoista painaessa.
     void on_actionMusta_triggered();
+
+    //Tyhjentää laudan.
+    void tyhjennaLauta();
+
+    //Nuolinäppäinten aktivoimiseen ja sulkemiseen.
+    void muutaNappaintenTilaa(bool onkoKaynnissa);
+
+    //Funktiossa kutsutaan getCoords ja getValues funktioita, joiden arvojen
+    //perusteella sceneen piirretään ruudut ja labelit.
+    void piirraLauta();
 
 private:
     Ui::MainWindow *ui;
@@ -90,33 +114,26 @@ private:
     //laudan arvoista.
     QGraphicsTextItem * text_;
 
-    //Funktiossa kutsutaan getCoords ja getValues funktioita, joiden arvojen
-    //perusteella sceneen piirretään ruudut ja labelit.
-    void piirraRuutu();
-
     //Sisältää pelilaudan rakenteen.
 ;    GameBoard lauta_;
 
     //Muutttuja johon talletetaan ruutujen sijainnit jota niitä voidaan
     //käsitellä.
     std::vector<std::vector<NumberTile*>> ruudut;
+
+    //Siemenluku
     int seed_ = time(NULL);
 
-    int goal_ = 2048;
+    int goal_;
 
+    //Koordinaatit eri liikkumissuunnille.
     const Coords DEFAULT_DIR = {0, 0};
     const Coords LEFT = {0, -1};
     const Coords UP = {-1, 0};
     const Coords RIGHT = {0, 1};
     const Coords DOWN = {1, 0};
 
-
-    //Nuolinäppäinten aktivoimiseen ja sulkemiseen.
-    void muutaNappaintenTilaa(bool onkoKaynnissa);
-    //Tyhjentää laudan.
-    void tyhjennaLauta();
-
-
+    //Muuttuja joka säilöö pisteitä.
     int laskuri = 0;
 
 

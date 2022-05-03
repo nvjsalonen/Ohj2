@@ -21,8 +21,6 @@ HEADERS += \
     mainwindow.hh \
     numbertile.hh \
     gameboard.hh \
-    instructions.txt
-
 
 FORMS += \
     mainwindow.ui

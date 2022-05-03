@@ -26,7 +26,9 @@
  * ruudut, joissa on sama luku, lisätään yhteen. Tarkoituksena on saada ruutuun
  * tavoiteluvun summa, jolloin pelaaja on voittanut. Jos lauta täyttyy niin
  * pelaaja on hävinnyt. Pelissä on myös pistelaskuri, joka laskee käytetyt
- * siirrot.
+ * siirrot. Yläreunan valikosta saa nähtäväksi käyttöohjeet sekä voi vaihtaa
+ * taustaväriä. Tavoitelukupotenssi on rajoitettu 30:en muistivuodon
+ * välttämiseksi. Se ei myöskään ota negatiivisa lukuja.
  *
  *
  * Ohjelman kirjoittaja
@@ -68,27 +70,31 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::piirraRuutu()
+void MainWindow::piirraLauta()
 {
 
-    QPen    blackpen(Qt::black);
-    blackpen.setWidth(2);
-    for(auto y : lauta_.returnBoard())
+    QPen    blackPen(Qt::black);
+    blackPen.setWidth(2);
+    for(auto& y : lauta_.returnBoard())
     {
         for(auto x : y)
         {
             QBrush  ruudunVari(vaihdaVari(x->returnValue()));
-            ruutu_ = pelikentta_->addRect(x->returnCoords().second * PRINT_WIDTH*10, x->returnCoords().first * PRINT_WIDTH*10,
-                                          PRINT_WIDTH*10, PRINT_WIDTH*10, blackpen, ruudunVari);
+            ruutu_ = pelikentta_->addRect(x->returnCoords().second *
+                                      PRINT_WIDTH*10, x->returnCoords().first *
+                                      PRINT_WIDTH*10,PRINT_WIDTH*10,
+                                      PRINT_WIDTH*10, blackPen, ruudunVari);
 
             if(x->returnValue() != 0)
             {
 
-                QLabel *text_ = new QLabel(this,Qt::Window | Qt::WindowStaysOnTopHint);
+                QLabel *text_ = new QLabel(this,Qt::Window |
+                                           Qt::WindowStaysOnTopHint);
                 text_->setStyleSheet("color:darkRed;");
                 text_->setText(QString::number(x->returnValue()));
                 pelikentta_->addWidget(text_);
-                text_->setGeometry(x->returnCoords().second * PRINT_WIDTH*10, x->returnCoords().first* PRINT_WIDTH*10,
+                text_->setGeometry(x->returnCoords().second * PRINT_WIDTH*
+                                   10, x->returnCoords().first* PRINT_WIDTH*10,
                                    PRINT_WIDTH*10, PRINT_WIDTH*10);
                 text_->setAlignment(Qt::AlignCenter);
                 text_->setAttribute(Qt::WA_TranslucentBackground);
@@ -130,7 +136,7 @@ void MainWindow::on_startButton_clicked()
     muutaNappaintenTilaa(true);
     lauta_.init_empty();
     lauta_.fill(seed_);
-    piirraRuutu();
+    piirraLauta();
     ui->seedSpinBox->setDisabled(true);
     ui->goalSpinBox->setDisabled(true);
 
@@ -154,7 +160,7 @@ void MainWindow::on_vasenPushButton_clicked()
     else
     {
         lauta_.new_value(false);
-        piirraRuutu();
+        piirraLauta();
         laskuri++;
         naytaPisteet();
     }
@@ -175,13 +181,12 @@ void MainWindow::on_oikeaPushButton_clicked()
         pelikentta_->setBackgroundBrush(HAVION_VARI);
         QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
-
     }
     else
     {
 
         lauta_.new_value(false);
-        piirraRuutu();
+        piirraLauta();
         laskuri++;
         naytaPisteet();
     }
@@ -208,7 +213,7 @@ void MainWindow::on_alasPushButton_clicked()
     {
 
         lauta_.new_value(false);
-        piirraRuutu();
+        piirraLauta();
         laskuri++;
         naytaPisteet();
     }
@@ -222,24 +227,22 @@ void MainWindow::on_ylosPushButton_clicked()
         pelikentta_->setBackgroundBrush(VOITON_VARI);
         QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
-
     }
     else if(lauta_.is_full())
     {
         pelikentta_->setBackgroundBrush(HAVION_VARI);
         QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
-
     }
     else
     {
         lauta_.new_value(false);
-        piirraRuutu();
+        piirraLauta();
         laskuri++;
         naytaPisteet();
     }
-
 }
+
 void MainWindow::on_resetPushButton_clicked()
 {
     pelikentta_->setBackgroundBrush(NORMAALI_VARI);
@@ -252,7 +255,6 @@ void MainWindow::on_resetPushButton_clicked()
     tyhjennaLauta();
     lauta_.emptyBoard();
     muutaNappaintenTilaa(false);
-
 }
 
 
@@ -277,19 +279,18 @@ QColor MainWindow::vaihdaVari(int arvo)
     case 1024 : return QColorConstants::Svg::sandybrown;
     case 2048 : return QColorConstants::Svg::indianred;
     default : return QColorConstants::Svg::white;
-}
+    }
 }
 
 void MainWindow::tyhjennaLauta()
 {
-    for(auto y : lauta_.returnBoard())
+    for(auto& y : lauta_.returnBoard())
     {
         for(auto x : y)
         {
             delete x;
             x = nullptr;
         }
-
     }
 }
 
@@ -297,10 +298,7 @@ void MainWindow::tyhjennaLauta()
 
 void MainWindow::on_actionKayttoohjeet_triggered()
 {
-    QMessageBox::about(this, "Käyttöohjeet", "Pelin tarkoituksena on saavuttaa asettamasi tavoiteluku. Tiiliä on tarkoituksena liikutella "
-"siten, että samanlukuiset tiilet ovat vierekkäin jolloin ne lasketaan yhteen ja yhdistetään."
-"Anna ensin siemenluku ja sitten haluamasi kakkosen potenssi. Peli alkaa painamalla Aloita peli. Nuolinäppäimillä voit liikuttaa tiiliä."
-"Reset-nappula resetoi pelin. Voit myös poistua milloin tahansa poistu-näppäimestä.");
+    QMessageBox::about(this, "Käyttöohjeet", KAYTTO_OHJEET);
 }
 
 
