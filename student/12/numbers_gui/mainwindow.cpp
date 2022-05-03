@@ -114,10 +114,6 @@ void MainWindow::muutaNappaintenTilaa(bool onkoKaynnissa)
     ui->oikeaPushButton->setEnabled(onkoKaynnissa);
 }
 
-
-
-
-
 void MainWindow::on_seedSpinBox_valueChanged(int arg1)
 {
     seed_ = arg1;
@@ -128,7 +124,6 @@ void MainWindow::on_goalSpinBox_valueChanged(int arg1)
     goal_ = pow(2, arg1);
     ui->tavoiteLabel->setText(QString::number(goal_));
 }
-
 
 void MainWindow::on_startButton_clicked()
 {

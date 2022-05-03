@@ -46,5 +46,5 @@ aloitetaan. Painonappeja painaessa kyseisen funktion slotissa kutsutaan move-fun
 sekä häviön tarkastukset. Tämän jälkeen taas kutsutaan new_value-funktiota sekä piirraLauta 
 funktiota. 
 Pelin pistenäyttö taas on toteutettu labelina, joka näyttää laskurin arvon, jota aina kasvatetaan yhdellä kun  peliä liikutellaan. 
-Pelissä on myös yläpalkissa valikko, josta voidaan vaihtaa pelin taustaväriä ja näyttää käyttöohjeet. Nämä on toteutettu Qt Designerin kautta. 
+Pelissä on myös yläpalkissa valikko, josta voidaan vaihtaa pelin taustaväriä ja näyttää käyttöohjeet. Nämä on toteutettu Qt Designerin kautta.   
 
