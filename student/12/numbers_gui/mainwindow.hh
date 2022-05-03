@@ -6,6 +6,9 @@
 #include "gameboard.hh"
 const QString VOITTO = "Voitit pelin.";
 const QString HAVIO = "Hävisit pelin.";
+const QBrush HAVION_VARI = Qt::red;
+const QBrush VOITON_VARI = Qt::green;
+const QBrush NORMAALI_VARI =Qt::white;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -61,6 +64,10 @@ private slots:
 
     //Funktio asettaa laskurin pisteet labeliin aina kun nuolia painetaan.
     void naytaPisteet();
+
+    //Palauttaa eri QColor värejä numbertilen arvon perusteella.
+    //Parametrina on numbertilen value_.
+    QColor vaihdaVari(int arvo);
 
 
 private:

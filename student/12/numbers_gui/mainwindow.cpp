@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
+
     ui->seedSpinBox->setRange(0,99999);
     ui->goalSpinBox->setRange(2, 30);
     ui->alasPushButton->setDisabled(true);
@@ -69,16 +70,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::piirraRuutu()
 {
-    QBrush  valkoinenBrush(Qt::white);
+
     QPen    blackpen(Qt::black);
     blackpen.setWidth(2);
     for(auto y : lauta_.returnBoard())
     {
         for(auto x : y)
         {
-
+            QBrush  ruudunVari(vaihdaVari(x->returnValue()));
             ruutu_ = pelikentta_->addRect(x->returnCoords().second * PRINT_WIDTH*10, x->returnCoords().first * PRINT_WIDTH*10,
-                                          PRINT_WIDTH*10, PRINT_WIDTH*10, blackpen, valkoinenBrush);
+                                          PRINT_WIDTH*10, PRINT_WIDTH*10, blackpen, ruudunVari);
 
             if(x->returnValue() != 0)
             {
@@ -140,11 +141,13 @@ void MainWindow::on_vasenPushButton_clicked()
 {
     if(lauta_.move(LEFT, goal_))
     {
+        pelikentta_->setBackgroundBrush(VOITON_VARI);
         QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
     }
     else if(lauta_.is_full())
     {
+        pelikentta_->setBackgroundBrush(HAVION_VARI);
         QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
     }
@@ -162,13 +165,17 @@ void MainWindow::on_oikeaPushButton_clicked()
 {
     if(lauta_.move(RIGHT, goal_))
     {
+        pelikentta_->setBackgroundBrush(VOITON_VARI);
         QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
+
     }
     else if(lauta_.is_full())
     {
+        pelikentta_->setBackgroundBrush(HAVION_VARI);
         QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
+
     }
     else
     {
@@ -185,13 +192,17 @@ void MainWindow::on_alasPushButton_clicked()
 {
     if(lauta_.move(DOWN, goal_))
     {
+        pelikentta_->setBackgroundBrush(VOITON_VARI);
         QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
+
     }
     else if(lauta_.is_full())
     {
+        pelikentta_->setBackgroundBrush(HAVION_VARI);
         QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
+
     }
     else
     {
@@ -208,13 +219,17 @@ void MainWindow::on_ylosPushButton_clicked()
 {
     if(lauta_.move(UP, goal_))
     {
+        pelikentta_->setBackgroundBrush(VOITON_VARI);
         QMessageBox::about(this,"Voitto", VOITTO);
         muutaNappaintenTilaa(false);
+
     }
     else if(lauta_.is_full())
     {
+        pelikentta_->setBackgroundBrush(HAVION_VARI);
         QMessageBox::about(this,"Häviö", HAVIO);
         muutaNappaintenTilaa(false);
+
     }
     else
     {
@@ -227,6 +242,7 @@ void MainWindow::on_ylosPushButton_clicked()
 }
 void MainWindow::on_resetPushButton_clicked()
 {
+    pelikentta_->setBackgroundBrush(NORMAALI_VARI);
     laskuri = 0;
     ui->pisteetLabel->clear();
     ui->startButton->setDisabled(false);
@@ -243,6 +259,25 @@ void MainWindow::on_resetPushButton_clicked()
 void MainWindow::naytaPisteet()
 {
     ui->pisteetLabel->setText(QString::number(laskuri));
+}
+
+QColor MainWindow::vaihdaVari(int arvo)
+{
+    switch(arvo)
+    {
+    case 2 : return QColorConstants::Svg::lightcoral;
+    case 4 : return Qt::red;
+    case 8 : return QColorConstants::Svg::lawngreen;
+    case 16 : return Qt::cyan;
+    case 32 : return Qt::magenta;
+    case 64 : return QColorConstants::Svg::aqua;
+    case 128 : return QColorConstants::Svg::olive;
+    case 256 : return QColorConstants::Svg::forestgreen;
+    case 512 : return QColorConstants::Svg::rosybrown;
+    case 1024 : return QColorConstants::Svg::sandybrown;
+    case 2048 : return QColorConstants::Svg::indianred;
+    default : return QColorConstants::Svg::white;
+}
 }
 
 void MainWindow::tyhjennaLauta()
